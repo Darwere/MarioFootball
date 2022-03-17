@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -507,6 +507,7 @@ MonoBehaviour:
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
+      m_Flags: 0
     m_Reference: {fileID: 0}
   m_PlayerPrefab: {fileID: 768283636445659015, guid: 2d251407ec186d94682db68a04a9db90, type: 3}
   m_SplitScreen: 0
@@ -788,8 +789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55b22583b79c79439ddb8f7e7dcc3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ateamBrainType: HolyBrain
-  agoalBrainType: HolyBrain
+  ateamBrainType: InputBrain
+  agoalBrainType: InputBrain
 --- !u!114 &8875840102387356479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -843,6 +844,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 657c957c-85d9-4b28-a9e8-e68238a3f234
     m_ActionName: Gameplay/Move[/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3c3352a4-40b5-43e9-91f8-21302862a4b3
+    m_ActionName: Menu Nav/Select[/XInputControllerWindows/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -896,8 +901,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55b22583b79c79439ddb8f7e7dcc3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ateamBrainType: HolyBrain
-  agoalBrainType: HolyBrain
+  ateamBrainType: InputBrain
+  agoalBrainType: InputBrain
 --- !u!114 &8875840102547248347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -939,6 +944,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 657c957c-85d9-4b28-a9e8-e68238a3f234
     m_ActionName: Gameplay/Move[/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3c3352a4-40b5-43e9-91f8-21302862a4b3
+    m_ActionName: Menu Nav/Select[/XInputControllerWindows/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
