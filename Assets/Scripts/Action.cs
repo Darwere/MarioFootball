@@ -68,6 +68,15 @@ public struct Action
         return action;
     }
 
+    public static Action Sprint()
+    {
+        Action action = new Action();
+        action.type = ActionType.Move;
+        action.isSprinting = true;
+
+        return action;
+    }
+
     public static Action Tackle(Vector3 direction)
     {
         Action action = new Action();

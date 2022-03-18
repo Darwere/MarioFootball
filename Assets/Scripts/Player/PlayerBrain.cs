@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class PlayerBrain : MonoBehaviour
 {
-    
+    protected Action action;
 
     protected Player Player { get; private set; }
 
@@ -12,6 +12,7 @@ public abstract class PlayerBrain : MonoBehaviour
     protected virtual void Awake()
     {
         Player = GetComponent<Player>();
+        action = new Action();
     }
 
     protected bool IsOther(Player player)
