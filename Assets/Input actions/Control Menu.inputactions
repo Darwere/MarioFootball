@@ -1,0 +1,34 @@
+{
+    "name": "Control Menu",
+    "maps": [
+        {
+            "name": "Control Menu",
+            "id": "0282b485-23ac-46ac-a2dd-710830ff05a4",
+            "actions": [
+                {
+                    "name": "Scene Changement",
+                    "type": "Button",
+                    "id": "1fe1ea45-164d-44bd-86ac-51e9471861fb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d83d3674-0f82-444b-8afd-f4a1a4fb0fab",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scene Changement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
