@@ -171,7 +171,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4703844206151128575}
         m_TargetAssemblyTypeName: Ball, Assembly-CSharp
-        m_MethodName: ShootDirectLaDansLaLucarne
+        m_MethodName: ShootInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -21,13 +21,23 @@ public class Ball : MonoBehaviour
     private float minBezierX;
     private float maxBezierX;
 
+    private Vector3 aV = new Vector3(-6.5f, 8.5f, -45f);
+    private Vector3 bV = new Vector3(0, 8.5f, -45);
+    private Vector3 cV = new Vector3(6.5f, 8.5f, -45);
+    private Vector3 dV = new Vector3(-6.5f, 1, -45);
+    private Vector3 eV = new Vector3(6.5f, 1, -45);
+    private Vector3 fV = new Vector3(0, 1, -45);
+    private Vector3[] DebugTab;
+
+
     private void Awake()
     {
         rbBall = GetComponent<Rigidbody>();
         Vector3 nul1 = new Vector3(0,0.5f,0f);
         Vector3 nul2 = new Vector3(0f,0.5f,20f);
         Vector3 nul3 = new Vector3(15f,10f,0f);
-        Move(1,nul1, nul2, nul3);
+        //Move(1,nul1, nul2, nul3);
+        DebugTab = new Vector3[] { aV, bV, cV, dV, eV, fV };
     }
     private void Update()
     {
@@ -78,42 +88,46 @@ public class Ball : MonoBehaviour
         transform.position = new Vector3(0, 0.5f, 0);
     }
 
-    public void ShootDirectLaDansLaLucarne(InputAction.CallbackContext context)
+    public void ShootInput(InputAction.CallbackContext context)
     {
         if (!context.performed)
         {
             return;
         }
-        //Lalulu = ZoneAléatoire
-        Vector3 LaLulu = new Vector3(-6.5f, 8.5f, -45f);
-        if(LaLulu.x < 0)
+        Shoot(DebugTab);
+    }
+
+    public void Shoot(Vector3[] randomPos)
+    {
+        int posCageIndex = Random.Range(0, (randomPos.Length));
+        Vector3 posCage = randomPos[posCageIndex];
+        //Vector3 posCage = new Vector3(-6.5f, 8.5f, -45f);
+        if (posCage.x < 0)
         {
-            minBezierX = LaLulu.x * 2;
-            maxBezierX = -(LaLulu.x * 2);
+            minBezierX = posCage.x * 2;
+            maxBezierX = -(posCage.x * 2);
         }
         else
         {
-            minBezierX = -(LaLulu.x * 2);
-            maxBezierX = LaLulu.x * 2;
+            minBezierX = -(posCage.x * 2);
+            maxBezierX = posCage.x * 2;
         }
-        Debug.Log(minBezierX);
-        Debug.Log(maxBezierX);
         float randomBezier = Random.Range(minBezierX, maxBezierX);
-        if (LaLulu.x < 0) 
+        if (posCage.x < 0)
         {
-            while (randomBezier > LaLulu.x && randomBezier < -LaLulu.x)
+            while (randomBezier > posCage.x && randomBezier < -posCage.x)
             {
                 randomBezier = Random.Range(minBezierX, maxBezierX);
             }
         }
         else
         {
-            while (randomBezier < LaLulu.x && randomBezier > -LaLulu.x)
+            while (randomBezier < posCage.x && randomBezier > -posCage.x)
             {
                 randomBezier = Random.Range(minBezierX, maxBezierX);
             }
         }
-        Vector3 vecInterpolation = new Vector3(randomBezier, LaLulu.y + 4f, (LaLulu.z / 2 - 5));
-        Move(1, startingPoint, LaLulu, vecInterpolation);
+        Vector3 vecInterpolation = new Vector3(randomBezier, posCage.y + 4f, (posCage.z / 2 - 5));
+        Move(1, startingPoint, posCage, vecInterpolation);
     }
 }

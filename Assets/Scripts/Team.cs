@@ -18,12 +18,17 @@ public class Team : MonoBehaviour
     public int ConcededGoals { get; private set; }
     public InputBrain Brain { get; private set; }
 
+    public Vector3[] ShootPoints;
+    public static Vector3[] ShootPoint => instance.ShootPoints;
+    private static Team instance;
+
     private Queue<Item> items;
     private int itemCapacity = 3;
 
     private void Awake()
     {
         Brain = GetComponent<InputBrain>();
+        instance = this;    
     }
 
     /// <summary>
