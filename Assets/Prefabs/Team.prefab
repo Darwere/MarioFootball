@@ -157,7 +157,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 761355392992023397}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
-        m_MethodName: Pass
+        m_MethodName: Pass_SwitchPlayer
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -173,7 +173,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 761355392992023397}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
-        m_MethodName: Shoot_Tacle
+        m_MethodName: Shoot_Tackle
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -221,7 +221,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 761355392992023397}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
-        m_MethodName: Sprint
+        m_MethodName: SprintStart
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -237,7 +237,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 761355392992023397}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
-        m_MethodName: Test
+        m_MethodName: SprintStop
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -247,8 +247,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 4550a5ad-9c2d-4c14-909e-4335ce4f8979
-    m_ActionName: PlayerController/New action[/Keyboard/q,/Keyboard/z,/Keyboard/s,/Keyboard/d,/Keyboard/a]
+    m_ActionId: 3b7a889d-f722-47b3-be6f-121e7d9544d7
+    m_ActionName: PlayerController/SprintStop[/Keyboard/shift,/XInputControllerWindows/leftStickPress]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerController

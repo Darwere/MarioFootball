@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     public bool CanMove => State == PlayerState.Moving;
 
     public bool IsPiloted { get; set; } = false;
+    public PlayerSpecs Species => specs;
 
     public Vector3 Position => transform.position;
 
@@ -69,14 +70,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Vector3 move = transform.position + (IsPiloted ? Team.Brain.Move() : IABrain.Move());
-        if (move.x < Field.BottomLeftCorner.x
-            && move.x > Field.TopLeftCorner.x
-            && move.z < Field.TopRightCorner.z
-            && move.z > Field.TopLeftCorner.z)
-        {
-            transform.position = move;
-        }
+        if (IsPiloted)
+            Team.Brain.Act();
+        else
+            IABrain.Act();
     }
 
     private void OnCollisionEnter(Collision collision)
