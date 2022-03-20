@@ -100,7 +100,11 @@ public class InputBrain : PlayerBrain
         Vector2 value = input.ReadValue<Vector2>();
 
         if (( (value.x < 0.1f && value.x > -0.1f) && (value.y < 0.1f && value.y > -0.1f) ))
+        {
             value = new Vector2(0, 0);
+            action.type = PlayerAction.ActionType.None;
+        }
+            
 
         value = value.normalized;
         direction = new Vector3(value.x, 0, value.y);
