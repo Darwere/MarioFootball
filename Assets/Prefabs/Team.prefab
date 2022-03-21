@@ -238,7 +238,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ateamBrainType: HolyBrain
   agoalBrainType: HolyBrain
-  ShootPoints: []
+  ShootPoints:
+  - {fileID: 994263396262917775}
+  - {fileID: 8087862312140821225}
+  - {fileID: 3577270925762387934}
+  - {fileID: 4935699859797984370}
+  - {fileID: 7999311210972595390}
+  - {fileID: 7169757126420817520}
 --- !u!114 &5965256866810570012
 MonoBehaviour:
   m_ObjectHideFlags: 0

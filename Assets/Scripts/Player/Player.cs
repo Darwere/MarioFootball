@@ -76,8 +76,14 @@ public class Player : MonoBehaviour
             IABrain.Act();
     }
 
+    public void GetBall(Ball ball)
+    {
+        this.ball = ball;
+    }
     private void OnCollisionEnter(Collision collision)
     {
 
     }
+
+
 }

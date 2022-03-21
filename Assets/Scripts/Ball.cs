@@ -18,8 +18,8 @@ public class Ball : MonoBehaviour
     private float duration;
     private float bezierPercent;
     private bool isMovable = false;
-    private float minBezierX;
-    private float maxBezierX;
+    private float minBezierZ;
+    private float maxBezierZ;
 
     private Vector3 aV = new Vector3(-6.5f, 8.5f, -45f);
     private Vector3 bV = new Vector3(0, 8.5f, -45);
@@ -89,46 +89,38 @@ public class Ball : MonoBehaviour
         transform.position = new Vector3(0, 0.5f, 0);
     }
 
-    public void ShootInput(InputAction.CallbackContext context)
-    {
-        if (!context.performed)
-        {
-            return;
-        }
-        Shoot(DebugTab);
-    }
-
-    public void Shoot(Vector3[] randomPos)
+    public void Shoot(Transform[] randomPos, float force, Vector3 direction, float duration)
     {
         int posCageIndex = Random.Range(0, (randomPos.Length));
-        Vector3 posCage = randomPos[posCageIndex];
-        if (posCage.x < 0)
+        Transform posCage = randomPos[posCageIndex];
+        if (posCage.position.z < 0)
         {
-            minBezierX = posCage.x * 2;
-            maxBezierX = -(posCage.x * 2);
+            minBezierZ = posCage.position.z * 2;
+            maxBezierZ = -(posCage.position.z * 2);
         }
         else
         {
-            minBezierX = -(posCage.x * 2);
-            maxBezierX = posCage.x * 2;
+            minBezierZ = -(posCage.position.z * 2);
+            maxBezierZ = posCage.position.z * 2;
         }
-        float randomBezier = Random.Range(minBezierX, maxBezierX);
-        if (posCage.x < 0)
+        float randomBezier = Random.Range(minBezierZ, maxBezierZ);
+        if (posCage.position.z < 0)
         {
-            while (randomBezier > posCage.x && randomBezier < -posCage.x)
+            while (randomBezier > posCage.position.z && randomBezier < -posCage.position.z)
             {
-                randomBezier = Random.Range(minBezierX, maxBezierX);
+                randomBezier = Random.Range(minBezierZ, maxBezierZ);
             }
         }
         else
         {
-            while (randomBezier < posCage.x && randomBezier > -posCage.x)
+            while (randomBezier < posCage.position.z && randomBezier > -posCage.position.z)
             {
-                randomBezier = Random.Range(minBezierX, maxBezierX);
+                randomBezier = Random.Range(minBezierZ, maxBezierZ);
             }
         }
-        Vector3 vecInterpolation = new Vector3(randomBezier, posCage.y + 4f, (posCage.z / 2 - 5));
-        Move(1, startingPoint, posCage, vecInterpolation);
+        Vector3 vecInterpolation = new Vector3((posCage.position.x / 2 - 5), posCage.position.y + 4f, randomBezier);
+        Move(1, transform.position, posCage.position, vecInterpolation);
+        DetachFromParent();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -136,13 +128,14 @@ public class Ball : MonoBehaviour
         Player player = collision.gameObject.GetComponent<Player>();
         if (player != null)
         {
-            AttachToPlayer(player.transform);
+            AttachToPlayer(player);
         }
     }
 
-    private void AttachToPlayer(Transform parent)
+    private void AttachToPlayer(Player parent)
     {
-        transform.parent = parent;
+        parent.GetBall(this);
+        transform.parent = parent.transform;
         transform.position += parent.transform.forward*1;
         ResetVelocity();
         //isMovable = false;
