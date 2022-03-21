@@ -45,14 +45,23 @@ public class CharacterGrid : MonoBehaviour
     }
     void DeselectionCharacterUI(GameObject characterSelected)
     {
-        characterSelected.GetComponent<Image>().color = Color.red;
+        characterSelected.GetComponent<Image>().color = Color.black;
     }
 
     public void SelectionCharacterRight()
     {
         DeselectionCharacterUI(listCharacters[compteurCharacter]);
         compteurCharacter++;
-        SelectionCharacter();
+        if (compteurCharacter < listCharacters.Count)
+        {
+            
+            SelectionCharacter();
+        }
+        else
+        {
+            compteurCharacter = 0;
+            SelectionCharacter();
+        }
     }
 
     public void SelectionCharacterLeft()
