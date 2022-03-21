@@ -75,7 +75,7 @@ public class Ball : MonoBehaviour
     }
 
     /// <summary>
-    /// Dessine une traînée derrière la balle
+    /// Dessine une traï¿½nï¿½e derriï¿½re la balle
     /// </summary>
     private void DrawTrail()
     {
