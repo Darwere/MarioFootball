@@ -6,13 +6,18 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject ActualCanvas;
     public GameObject NextCanvas;
-    // Start is called before the first frame update
+    public GameObject PreviousCanvas;
     
-    public void ChangeCanvas()
+    public void ChangeNextCanvas()
     {
-        Debug.Log("canvas change");
-
+        
         NextCanvas.SetActive(true);
         ActualCanvas.SetActive(false);
+    }
+
+    public void ChangePreviousCanvas()
+    {
+        PreviousCanvas.SetActive(true);
+        ActualCanvas.SetActive(false); 
     }
 }
