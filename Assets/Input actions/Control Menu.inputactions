@@ -24,36 +24,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Selection Item Rigth",
-                    "type": "Button",
-                    "id": "9fbc0977-1ca5-4e08-b6cb-daccd8a901d5",
-                    "expectedControlType": "Button",
+                    "name": "Selection Item",
+                    "type": "Value",
+                    "id": "a949530c-8f98-4a81-903e-c5642cf8bb1c",
+                    "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "interactions": "Press",
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "Selection Item Left",
+                    "name": "Selection Item Down",
                     "type": "Button",
-                    "id": "a949530c-8f98-4a81-903e-c5642cf8bb1c",
+                    "id": "588371e8-14e9-4e1e-98c4-7112679237c1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Selection Item Up",
                     "type": "Button",
-                    "id": "cd06785a-b34d-47be-888c-3d9b1082c3d3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Selection Item Down",
-                    "type": "Button",
-                    "id": "47942850-5cb7-4fbc-8859-b43f8d776847",
+                    "id": "18c2ec8f-c68d-4155-86bc-7c84ee9d774a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -93,46 +84,90 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "ce465eff-72d7-4083-a11a-07794a6108a0",
-                    "path": "<Gamepad>/leftStick/right",
+                    "name": "2D Vector",
+                    "id": "ba48d7c2-2e93-4f7f-82fc-bedca68267d3",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Selection Item Rigth",
+                    "action": "Selection Item",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "af9781a7-4f3c-4120-9efd-b9d7aa400f1c",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection Item",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "074a2892-ae48-4a75-9c3b-9429a29bd30a",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection Item",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "f3b83aa1-d0d5-4e3d-903b-e2646b0d37d1",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection Item",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "93cc2ac4-0e68-4a9b-bac0-1ca7a39243aa",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection Item",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "505c29b4-531b-4834-abf1-d48b075775c9",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection Item",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "a5ff58b2-7c5f-4c31-9bb4-5f423a364b78",
-                    "path": "<Gamepad>/leftStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Selection Item Left",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4c22aedf-c845-4a45-bef7-039265d77ae1",
-                    "path": "<Gamepad>/leftStick/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Selection Item Up",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "018b2ba0-8220-4a46-a553-df35939f1e39",
+                    "id": "213c5c20-ca83-4a7d-90ac-d7b1a7f677d2",
                     "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Selection Item Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36d34a03-79f2-47a9-a1e6-4700f0fc08d2",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection Item Up",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -144,54 +179,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Validate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Item Selection Menu",
-            "id": "59a7083f-5c47-4c2c-bdf2-837849089826",
-            "actions": [
-                {
-                    "name": "Selection item rigth",
-                    "type": "Button",
-                    "id": "f9364ab6-dddc-46d9-8bf9-4a47f934bbbf",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Selection item left",
-                    "type": "Button",
-                    "id": "e6932946-6bf4-4008-8a53-447576968566",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "7bfa3063-96e4-4994-bbdd-6065330d6509",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Selection item rigth",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "418fd5ce-c394-4ee4-8fa6-a1f3de3ac8e6",
-                    "path": "<Gamepad>/leftStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Selection item left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

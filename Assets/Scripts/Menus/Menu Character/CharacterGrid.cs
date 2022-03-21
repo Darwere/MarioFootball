@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class CharacterGrid : MonoBehaviour
@@ -25,6 +27,26 @@ public class CharacterGrid : MonoBehaviour
             characterUI.TextName.text = character.Name;
         }
         SelectionCharacter();
+
+    }
+
+    public void ListenController(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+        Vector2 positionJoystick = context.ReadValue<Vector2>();
+        Debug.Log(positionJoystick);
+        if (Math.Abs(positionJoystick.y) > 0)
+        {
+            if (positionJoystick.x > 0.5)
+            {
+                SelectionCharacterRight();
+            }
+            else if (positionJoystick.x < -0.5)
+            {
+                SelectionCharacterLeft();
+            }
+        }
 
     }
 

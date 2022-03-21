@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class SelectionSystem1 : MonoBehaviour
@@ -9,19 +11,45 @@ public class SelectionSystem1 : MonoBehaviour
     public List<GameObject> ListCanvasItems = new List<GameObject>();
     public GameObject ActualCanvas;
 
-    int compteurItem = 0;
+    
+    int counterItem = 0; //Variable qui parcourt la liste
     GameObject itemSelected;
 
     void Start()
     {
-        
-        SelectionItem();
+
+        SelectItem(); //Selection du premier item
 
     }
 
-    public void SelectionItem()
+    public void ListenController(InputAction.CallbackContext context)
     {
-        itemSelected = ListItems[compteurItem];
+        if (!context.performed)
+            return;
+
+        Vector2 positionJoystick = context.ReadValue<Vector2>(); 
+        Debug.Log(positionJoystick);
+        if (Math.Abs(positionJoystick.x) > 0)
+        {
+            if (positionJoystick.y > 0.5)
+            {
+                
+                SelectionItemUp();
+
+            }
+            else if (positionJoystick.y < -0.5)
+            {
+                
+                SelectionItemDown();
+
+            }
+        }
+
+    }
+
+    public void SelectItem() //Selection de l'item
+    {
+        itemSelected = ListItems[counterItem];
         SelectionItemUI(itemSelected);
     }
 
@@ -36,42 +64,49 @@ public class SelectionSystem1 : MonoBehaviour
 
     public void SelectionItemUp()
     {
-        DeselectionItemUI(ListItems[compteurItem]);
-        compteurItem++;
-        if (compteurItem < ListItems.Count)
+
+        DeselectionItemUI(ListItems[counterItem]);
+        counterItem++;
+        if (counterItem < ListItems.Count)
         {
 
-            SelectionItem();
+            SelectItem();
         }
         else
         {
-            compteurItem = 0;
-            SelectionItem();
+            counterItem = 0;
+            SelectItem();
         }
     }
 
     public void SelectionItemDown()
     {
-        DeselectionItemUI(ListItems[compteurItem]);
-        compteurItem--;
 
-        if (compteurItem >= 0)
+        DeselectionItemUI(ListItems[counterItem]);
+        counterItem--;
+
+        if (counterItem >= 0)
         {
-            SelectionItem();
+            SelectItem();
         }
         else
         {
-            compteurItem = ListItems.Count - 1;
-            SelectionItem();
+            counterItem = ListItems.Count - 1;
+            SelectItem();
 
         }
+
+
+
+
     }
 
     public void Validate()
     {
-        GameObject nextCanvas = ListCanvasItems[compteurItem];
+        GameObject nextCanvas = ListCanvasItems[counterItem];
         nextCanvas.SetActive(true);
         ActualCanvas.SetActive(false);
     }
+
 
 }
