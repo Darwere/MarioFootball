@@ -6,6 +6,7 @@ using System;
 public class Team : MonoBehaviour
 {
     [SerializeField] private string ateamBrainType;
+
     public Type TeamBrainType => Type.GetType(ateamBrainType);
 
     [SerializeField] private string agoalBrainType;
@@ -17,6 +18,7 @@ public class Team : MonoBehaviour
 
     public int ConcededGoals { get; private set; }
     public InputBrain Brain { get; private set; }
+
 
     private Queue<Item> items;
     private int itemCapacity = 3;

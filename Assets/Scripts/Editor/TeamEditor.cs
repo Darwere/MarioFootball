@@ -7,6 +7,7 @@ public class TeamEditor : Editor
 {
     private SerializedProperty teamType;
     private SerializedProperty goalType;
+    private SerializedProperty goalPoint;
 
     int teamIndex = 0;
     int goalIndex = 0;
@@ -15,6 +16,8 @@ public class TeamEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        DrawDefaultInspector();
+
         System.Type[] types = Assembly.GetAssembly(typeof(PlayerBrain)).GetTypes();
         System.Type[] possible = (from System.Type type in types where type.IsSubclassOf(typeof(PlayerBrain)) select type).ToArray();
 

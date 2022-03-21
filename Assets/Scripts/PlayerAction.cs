@@ -26,7 +26,7 @@ public struct PlayerAction
     public Vector3 bezierPoint;
     public float duration;
     public bool isSprinting;
-    public Player playerToSwitch;
+    public Player target;
 
     public static PlayerAction Shoot(float shootForce, Vector3 direction, Vector3 startPosition, float duration)
     {
@@ -46,9 +46,9 @@ public struct PlayerAction
         action.direction = direction;
         action.startPosition = startPosition;
         action.endPosition = endPosition;
-        action.bezierPoint = (endPosition - startPosition) / 2;
+        action.bezierPoint = (endPosition + startPosition) / 2;
         action.duration = duration;
-        action.playerToSwitch = targetPlayer;
+        action.target = targetPlayer;
 
         return action;
     }
@@ -71,20 +71,20 @@ public struct PlayerAction
         return action;
     }
 
-    public static PlayerAction Tackle(Vector3 direction)
+    public static PlayerAction Tackle(Player target)
     {
         PlayerAction action = new PlayerAction();
         action.type = ActionType.Tackle;
-        action.direction = direction;
+        action.target = target;
 
         return action;
     }
 
-    public static PlayerAction HeadButt(Vector3 direction)
+    public static PlayerAction HeadButt(Player target)
     {
         PlayerAction action = new PlayerAction();
         action.type = ActionType.Headbutt;
-        action.direction = direction;
+        action.target = target;
 
         return action;
     }
@@ -106,10 +106,11 @@ public struct PlayerAction
         return action;
     }
 
-    public static PlayerAction ChangePlayer()
+    public static PlayerAction ChangePlayer(Player targetPlayer)
     {
         PlayerAction action = new PlayerAction();
         action.type = ActionType.ChangePlayer;
+        action.target = targetPlayer;
 
         return action;
     }
