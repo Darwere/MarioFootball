@@ -48,11 +48,10 @@ public class InputBrain : PlayerBrain
 
     protected override void Pass()
     {
-        //Field.Ball.Pass(action.startPosition, action.bezierPoint, action.endPosition, action.duration);
+        Field.Ball.Move(action.duration, action.startPosition, action.endPosition, action.bezierPoint);
         SwitchPlayer();
 
         action.type = PlayerAction.ActionType.None;
-        Debug.Log("Pass");
     }
 
     protected override void SwitchPlayer()
@@ -63,16 +62,13 @@ public class InputBrain : PlayerBrain
         Player.IsPiloted = true; //new player piloted
 
         action.type = PlayerAction.ActionType.None;
-        Debug.Log("Switch");
     }
 
     protected override void Shoot()
     {
-        //Ball.Shoot(action.shootForce, action.direction, action.startPosition, action.duration);
 
-
+        Field.Ball.Shoot(Enemies.ShootPoint,action.shootForce, action.direction, action.duration);
         action.type = PlayerAction.ActionType.None;
-        Debug.Log("Shoot");
     }
 
     protected override void Tackle()
@@ -138,7 +134,7 @@ public class InputBrain : PlayerBrain
         Player targetPlayer = Allies.GetPlayerWithDirection(startPos, direction);
 
         if (Player.HasBall)
-            act = PlayerAction.Pass(direction, startPos, targetPlayer.transform.position, 2f, targetPlayer); //Pass
+            act = PlayerAction.Pass(direction, startPos, targetPlayer.transform.position, 1f, targetPlayer); //Pass
         else
             act = PlayerAction.ChangePlayer(targetPlayer);  //SwitchPlayer
 

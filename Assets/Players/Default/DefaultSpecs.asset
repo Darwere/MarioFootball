@@ -15,6 +15,6 @@ MonoBehaviour:
   name: Mario 2.0
   weight: 70
   accuracy: 0.7
-  speed: 6
+  speed: 10
   stunTime: 1
   prefab: {fileID: 768283636445659015, guid: 2d251407ec186d94682db68a04a9db90, type: 3}

@@ -89,6 +89,10 @@ public class Player : MonoBehaviour
             animationMethods[IABrain.Act()].DynamicInvoke(); //IABrain.Act() return une ActionType
     }
 
+    public void GetBall(Ball ball)
+    {
+        this.ball = ball;
+    }
     #region Animation Launch
 
     private void MoveAnimation()
@@ -135,4 +139,6 @@ public class Player : MonoBehaviour
     {
 
     }
+
+
 }

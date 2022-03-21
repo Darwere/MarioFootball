@@ -84,7 +84,7 @@ public class Field : MonoBehaviour
     {
         instance.ball = ball;
 
-        ball.transform.position = instance.transform.position;
+        ball.transform.position = instance.transform.position + ball.transform.position;
 
         instance.SetTeamPosition();
     }
