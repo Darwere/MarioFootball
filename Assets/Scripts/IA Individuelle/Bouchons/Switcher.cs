@@ -6,8 +6,8 @@ using UnityEngine;
 public class Switcher : MonoBehaviour
 {
     [SerializeField] public Teams.Teamcolor teamWithBall = Teams.Teamcolor.Red;
-    [SerializeField] public AIPlayerData redPlayer;
-    [SerializeField] public AIPlayerData bluePlayer;
+    [SerializeField] public GameObject redPlayer;
+    [SerializeField] public GameObject bluePlayer;
 
 
     [SerializeField] bool selectSwitchedPlayer = false;
@@ -24,20 +24,20 @@ public class Switcher : MonoBehaviour
 
     private void SetPlayers()
     {
-        IAManager.instance.playerWithBall = redPlayer.gameObject;
+        IAManager.instance.playerWithBall = redPlayer;
         foreach (GameObject red in Teams.redTeam)
         {
             red.GetComponent<PlacementAIBrain>().teamHasBall = (teamWithBall == Teams.Teamcolor.Red);
             red.GetComponent<PlacementAIBrain>().otherTeamHasBall = (teamWithBall == Teams.Teamcolor.Blue);
 
-            red.GetComponent<AIPlayerData>().isAI = (red != redPlayer.gameObject);
+            red.GetComponent<AIPlayerData>().isAI = (red != redPlayer);
         }
         foreach (GameObject blue in Teams.blueTeam)
         {
             blue.GetComponent<PlacementAIBrain>().teamHasBall = (teamWithBall == Teams.Teamcolor.Blue);
             blue.GetComponent<PlacementAIBrain>().otherTeamHasBall = (teamWithBall == Teams.Teamcolor.Red);
 
-            blue.GetComponent<AIPlayerData>().isAI = (blue != bluePlayer.gameObject);
+            blue.GetComponent<AIPlayerData>().isAI = (blue != bluePlayer);
         }
     }
 
@@ -47,7 +47,7 @@ public class Switcher : MonoBehaviour
         {
             case Teams.Teamcolor.Blue:        
                 teamWithBall = Teams.Teamcolor.Red;
-                IAManager.instance.playerWithBall = redPlayer.gameObject;
+                IAManager.instance.playerWithBall = redPlayer;
                 break;
 
             /*case Teams.Teamcolor.None:
@@ -56,7 +56,7 @@ public class Switcher : MonoBehaviour
                 */
             case Teams.Teamcolor.Red:
                 teamWithBall = Teams.Teamcolor.Blue;
-                IAManager.instance.playerWithBall = bluePlayer.gameObject;
+                IAManager.instance.playerWithBall = bluePlayer;
                 break;
         }
                
@@ -73,8 +73,8 @@ public class Switcher : MonoBehaviour
             {
                 int index = (i == switchTeam.Count - 1) ? 0 : i + 1;
 
-                if (team == Teams.Teamcolor.Blue) bluePlayer = switchTeam[index].GetComponent<AIPlayerData>();
-                else redPlayer = switchTeam[index].GetComponent<AIPlayerData>();
+                if (team == Teams.Teamcolor.Blue) bluePlayer = switchTeam[index];
+                else redPlayer = switchTeam[index];
 
                 if (selectSwitchedPlayer) Selection.activeObject = switchTeam[index];
                 //switchTeam[i].GetComponent<Player>().isAI = true;

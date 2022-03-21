@@ -13,17 +13,20 @@ public enum Placement
 
 public class PlacementAIBrain : PlayerBrain
 {
-
+    public AIPlayerData Data = new AIPlayerData();
     //public bool IsAI = true;
 
+
+    public bool debugIsAIVisual;
     List<GameObject> Teammates = new List<GameObject>();
     List<GameObject> Ennemies = new List<GameObject>();
     Vector3[] toTeamVects;
     Vector3[] toEnnemiesVects;
     int[] ennemyvisibility;
 
-    [SerializeField] public Transform teamGoal;
-    [SerializeField] public Transform ennemyGoal;
+    bool initialised = false;
+    [SerializeField] public Vector3 TeamGoalPos;
+    [SerializeField] public Vector3 EnnemyGoalPos;
 
     [Space]
     public bool teamHasBall = false;
@@ -61,31 +64,43 @@ public class PlacementAIBrain : PlayerBrain
 
     private Vector3 movementTarget = new Vector3();
 
-    public override void Awake()
+    protected override void Awake()
     {
         //Player = GetComponent<Player>();
+        base.Awake();
 
-        if (GetComponent<AIPlayerData>().color == Teams.Teamcolor.Blue)
-        {
-            Teams.blueTeam.Add(this.gameObject);
-        }
-        else
-        {
-            Teams.redTeam.Add(this.gameObject);
-
-        }
-
-        FieldWidth = TopFieldWall.position.x - BottomFieldWall.position.x;
-        ThirdField = BottomFieldWall.position.x + FieldWidth / 3;
-        TwoThirdField = 2 * ThirdField;
-
+        
 
     }
+
+    
+   
 
     // Start is called before the first frame update
     void Start()
     {
-        if (GetComponent<AIPlayerData>().color == Teams.Teamcolor.Blue)
+        
+    }
+
+
+    //Default functions
+
+    //===================================================
+    //Initialisation
+    private void AssignTeamAndEnnemies()
+    {
+
+        // if (Team == Field.Team1)
+        // {
+        //  foreach ("brain" brain in Field.Team1.Brains)
+        //      Teammates.Add(brain.gameObject);
+        //
+        //  Teammates.Remove(this.gameObject);
+        //  foreach ("brain" brain in Field.Team2.brains)
+        //      Ennemies.Add(brain.gameObject)
+        // if (Team == Field.Team2)
+
+        if (Data.color == Teams.Teamcolor.Blue)
         {
             foreach (GameObject teammate in Teams.blueTeam)
             {
@@ -110,32 +125,42 @@ public class PlacementAIBrain : PlayerBrain
 
 
         Teammates.Remove(this.gameObject);
-        //                          if (gameObject.name == "Cube (2)") print(Teammates.Count); print(Teams.redTeam.Count);
+        //if (gameObject.name == "Cube (2)") print(Teammates.Count); print(Teams.redTeam.Count);
         toTeamVects = new Vector3[Teammates.Count - 1];
 
-       toEnnemiesVects = new Vector3[Ennemies.Count - 1];
+        toEnnemiesVects = new Vector3[Ennemies.Count - 1];
 
         ennemyvisibility = new int[Ennemies.Count - 1];
     }
 
-
-    //Default functions
-
-    //===================================================
-    //Initialisation
-    private void AssignTeamAndEnnemies()
+    void StartInit()
     {
+        if (Player.Team == Field.Team1) Data.color = Teams.Teamcolor.Blue;
+        else Data.color = Teams.Teamcolor.Red;
+        Debug.LogWarning(Field.Team1);
+        Debug.LogWarning(Player.Team);
+        Debug.LogWarning(Data.color);
+        Debug.LogWarning("");
 
-        // if (Team == Field.Team1)
-        // {
-        //  foreach ("brain" brain in Field.Team1.Brains)
-        //      Teammates.Add(brain.gameObject);
-        //
-        //  Teammates.Remove(this.gameObject);
-        //  foreach ("brain" brain in Field.Team2.brains)
-        //      Ennemies.Add(brain.gameObject)
-        // if (Team == Field.Team2)
+
+        if (Data.color == Teams.Teamcolor.Blue)
+        {
+            Teams.blueTeam.Add(this.gameObject);
+        }
+        else
+        {
+            Teams.redTeam.Add(this.gameObject);
+
+        }
+
+        FieldWidth = Mathf.Min(Mathf.Abs(Field.BottomLeftCorner.y - Field.TopRightCorner.y), Mathf.Abs(Field.BottomLeftCorner.x - Field.TopRightCorner.x)); //TopFieldWall.position.x - BottomFieldWall.position.x;
+        ThirdField = Field.HeightOneThird; //Mathf.Max(Mathf.Abs(Field.BottomLeftCorner.y - Field.TopRightCorner.y), Mathf.Abs(Field.BottomLeftCorner.x - Field.TopRightCorner.x)); //BottomFieldWall.position.x + FieldWidth / 3;
+        TwoThirdField = 2 * ThirdField;
+
+
+        initialised = true;
     }
+
 
     //===================================================
 
@@ -143,13 +168,13 @@ public class PlacementAIBrain : PlayerBrain
     //Get Controlled Players
     private GameObject GetPlayerInTeam()
     {
-        if (!GetComponent<AIPlayerData>().isAI)
+        if (!Data.isAI)
             return this.gameObject;
         else
         {
             foreach (GameObject player in Teammates)
             {
-                if (player.GetComponent<AIPlayerData>().isAI == false)
+                if (player.GetComponent<PlacementAIBrain>().Data.isAI == false)
                 {
                     return player;
                 }
@@ -160,13 +185,13 @@ public class PlacementAIBrain : PlayerBrain
 
     private GameObject GetPlayerInOtherTeam()
     {
-        if (!GetComponent<AIPlayerData>().isAI)
+        if (!Data.isAI)
             return this.gameObject;
         else
         {
             foreach (GameObject player in Ennemies)
             {
-                if (!player.GetComponent<AIPlayerData>().isAI)
+                if (!player.GetComponent<PlacementAIBrain>().Data.isAI)
                 {
                     return player;
                 }
@@ -185,7 +210,7 @@ public class PlacementAIBrain : PlayerBrain
 
     public override Vector3 Move()
     {
-        throw new System.NotImplementedException();
+        return (movementTarget-transform.position).normalized;
     }
 
     public override Action Act()
@@ -201,14 +226,14 @@ public class PlacementAIBrain : PlayerBrain
     //Value Checkup FUnctions
     private void DetermineDefending()
     {
-        if (GetComponent<AIPlayerData>().isAI)
+        if (Data.isAI)
         {
-            Vector3 selfToGoal = teamGoal.position - transform.position;
+            Vector3 selfToGoal = TeamGoalPos - transform.position;
             defending = true;
             foreach (GameObject teammate in Teammates)
             {
-                Vector3 themToGoal = teamGoal.position - teammate.transform.position;
-                if ((themToGoal.magnitude < selfToGoal.magnitude - 2 && teammate.GetComponent<AIPlayerData>().isAI) || teammate.GetComponent<PlacementAIBrain>().defending)
+                Vector3 themToGoal = TeamGoalPos - teammate.transform.position;
+                if ((themToGoal.magnitude < selfToGoal.magnitude - 2 && teammate.GetComponent<PlacementAIBrain>().Data.isAI) || teammate.GetComponent<PlacementAIBrain>().defending)
                 {
                     defending = false;
                 }
@@ -257,15 +282,15 @@ public class PlacementAIBrain : PlayerBrain
 
         /*if (GetComponent<Player>().placement != playerplacement)
         {*/
-        GetComponent<AIPlayerData>().placement = playerplacement;
+        Data.placement = playerplacement;
 
-        AssignPlacement(GetComponent<AIPlayerData>(), playerplacement);
+        AssignPlacement(Data, playerplacement);
 
         /*}*/
 
         foreach (GameObject player in Teammates)
         {
-            AssignPlacement(player.GetComponent<AIPlayerData>(), player.GetComponent<PlacementAIBrain>().playerplacement);
+            AssignPlacement(player.GetComponent<PlacementAIBrain>().Data, player.GetComponent<PlacementAIBrain>().playerplacement);
         }
 
     }
@@ -332,9 +357,9 @@ public class PlacementAIBrain : PlayerBrain
         GameObject furthestPlayer = null;
         foreach (GameObject pl in Ennemies)
         {
-            if ((pl.transform.position-teamGoal.position).magnitude > furthestDist)
+            if ((pl.transform.position- TeamGoalPos).magnitude > furthestDist)
             {
-                furthestDist = (pl.transform.position - teamGoal.position).magnitude;
+                furthestDist = (pl.transform.position - TeamGoalPos).magnitude;
                 furthestPlayer = pl;
             }
         }
@@ -348,7 +373,7 @@ public class PlacementAIBrain : PlayerBrain
                 foreach (GameObject mate in Teammates)
                 {
 
-                    Vector3 toGoal = Ennemies[i].transform.position - ((Ennemies[i].GetComponent<AIPlayerData>().isAI)? GetPlayerInOtherTeam().transform.position :teamGoal.position);
+                    Vector3 toGoal = Ennemies[i].transform.position - ((Ennemies[i].GetComponent<PlacementAIBrain>().Data.isAI)? GetPlayerInOtherTeam().transform.position : TeamGoalPos);
                     Vector3 toMate = Ennemies[i].transform.position - mate.transform.position;
 
                     if (Vector3.Dot(toGoal, toMate) < 0.1f) canSeeGoal = false;
@@ -366,7 +391,7 @@ public class PlacementAIBrain : PlayerBrain
 
     private void EnableControl()
     {
-        if (!GetComponent<AIPlayerData>().isAI)
+        if (!Data.isAI)
         {
             GetComponent<PlayerManager>().enabled = true;
         }
@@ -379,7 +404,7 @@ public class PlacementAIBrain : PlayerBrain
 
     private void AvoidOtherPlayers()
     {
-        if (GetComponent<AIPlayerData>().isAI)
+        if (Data.isAI)
         {
             for (int i = 0; i < toTeamVects.Length; i++)
             {
@@ -415,16 +440,16 @@ public class PlacementAIBrain : PlayerBrain
         if (defending)
         {
             playerplacement = Placement.Unassigned;
-            DesiredPosition = PlayerPosition.position + (teamGoal.position - PlayerPosition.position) / 2;
+            DesiredPosition = PlayerPosition.position + (TeamGoalPos - PlayerPosition.position) / 2;
             DesiredPosition.y = 0.5f;
             Displacement = DesiredPosition - transform.position;
             PositionCorrecter(Displacement);
         }
         if (RightWingPlayers.Count == CenterPlayers.Count && CenterPlayers.Count == LeftWingPlayers.Count)
         {
-            if (GetComponent<AIPlayerData>().isAI)
+            if (Data.isAI)
             {
-                DesiredX = GetDesiredX(GetComponent<AIPlayerData>());
+                DesiredX = GetDesiredX(Data);
                 DesiredPosition = new Vector3(DesiredX, 0.5f, PlayerPosition.position.z);
                 Displacement = DesiredPosition - transform.position;
                 PositionCorrecter(Displacement);
@@ -441,7 +466,7 @@ public class PlacementAIBrain : PlayerBrain
                 saturated = true;
             }
 
-            SaturatedList.Remove(GetComponent<AIPlayerData>());
+            SaturatedList.Remove(Data);
             EmptyList = GetEmptyList();
             AIAlreadyMoving = false;
             bool otherMoving = false;
@@ -457,7 +482,7 @@ public class PlacementAIBrain : PlayerBrain
             if (saturated)
             {
 
-                AIPlayerData player = GetComponent<AIPlayerData>();
+                AIPlayerData player = Data;
                 if (player.isAI && !otherMoving)
                 {
                     AIAlreadyMoving = true;
@@ -568,7 +593,7 @@ public class PlacementAIBrain : PlayerBrain
     {
         
 
-        if(GetComponent<AIPlayerData>().isAI)
+        if(Data.isAI)
         {
             if (defenseTarget == null)
             {
@@ -579,7 +604,7 @@ public class PlacementAIBrain : PlayerBrain
 
             if (coveringPlayer)
             {
-                Vector3 playerToGoal = teamGoal.position - otherPlayer.transform.position;
+                Vector3 playerToGoal = TeamGoalPos - otherPlayer.transform.position;
                 DesiredPosition = otherPlayer.transform.position + playerToGoal / 4;
                 DesiredPosition.y = 0.5f;
             }
@@ -607,29 +632,53 @@ public class PlacementAIBrain : PlayerBrain
     // Update is called once per frame
     void Update()
     {
+        
         movementTarget = transform.position;
 
-        UpdateToOtherVects();
-        AvoidOtherPlayers();
-        EnableControl();
-        PlayerPosition = GetPlayerInTeam().transform;
-        if (teamHasBall)
+        debugIsAIVisual = GetComponent<Player>().IsPiloted;
+
+        if (!initialised)
         {
-            DefenseModeReset();
-            DetermineDefending();
-            UpdatePlayersPlacement();
-            CheckAttackPlacement();
+            StartInit();
+        }
+        else if (Teammates.Count <= 0)
+        {
+            AssignTeamAndEnnemies();
         }
         else
         {
-            UpdatePlayersPlacement();
-            GetEnnemyVisibility();
-            CoverPosition();
+            Data.isAI = !GetComponent<Player>().IsPiloted;
+            UpdateToOtherVects();
+            AvoidOtherPlayers();
+            //EnableControl();
+            PlayerPosition = GetPlayerInTeam().transform;
+            if (teamHasBall)
+            {
+                DefenseModeReset();
+                DetermineDefending();
+                UpdatePlayersPlacement();
+                CheckAttackPlacement();
+            }
+            else
+            {
+                UpdatePlayersPlacement();
+                GetEnnemyVisibility();
+                CoverPosition();
+            }
         }
+
+        
 
 
         //transform.position += movementTarget;
     }
 
 
+}
+
+public class AIPlayerData
+{
+    public Teams.Teamcolor color;
+    public Placement placement = Placement.Unassigned;
+    public bool isAI;
 }
