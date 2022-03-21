@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     private Ball ball;
 
-    private Animator animator;
+    [SerializeField] private Animator animator;
     private Rigidbody rgbd;
 
     [SerializeField] public PlayerBrain IABrain;
@@ -57,7 +57,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
         rgbd = GetComponent<Rigidbody>();
     }
 
@@ -94,40 +93,40 @@ public class Player : MonoBehaviour
 
     private void MoveAnimation()
     {
-        animator.SetBool("Move", true);
+        animator.SetBool("Moving", true);
     }
 
     private void PassAnimation()
     {
         animator.SetTrigger("Pass");
-        animator.SetBool("Move", false);
+        animator.SetBool("Moving", false);
     }
 
     private void ShootAnimation()
     {
         animator.SetTrigger("Shoot");
-        animator.SetBool("Move", false);
+        animator.SetBool("Moving", false);
     }
 
     private void TackleAnimation()
     {
         animator.SetTrigger("Tackle");
-        animator.SetBool("Move", false);
+        animator.SetBool("Moving", false);
     }
 
     private void HeadButtAnimation()
     {
-        animator.SetBool("Move", false);
+        animator.SetBool("Moving", false);
     }
 
     private void DribbleAnimation()
     {
-        animator.SetBool("Move", false);
+        animator.SetBool("Moving", false);
     }
 
     private void NoAnimation()
     {
-        animator.SetBool("Move", false);
+        animator.SetBool("Moving", false);
     }
 
     #endregion

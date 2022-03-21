@@ -7,6 +7,12 @@ public class InputBrain : PlayerBrain
     private Vector2 movementInput;
 
     private Vector3 direction;
+
+    private void Update()
+    {
+        
+    }
+
     public override Vector3 MoveInput()
     {
 
@@ -16,8 +22,13 @@ public class InputBrain : PlayerBrain
 
     public override PlayerAction.ActionType Act()
     {
+        PlayerAction.ActionType lastActionType = action.type;
+
         actionMethods[action.type].DynamicInvoke();
-        return action.type;
+
+        if(action.type != PlayerAction.ActionType.Move)
+            action.type = PlayerAction.ActionType.None; //Reset l'action
+        return lastActionType;
     }
 
     #region Control Player Methods
@@ -30,7 +41,9 @@ public class InputBrain : PlayerBrain
     protected override void Move()
     {
         Player.transform.position += action.direction * Time.deltaTime * Player.Species.speed;
-        Player.transform.LookAt(direction);
+
+        if(direction != Vector3.zero)
+            Player.transform.forward = direction;
     }
 
     protected override void Pass()
@@ -64,8 +77,7 @@ public class InputBrain : PlayerBrain
 
     protected override void Tackle()
     {
-
-        action.type = PlayerAction.ActionType.None;
+        //action.type = PlayerAction.ActionType.None;
         Debug.Log("Tackle");
     }
 
