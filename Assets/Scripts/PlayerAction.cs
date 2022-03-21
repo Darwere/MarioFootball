@@ -46,7 +46,7 @@ public struct PlayerAction
         action.direction = direction;
         action.startPosition = startPosition;
         action.endPosition = endPosition;
-        action.bezierPoint = (endPosition - startPosition) / 2;
+        action.bezierPoint = (endPosition + startPosition) / 2;
         action.duration = duration;
         action.playerToSwitch = targetPlayer;
 

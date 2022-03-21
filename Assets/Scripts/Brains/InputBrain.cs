@@ -33,11 +33,10 @@ public class InputBrain : PlayerBrain
 
     protected override void Pass()
     {
-        //Field.Ball.Pass(action.startPosition, action.bezierPoint, action.endPosition, action.duration);
+        Field.Ball.Move(action.duration, action.startPosition, action.endPosition, action.bezierPoint);
         SwitchPlayer();
 
         action.type = PlayerAction.ActionType.None;
-        Debug.Log("Pass");
     }
 
     protected override void SwitchPlayer()
@@ -48,12 +47,12 @@ public class InputBrain : PlayerBrain
         Player.IsPiloted = true; //new player piloted
 
         action.type = PlayerAction.ActionType.None;
-        Debug.Log("Switch");
     }
 
     protected override void Shoot()
     {
-        //Ball.Shoot(action.shootForce, action.direction, action.startPosition, action.duration);
+
+        //Field.Ball.Shoot(action.shootForce, action.direction, action.startPosition, action.duration);
 
 
         action.type = PlayerAction.ActionType.None;
@@ -121,7 +120,7 @@ public class InputBrain : PlayerBrain
 
         Vector3 startPos = Player.transform.position;
         Player targetPlayer = Allies.GetPlayerWithDirection(startPos, direction);
-        PlayerAction act = PlayerAction.Pass(direction, startPos, targetPlayer.transform.position, 2f, targetPlayer);
+        PlayerAction act = PlayerAction.Pass(direction, startPos, targetPlayer.transform.position, 1f, targetPlayer);
 
         action = act;
     }

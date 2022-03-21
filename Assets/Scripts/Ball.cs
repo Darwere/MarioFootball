@@ -33,9 +33,9 @@ public class Ball : MonoBehaviour
     private void Awake()
     {
         rbBall = GetComponent<Rigidbody>();
-        Vector3 nul1 = new Vector3(0,0.5f,0f);
-        Vector3 nul2 = new Vector3(0f,0.5f,20f);
-        Vector3 nul3 = new Vector3(15f,10f,0f);
+        Vector3 nul1 = new Vector3(0, 0.5f, 0f);
+        Vector3 nul2 = new Vector3(0f, 0.5f, 20f);
+        Vector3 nul3 = new Vector3(15f, 10f, 0f);
         //Move(1,nul1, nul2, nul3);
         DebugTab = new Vector3[] { aV, bV, cV, dV, eV, fV };
     }
@@ -55,6 +55,7 @@ public class Ball : MonoBehaviour
         this.startingPoint = startingPoint;
         this.destination = destination;
         this.bezierPoint = bezierPoint;
+        DetachFromParent();
     }
 
     public Vector3 Bezier(Vector3 startingPoint, Vector3 destination, Vector3 bezierPoint, float duration)
@@ -62,7 +63,7 @@ public class Ball : MonoBehaviour
         bezierPercent += Time.deltaTime / duration;
         Vector3 resultBezier = Mathf.Pow(1 - bezierPercent, 2f) * startingPoint + 2 * (1 - bezierPercent) * bezierPercent * bezierPoint + Mathf.Pow(bezierPercent, 2f) * destination;
 
-        if(bezierPercent > 1)
+        if (bezierPercent > 1)
         {
             isMovable = false;
         }
@@ -101,7 +102,6 @@ public class Ball : MonoBehaviour
     {
         int posCageIndex = Random.Range(0, (randomPos.Length));
         Vector3 posCage = randomPos[posCageIndex];
-        //Vector3 posCage = new Vector3(-6.5f, 8.5f, -45f);
         if (posCage.x < 0)
         {
             minBezierX = posCage.x * 2;
@@ -129,5 +129,30 @@ public class Ball : MonoBehaviour
         }
         Vector3 vecInterpolation = new Vector3(randomBezier, posCage.y + 4f, (posCage.z / 2 - 5));
         Move(1, startingPoint, posCage, vecInterpolation);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Player player = collision.gameObject.GetComponent<Player>();
+        if (player != null)
+        {
+            AttachToPlayer(player.transform);
+        }
+    }
+
+    private void AttachToPlayer(Transform parent)
+    {
+        transform.parent = parent;
+        transform.position += parent.transform.forward*1;
+        ResetVelocity();
+        //isMovable = false;
+        //isFree = false;
+    }
+
+    private void DetachFromParent()
+    {
+        transform.parent = null;
+        //isFree = true;
+        //isMovable = true;
     }
 }

@@ -17,9 +17,9 @@ public class Team : MonoBehaviour
 
     public int ConcededGoals { get; private set; }
     public InputBrain Brain { get; private set; }
-
-    public Vector3[] ShootPoints;
-    public static Vector3[] ShootPoint => instance.ShootPoints;
+    [SerializeField]
+    public Transform[] ShootPoints;
+    public static Transform[] ShootPoint => instance.ShootPoints;
     private static Team instance;
 
     private Queue<Item> items;
