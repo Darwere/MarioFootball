@@ -53,8 +53,6 @@ public class InputBrain : PlayerBrain
     {
 
         Field.Ball.Shoot(Enemies.ShootPoint,action.shootForce, action.direction, action.duration);
-
-
         action.type = PlayerAction.ActionType.None;
     }
 

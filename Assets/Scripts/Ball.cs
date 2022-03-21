@@ -21,23 +21,10 @@ public class Ball : MonoBehaviour
     private float minBezierZ;
     private float maxBezierZ;
 
-    private Vector3 aV = new Vector3(-6.5f, 8.5f, -45f);
-    private Vector3 bV = new Vector3(0, 8.5f, -45);
-    private Vector3 cV = new Vector3(6.5f, 8.5f, -45);
-    private Vector3 dV = new Vector3(-6.5f, 1, -45);
-    private Vector3 eV = new Vector3(6.5f, 1, -45);
-    private Vector3 fV = new Vector3(0, 1, -45);
-    private Vector3[] DebugTab;
-
 
     private void Awake()
     {
         rbBall = GetComponent<Rigidbody>();
-        Vector3 nul1 = new Vector3(0, 0.5f, 0f);
-        Vector3 nul2 = new Vector3(0f, 0.5f, 20f);
-        Vector3 nul3 = new Vector3(15f, 10f, 0f);
-        //Move(1,nul1, nul2, nul3);
-        DebugTab = new Vector3[] { aV, bV, cV, dV, eV, fV };
     }
     private void Update()
     {
@@ -86,13 +73,14 @@ public class Ball : MonoBehaviour
     //A enleverrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr//
     public void Restart()
     {
-        transform.position = new Vector3(0, 0.5f, 0);
+        isMovable = false;
+        transform.position = new Vector3(0, 0.6f, 0);
     }
 
-    public void Shoot(Transform[] randomPos, float force, Vector3 direction, float duration)
+    public void Shoot(Transform[] shootPos, float force, Vector3 direction, float duration)
     {
-        int posCageIndex = Random.Range(0, (randomPos.Length));
-        Transform posCage = randomPos[posCageIndex];
+        int posCageIndex = Random.Range(0, (shootPos.Length));
+        Transform posCage = shootPos[posCageIndex];
         if (posCage.position.z < 0)
         {
             minBezierZ = posCage.position.z * 2;
@@ -130,6 +118,7 @@ public class Ball : MonoBehaviour
         {
             AttachToPlayer(player);
         }
+
     }
 
     private void AttachToPlayer(Player parent)

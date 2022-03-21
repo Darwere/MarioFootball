@@ -16,13 +16,11 @@ public class Team : MonoBehaviour
     public PlayerBrain[] Brains { get; private set; }
     public Player Goal { get; private set; }
 
-    public int ConcededGoals { get; private set; }
+    public int ConcededGoals;
     public InputBrain Brain { get; private set; }
     [SerializeField]
     private Transform[] ShootPoints;
-    public Transform[] ShootPoint => instance.ShootPoints;
-    private static Team instance;
-
+    public Transform[] ShootPoint => ShootPoints;
 
     private Queue<Item> items;
     private int itemCapacity = 3;
@@ -30,7 +28,6 @@ public class Team : MonoBehaviour
     private void Awake()
     {
         Brain = GetComponent<InputBrain>();
-        instance = this;    
     }
 
     /// <summary>
@@ -118,6 +115,12 @@ public class Team : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        ++ConcededGoals;
+        Ball ball = collision.gameObject.GetComponent<Ball>();
+        if (ball != null)
+        {
+            ++ConcededGoals;
+            ball.Restart();
+            Debug.Log(ConcededGoals);
+        }
     }
 }
