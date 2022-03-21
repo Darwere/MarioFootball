@@ -12,7 +12,7 @@ public class HolyBrain : PlayerBrain
 
     public Placement placement = Placement.Unassigned;
 
-    public override Vector3 Move()
+    public override Vector3 MoveInput()
     {
         Vector3 position = transform.position;
         Placement placement = Placement.LeftWing;
@@ -88,8 +88,58 @@ public class HolyBrain : PlayerBrain
         return new Vector3(desiredX, 1f, capz) - transform.position;
     }
 
-    public override Action Act()
+    #region Control Player Methods
+
+    protected override void Idle()
     {
-        return new Action();
+
+    }
+
+    protected override void Move()
+    {
+
+    }
+
+    protected override void Pass()
+    {
+
+    }
+
+    protected override void SwitchPlayer()
+    {
+
+    }
+
+    protected override void Shoot()
+    {
+
+    }
+
+    protected override void Tackle()
+    {
+
+    }
+
+    protected override void Dribble()
+    {
+
+    }
+
+    protected override void Headbutt()
+    {
+
+    }
+
+    protected override void SendObject()
+    {
+
+    }
+
+    #endregion
+
+    public override void Act()
+    {
+        actionMethods[action.type].DynamicInvoke();
+        action = new PlayerAction();
     }
 }
