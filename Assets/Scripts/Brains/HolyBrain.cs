@@ -137,9 +137,9 @@ public class HolyBrain : PlayerBrain
 
     #endregion
 
-    public override void Act()
+    public override PlayerAction.ActionType Act()
     {
         actionMethods[action.type].DynamicInvoke();
-        action = new PlayerAction();
+        return action.type;
     }
 }

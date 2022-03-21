@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -36,6 +38,8 @@ public class Player : MonoBehaviour
 
     public Vector3 Position => transform.position;
 
+    private Dictionary<PlayerAction.ActionType, Action> animationMethods = new Dictionary<PlayerAction.ActionType, Action>();
+
     public static Player CreatePlayer(GameObject prefab, Team team, bool isGoalKeeper = false)
     {
         Player player = Instantiate(prefab).GetComponent<Player>();
@@ -66,15 +70,67 @@ public class Player : MonoBehaviour
             gameObject.name += " team1";
         else
             gameObject.name += " team2";
+
+        animationMethods.Add(PlayerAction.ActionType.None, NoAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Move, MoveAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Pass, PassAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Shoot, ShootAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Tackle, TackleAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Dribble, DribbleAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Headbutt, HeadButtAnimation);
+        animationMethods.Add(PlayerAction.ActionType.ChangePlayer, NoAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Throw, NoAnimation);
     }
 
     private void Update()
     {
         if (IsPiloted)
-            Team.Brain.Act();
+            animationMethods[Team.Brain.Act()].DynamicInvoke(); //Team.Brain.Act() return une ActionType
         else
-            IABrain.Act();
+            animationMethods[IABrain.Act()].DynamicInvoke(); //IABrain.Act() return une ActionType
     }
+
+    #region Animation Launch
+
+    private void MoveAnimation()
+    {
+        animator.SetBool("Move", true);
+    }
+
+    private void PassAnimation()
+    {
+        animator.SetTrigger("Pass");
+        animator.SetBool("Move", false);
+    }
+
+    private void ShootAnimation()
+    {
+        animator.SetTrigger("Shoot");
+        animator.SetBool("Move", false);
+    }
+
+    private void TackleAnimation()
+    {
+        animator.SetTrigger("Tackle");
+        animator.SetBool("Move", false);
+    }
+
+    private void HeadButtAnimation()
+    {
+        animator.SetBool("Move", false);
+    }
+
+    private void DribbleAnimation()
+    {
+        animator.SetBool("Move", false);
+    }
+
+    private void NoAnimation()
+    {
+        animator.SetBool("Move", false);
+    }
+
+    #endregion
 
     private void OnCollisionEnter(Collision collision)
     {

@@ -14,9 +14,10 @@ public class InputBrain : PlayerBrain
         return new Vector3(-movementInput.y, 0, movementInput.x).normalized;
     }
 
-    public override void Act()
+    public override PlayerAction.ActionType Act()
     {
         actionMethods[action.type].DynamicInvoke();
+        return action.type;
     }
 
     #region Control Player Methods
@@ -29,6 +30,7 @@ public class InputBrain : PlayerBrain
     protected override void Move()
     {
         Player.transform.position += action.direction * Time.deltaTime * Player.Species.speed;
+        Player.transform.LookAt(direction);
     }
 
     protected override void Pass()

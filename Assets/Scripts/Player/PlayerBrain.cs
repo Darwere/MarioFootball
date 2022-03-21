@@ -69,5 +69,5 @@ public abstract class PlayerBrain : MonoBehaviour
     /// <returns>Le vecteur de déplacement.</returns>
     public abstract Vector3 MoveInput();
 
-    public abstract void Act();
+    public abstract PlayerAction.ActionType Act();
 }
