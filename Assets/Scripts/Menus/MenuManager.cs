@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
     public GameObject ActualCanvas;
     public GameObject NextCanvas;
     public GameObject PreviousCanvas;
+
     
     public void ChangeNextCanvas()
     {
@@ -17,7 +18,11 @@ public class MenuManager : MonoBehaviour
 
     public void ChangePreviousCanvas()
     {
+        
         PreviousCanvas.SetActive(true);
         ActualCanvas.SetActive(false); 
     }
+
+
+    
 }

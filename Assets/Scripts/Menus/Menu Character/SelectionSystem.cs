@@ -6,24 +6,56 @@ using UnityEngine.UI;
 
 public class SelectionSystem : MonoBehaviour
 {
-    public GraphicRaycaster Raycaster;
-    // Start is called before the first frame update
-    void Start()
+    public List<GameObject> ListButtons = new List<GameObject>();
+    int compteurButtons = 0;
+    GameObject buttonSelected;
+
+
+    public void SelectionCharacter()
     {
-        
+        buttonSelected = ListButtons[compteurButtons];
+        SelectionCharacterUI(buttonSelected);
     }
 
-    // Update is called once per frame
-    void Update()
+    void SelectionCharacterUI(GameObject buttonSelected)
     {
-        PointerEventData eventData = new PointerEventData(null);
-        //eventData.position = Input.mousePosition;
-        List<RaycastResult> results = new List<RaycastResult>();
-        Raycaster.Raycast(eventData, results);
+        buttonSelected.GetComponent<Image>().color = Color.red;
+    }
+    void DeselectionCharacterUI(GameObject buttonSelected)
+    {
+        buttonSelected.GetComponent<Image>().color = Color.black;
+    }
 
-        foreach (var item in results)
+    public void SelectionCharacterRight()
+    {
+        DeselectionCharacterUI(ListButtons[compteurButtons]);
+        compteurButtons++;
+        if (compteurButtons < ListButtons.Count)
         {
-            Debug.Log(item);
+
+            SelectionCharacter();
+        }
+        else
+        {
+            compteurButtons = 0;
+            SelectionCharacter();
+        }
+    }
+
+    public void SelectionCharacterLeft()
+    {
+        DeselectionCharacterUI(ListButtons[compteurButtons]);
+        compteurButtons--;
+
+        if (compteurButtons >= 0)
+        {
+            SelectionCharacter();
+        }
+        else
+        {
+            compteurButtons = ListButtons.Count - 1;
+            SelectionCharacter();
+
         }
     }
 }

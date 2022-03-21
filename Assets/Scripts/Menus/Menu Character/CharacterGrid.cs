@@ -68,6 +68,16 @@ public class CharacterGrid : MonoBehaviour
     {
         DeselectionCharacterUI(listCharacters[compteurCharacter]);
         compteurCharacter--;
-        SelectionCharacter();
+        
+        if (compteurCharacter >= 0)
+        {
+            SelectionCharacter();
+        }
+        else
+        {
+            compteurCharacter = listCharacters.Count-1;
+            SelectionCharacter();
+
+        }
     }
 }
