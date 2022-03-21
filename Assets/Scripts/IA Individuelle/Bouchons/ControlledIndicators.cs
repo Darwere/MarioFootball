@@ -30,7 +30,7 @@ public class ControlledIndicators : MonoBehaviour
         }
 
         //GetComponent<Light>().range = (target.GetComponent<AIController>().teamHasBall) ? 1.5f * initialRange : initialRange;
-        GetComponent<Light>().intensity = (target.GetComponent<AIController>().teamHasBall) ? 2f : 1;
+        GetComponent<Light>().intensity = (target.GetComponent<PlacementAIBrain>().teamHasBall) ? 2f : 1;
 
 
         transform.position = target.transform.position;

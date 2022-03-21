@@ -11,7 +11,7 @@ public enum Placement
     Center
 }
 
-public class AIController : MonoBehaviour
+public class PlacementAIBrain : PlayerBrain
 {
 
     //public bool IsAI = true;
@@ -61,9 +61,10 @@ public class AIController : MonoBehaviour
 
     private Vector3 movementTarget = new Vector3();
 
-    private void Awake()
+    public override void Awake()
     {
-        
+        //Player = GetComponent<Player>();
+
         if (GetComponent<AIPlayerData>().color == Teams.Teamcolor.Blue)
         {
             Teams.blueTeam.Add(this.gameObject);
@@ -178,6 +179,25 @@ public class AIController : MonoBehaviour
 
 
     //====================================================
+    // PlayerBrain Function Requirements
+
+
+
+    public override Vector3 Move()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override Action Act()
+    {
+        throw new System.NotImplementedException();
+    }
+
+
+    //====================================================
+
+
+    //====================================================
     //Value Checkup FUnctions
     private void DetermineDefending()
     {
@@ -188,7 +208,7 @@ public class AIController : MonoBehaviour
             foreach (GameObject teammate in Teammates)
             {
                 Vector3 themToGoal = teamGoal.position - teammate.transform.position;
-                if ((themToGoal.magnitude < selfToGoal.magnitude - 2 && teammate.GetComponent<AIPlayerData>().isAI) || teammate.GetComponent<AIController>().defending)
+                if ((themToGoal.magnitude < selfToGoal.magnitude - 2 && teammate.GetComponent<AIPlayerData>().isAI) || teammate.GetComponent<PlacementAIBrain>().defending)
                 {
                     defending = false;
                 }
@@ -245,7 +265,7 @@ public class AIController : MonoBehaviour
 
         foreach (GameObject player in Teammates)
         {
-            AssignPlacement(player.GetComponent<AIPlayerData>(), player.GetComponent<AIController>().playerplacement);
+            AssignPlacement(player.GetComponent<AIPlayerData>(), player.GetComponent<PlacementAIBrain>().playerplacement);
         }
 
     }
@@ -364,26 +384,26 @@ public class AIController : MonoBehaviour
             for (int i = 0; i < toTeamVects.Length; i++)
             {
                 Vector3 vect = toTeamVects[i];
-                if (vect.magnitude < 2 && !Teammates[i].GetComponent<AIController>().AIAlreadyMoving /*&& !Teammates[i].GetComponent<AIController>().defending*/)
+                if (vect.magnitude < 2 && !Teammates[i].GetComponent<PlacementAIBrain>().AIAlreadyMoving /*&& !Teammates[i].GetComponent<AIController>().defending*/)
                 {
                     Displacement = Vector3.Cross(Vector3.up, vect.normalized) + Vector3.Cross(Vector3.up, vect.normalized);
 
                     //Displacement = /*vect.normalized +*/ Random.Range(-0.1f, 0.1f) *Vector3.Cross(vect.normalized, Vector3.up);
                     Displacement.y = 0;
-                    int otherdefending = Teammates[i].GetComponent<AIController>().defending ? 0 : 1;
+                    int otherdefending = Teammates[i].GetComponent<PlacementAIBrain>().defending ? 0 : 1;
                     movementTarget -= 1.5f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized) * Time.deltaTime;
                 }
             }
             for (int i = 0; i < toEnnemiesVects.Length; i++)
             {
                 Vector3 vect = toEnnemiesVects[i];
-                if (vect.magnitude < 2 && !Ennemies[i].GetComponent<AIController>().AIAlreadyMoving /*&& !Teammates[i].GetComponent<AIController>().defending*/)
+                if (vect.magnitude < 2 && !Ennemies[i].GetComponent<PlacementAIBrain>().AIAlreadyMoving /*&& !Teammates[i].GetComponent<AIController>().defending*/)
                 {
                     Displacement = Vector3.Cross(Vector3.up, vect.normalized) + Vector3.Cross(Vector3.up, vect.normalized);
 
                     //Displacement = /*vect.normalized +*/ Random.Range(-0.1f, 0.1f) *Vector3.Cross(vect.normalized, Vector3.up);
                     Displacement.y = 0;
-                    int otherdefending = Ennemies[i].GetComponent<AIController>().defending ? 1 : 1;
+                    int otherdefending = Ennemies[i].GetComponent<PlacementAIBrain>().defending ? 1 : 1;
                     movementTarget -= 1.5f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized) * Time.deltaTime;
                 }
             }
@@ -527,7 +547,7 @@ public class AIController : MonoBehaviour
                 bool alreadyTaken = false;
                 foreach (GameObject mate in Teammates)
                 {
-                    if (mate.GetComponent<AIController>().defenseTarget == Ennemies[i]) alreadyTaken = true;
+                    if (mate.GetComponent<PlacementAIBrain>().defenseTarget == Ennemies[i]) alreadyTaken = true;
                 }
                 //return Ennemies[i];
                 if (!alreadyTaken)
@@ -576,10 +596,12 @@ public class AIController : MonoBehaviour
     }
 
 
+    /*
     private Vector3 Move()
     {
         return movementTarget;
     }
+    */
 
 
     // Update is called once per frame
@@ -604,8 +626,10 @@ public class AIController : MonoBehaviour
             GetEnnemyVisibility();
             CoverPosition();
         }
-        
-        
-        transform.position = Move();
+
+
+        //transform.position += movementTarget;
     }
+
+
 }

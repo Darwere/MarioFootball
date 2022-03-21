@@ -27,15 +27,15 @@ public class Switcher : MonoBehaviour
         IAManager.instance.playerWithBall = redPlayer.gameObject;
         foreach (GameObject red in Teams.redTeam)
         {
-            red.GetComponent<AIController>().teamHasBall = (teamWithBall == Teams.Teamcolor.Red);
-            red.GetComponent<AIController>().otherTeamHasBall = (teamWithBall == Teams.Teamcolor.Blue);
+            red.GetComponent<PlacementAIBrain>().teamHasBall = (teamWithBall == Teams.Teamcolor.Red);
+            red.GetComponent<PlacementAIBrain>().otherTeamHasBall = (teamWithBall == Teams.Teamcolor.Blue);
 
             red.GetComponent<AIPlayerData>().isAI = (red != redPlayer.gameObject);
         }
         foreach (GameObject blue in Teams.blueTeam)
         {
-            blue.GetComponent<AIController>().teamHasBall = (teamWithBall == Teams.Teamcolor.Blue);
-            blue.GetComponent<AIController>().otherTeamHasBall = (teamWithBall == Teams.Teamcolor.Red);
+            blue.GetComponent<PlacementAIBrain>().teamHasBall = (teamWithBall == Teams.Teamcolor.Blue);
+            blue.GetComponent<PlacementAIBrain>().otherTeamHasBall = (teamWithBall == Teams.Teamcolor.Red);
 
             blue.GetComponent<AIPlayerData>().isAI = (blue != bluePlayer.gameObject);
         }

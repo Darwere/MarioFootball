@@ -17,12 +17,12 @@ public class GoalAI : MonoBehaviour
         gameManager = IAManager.instance;
         if (teamcolor == Teams.Teamcolor.Blue)
         {
-            goalCenter = Teams.blueTeam[0].GetComponent<AIController>().teamGoal.position;
+            goalCenter = Teams.blueTeam[0].GetComponent<PlacementAIBrain>().teamGoal.position;
             goalCenter.y = 0.5f;
         }
         else
         {
-            goalCenter = Teams.redTeam[0].GetComponent<AIController>().teamGoal.position;
+            goalCenter = Teams.redTeam[0].GetComponent<PlacementAIBrain>().teamGoal.position;
             goalCenter.y = 0.5f;
         }
 
