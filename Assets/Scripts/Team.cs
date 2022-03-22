@@ -69,18 +69,14 @@ public class Team : MonoBehaviour
     {
         Player targetPlayer = new Player();
 
-        Vector3 vector;
         float angle = float.MaxValue;
-
         foreach(Player player in Players)
         {
             if(player.transform.position != startPos)
             {
-                vector = startPos - player.transform.position;
-
-                if(angle > Vector3.Angle(dir, vector))
+                if(angle > Vector3.Angle(player.transform.position, dir))
                 {
-                    angle = Vector3.Angle(dir, vector);
+                    angle = Vector3.Angle(player.transform.position, dir);
                     targetPlayer = player;
                 }       
             }

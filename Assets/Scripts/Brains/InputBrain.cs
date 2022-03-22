@@ -42,15 +42,18 @@ public class InputBrain : PlayerBrain
     {
         Player.transform.position += action.direction * Time.deltaTime * Player.Species.speed;
 
-        if(direction != Vector3.zero)
-            Player.transform.forward = direction;
+        if(action.direction != Vector3.zero)
+        {
+            Player.transform.forward = action.direction;
+        }
     }
 
     protected override void Pass()
     {
         Field.Ball.Move(action.duration, action.startPosition, action.endPosition, action.bezierPoint);
+        Player.GetBall(null);
         SwitchPlayer();
-
+        
         action.type = PlayerAction.ActionType.None;
     }
 
@@ -68,6 +71,8 @@ public class InputBrain : PlayerBrain
     {
 
         Field.Ball.Shoot(Enemies.ShootPoint,action.shootForce, action.direction, action.duration);
+
+        Player.GetBall(null);
         action.type = PlayerAction.ActionType.None;
     }
 
@@ -108,20 +113,27 @@ public class InputBrain : PlayerBrain
             return;
 
         Vector2 value = input.ReadValue<Vector2>();
+        Vector3 moveDirection;
 
         if (( (value.x < 0.1f && value.x > -0.1f) && (value.y < 0.1f && value.y > -0.1f) ))
         {
             value = new Vector2(0, 0);
             action.type = PlayerAction.ActionType.None;
+            moveDirection = new Vector3(value.x, 0, value.y);
+        }  
+        else
+        {
+            value = value.normalized;
+            direction = new Vector3(value.x, 0, value.y);
+            moveDirection = direction;
         }
-            
 
-        value = value.normalized;
-        direction = new Vector3(value.x, 0, value.y);
-
-
-        PlayerAction act = PlayerAction.Move(direction);
-        action = act;
+        if(Player.CanMove)
+        {
+            PlayerAction act = PlayerAction.Move(moveDirection);
+            action = act;
+        }
+        
     }
 
     public void Pass_SwitchPlayer(InputAction.CallbackContext input)
@@ -147,13 +159,14 @@ public class InputBrain : PlayerBrain
             return;
 
         PlayerAction act;
-
+        Debug.Log("Shoot direction : " + direction);
         if (Player.HasBall)
             act = PlayerAction.Shoot(2f, direction, Player.transform.position, 2f); //Shoot
         else
         {
             Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position, direction);
             act = PlayerAction.Tackle(targetPlayer); //Tackle
+            Debug.Log("PlayerTarget transform : " + targetPlayer.transform.position);
         }    
 
         action = act;
