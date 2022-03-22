@@ -1115,7 +1115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55b22583b79c79439ddb8f7e7dcc3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ateamBrainType: InputBrain
+  ateamBrainType: PlacementAIBrain
   agoalBrainType: InputBrain
 --- !u!114 &8875840102387356479
 MonoBehaviour:
@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55b22583b79c79439ddb8f7e7dcc3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ateamBrainType: InputBrain
+  ateamBrainType: PlacementAIBrain
   agoalBrainType: InputBrain
 --- !u!114 &8875840102547248347
 MonoBehaviour:
