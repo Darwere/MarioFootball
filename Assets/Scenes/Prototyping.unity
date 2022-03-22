@@ -1552,6 +1552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d434d2f558bda974a9ec40e67fa9e32c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 107179892}
   width: 90
   height: 45
   team1: {fileID: 1814555249}
