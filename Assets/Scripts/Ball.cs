@@ -20,6 +20,7 @@ public class Ball : MonoBehaviour
     private bool isMovable = false;
     private float minBezierZ;
     private float maxBezierZ;
+    private Vector3 offset = new Vector3 (0,0.5f,0);
 
 
     private void Awake()
@@ -39,8 +40,8 @@ public class Ball : MonoBehaviour
         isMovable = true;
         bezierPercent = 0;
         this.duration = duration;
-        this.startingPoint = startingPoint;
-        this.destination = destination;
+        this.startingPoint = startingPoint + offset;
+        this.destination = destination+ offset;
         this.bezierPoint = bezierPoint;
         DetachFromParent();
     }
