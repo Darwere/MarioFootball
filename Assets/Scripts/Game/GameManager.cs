@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     private Queue<Match> matches;
     private Queue<MatchResult> results;
     private MatchResult currentResult;
+    private uint timer = 180;
 
     private void Awake()
     {
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
     {
         matches = new Queue<Match>();
         matches.Enqueue(debugMatch);
+        StartCoroutine(DecreaseTimer());
     }
 
     /// <summary>
@@ -73,5 +76,15 @@ public class GameManager : MonoBehaviour
         instance.currentResult.scoreTeam2 = Field.Team1.ConcededGoals;
 
         instance.results.Enqueue(instance.currentResult);
+    }
+
+    private IEnumerator DecreaseTimer()
+    {
+        while (timer > 0)
+        {
+            yield return new WaitForSeconds(1);
+            --timer;
+            UIManager.ActualiseTimer(timer);
+        }
     }
 }

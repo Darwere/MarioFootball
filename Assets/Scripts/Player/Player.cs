@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -16,7 +18,7 @@ public class Player : MonoBehaviour
 
     private Ball ball;
 
-    private Animator animator;
+    [SerializeField] private Animator animator;
     private Rigidbody rgbd;
 
     [SerializeField] public PlayerBrain IABrain;
@@ -32,8 +34,11 @@ public class Player : MonoBehaviour
     public bool CanMove => State == PlayerState.Moving;
 
     public bool IsPiloted { get; set; } = false;
+    public PlayerSpecs Species => specs;
 
     public Vector3 Position => transform.position;
+
+    private Dictionary<PlayerAction.ActionType, Action> animationMethods = new Dictionary<PlayerAction.ActionType, Action>();
 
     public static Player CreatePlayer(GameObject prefab, Team team, bool isGoalKeeper = false)
     {
@@ -52,7 +57,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
         rgbd = GetComponent<Rigidbody>();
     }
 
@@ -65,22 +69,76 @@ public class Player : MonoBehaviour
             gameObject.name += " team1";
         else
             gameObject.name += " team2";
+
+        animationMethods.Add(PlayerAction.ActionType.None, NoAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Move, MoveAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Pass, PassAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Shoot, ShootAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Tackle, TackleAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Dribble, DribbleAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Headbutt, HeadButtAnimation);
+        animationMethods.Add(PlayerAction.ActionType.ChangePlayer, NoAnimation);
+        animationMethods.Add(PlayerAction.ActionType.Throw, NoAnimation);
     }
 
     private void Update()
     {
-        Vector3 move = transform.position + (IsPiloted ? Team.Brain.Move() : IABrain.Move());
-        if (move.x < Field.BottomLeftCorner.x
-            && move.x > Field.TopLeftCorner.x
-            && move.z < Field.TopRightCorner.z
-            && move.z > Field.TopLeftCorner.z)
-        {
-            transform.position = move;
-        }
+        if (IsPiloted)
+            animationMethods[Team.Brain.Act()].DynamicInvoke(); //Team.Brain.Act() return une ActionType
+        else
+            animationMethods[IABrain.Act()].DynamicInvoke(); //IABrain.Act() return une ActionType
     }
+
+    public void GetBall(Ball ball)
+    {
+        this.ball = ball;
+    }
+    #region Animation Launch
+
+    private void MoveAnimation()
+    {
+        animator.SetBool("Moving", true);
+    }
+
+    private void PassAnimation()
+    {
+        animator.SetTrigger("Pass");
+        animator.SetBool("Moving", false);
+    }
+
+    private void ShootAnimation()
+    {
+        animator.SetTrigger("Shoot");
+        animator.SetBool("Moving", false);
+    }
+
+    private void TackleAnimation()
+    {
+        animator.SetTrigger("Tackle");
+        animator.SetBool("Moving", false);
+    }
+
+    private void HeadButtAnimation()
+    {
+        animator.SetBool("Moving", false);
+    }
+
+    private void DribbleAnimation()
+    {
+        animator.SetBool("Moving", false);
+    }
+
+    private void NoAnimation()
+    {
+        animator.SetBool("Moving", false);
+    }
+
+    #endregion
 
     private void OnCollisionEnter(Collision collision)
     {
 
     }
+
+
 }

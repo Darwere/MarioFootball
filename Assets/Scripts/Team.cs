@@ -6,6 +6,7 @@ using System;
 public class Team : MonoBehaviour
 {
     [SerializeField] private string ateamBrainType;
+
     public Type TeamBrainType => Type.GetType(ateamBrainType);
 
     [SerializeField] private string agoalBrainType;
@@ -15,8 +16,11 @@ public class Team : MonoBehaviour
     public PlayerBrain[] Brains { get; private set; }
     public Player Goal { get; private set; }
 
-    public int ConcededGoals { get; private set; }
+    public int ConcededGoals;
     public InputBrain Brain { get; private set; }
+    [SerializeField]
+    private Transform[] ShootPoints;
+    public Transform[] ShootPoint => ShootPoints;
 
     private Queue<Item> items;
     private int itemCapacity = 3;
@@ -56,10 +60,67 @@ public class Team : MonoBehaviour
         items = new Queue<Item>(itemCapacity);
 
         Brains = Players.Select(player => player.IABrain).ToArray();
+
+        players[0].IsPiloted = true;
+        Brain.SetPlayer(players[0]);
+    }
+
+    public Player GetPlayerWithDirection(Vector3 startPos, Vector3 dir)
+    {
+        Player targetPlayer = new Player();
+
+        Vector3 vector;
+        float angle = float.MaxValue;
+
+        foreach(Player player in Players)
+        {
+            if(player.transform.position != startPos)
+            {
+                vector = startPos - player.transform.position;
+
+                if(angle > Vector3.Angle(dir, vector))
+                {
+                    angle = Vector3.Angle(dir, vector);
+                    targetPlayer = player;
+                }       
+            }
+        }
+
+        return targetPlayer;
+    }
+
+    public Player GetNearestPlayer(Vector3 point)
+    {
+        Player playerTarget = new Player();
+        float rangeSqrt = float.MaxValue;
+        Vector3 vector;
+
+        foreach (Player player in Players)
+        {
+            if (!player.IsPiloted)
+            {
+                vector = point - player.transform.position;
+
+                if (rangeSqrt > Vector3.SqrMagnitude(vector))
+                {
+                    rangeSqrt = Vector3.SqrMagnitude(vector);
+                    playerTarget = player;
+                }
+            }
+
+        }
+
+        return playerTarget;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        ++ConcededGoals;
+        Ball ball = collision.gameObject.GetComponent<Ball>();
+        if (ball != null)
+        {
+            ++ConcededGoals;
+            ball.Restart();
+            Debug.Log(ConcededGoals);
+        }
     }
 }

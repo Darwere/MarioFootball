@@ -84,7 +84,7 @@ public class Field : MonoBehaviour
     {
         instance.ball = ball;
 
-        ball.transform.position = instance.transform.position;
+        ball.transform.position = instance.transform.position + ball.transform.position;
 
         instance.SetTeamPosition();
     }
@@ -105,7 +105,7 @@ public class Field : MonoBehaviour
 
     private Vector3 VectorToPosition(Vector2 vector)
     {
-        return transform.position + new Vector3(vector.x * height / 2f, 1f, vector.y * width / 2f);
+        return transform.position + new Vector3(vector.x * height / 2f, 0f, vector.y * width / 2f);
     }
 
         
