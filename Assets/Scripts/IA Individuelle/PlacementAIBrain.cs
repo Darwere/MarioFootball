@@ -343,12 +343,12 @@ public class PlacementAIBrain : PlayerBrain
         Vector3 PlayerPosition = transform.position;
         if (!defending)
         {
-            playerplacement = Placement.LeftWing;
+            playerplacement = Placement.Center;
 
             if (PlayerPosition.x > TwoThirdField)
                 playerplacement = Placement.RightWing;
-            else if (PlayerPosition.x > ThirdField)
-                playerplacement = Placement.Center;
+            else if (PlayerPosition.x < ThirdField)
+                playerplacement = Placement.LeftWing;
         }
         else
         {
@@ -414,11 +414,11 @@ public class PlacementAIBrain : PlayerBrain
         switch (player.placement)
         {
             case Placement.RightWing:
-                return TwoThirdField + ThirdField / 2;
+                return TwoThirdField *1.5f;
             case Placement.Center:
-                return 1.5f * ThirdField;
+                return 0;
             case Placement.LeftWing:
-                return ThirdField / 2;
+                return ThirdField*1.5f;
             default:
                 return 0f;
         }
@@ -565,19 +565,19 @@ public class PlacementAIBrain : PlayerBrain
                     AIAlreadyMoving = true;
                     if (EmptyList == RightWingPlayers)
                     {
-                        DesiredPosition = new Vector3(TwoThirdField + ThirdField / 2, 0.5f, PlayerPosition.position.z);
+                        DesiredPosition = new Vector3(TwoThirdField*1.5f, 0.5f, PlayerPosition.position.z);
                         Displacement = DesiredPosition - transform.position;
                         PositionCorrecter(Displacement);
                     }
                     else if (EmptyList == LeftWingPlayers)
                     {
-                        DesiredPosition = new Vector3(ThirdField / 2, 0.5f, PlayerPosition.position.z);
+                        DesiredPosition = new Vector3(ThirdField*1.5f, 0.5f, PlayerPosition.position.z);
                         Displacement = DesiredPosition - transform.position;
                         PositionCorrecter(Displacement);
                     }
                     else
                     {
-                        DesiredPosition = new Vector3(1.5f * ThirdField, 0.5f, PlayerPosition.position.z);
+                        DesiredPosition = new Vector3(0, 0.5f, PlayerPosition.position.z);
                         Displacement = DesiredPosition - transform.position;
                         PositionCorrecter(Displacement);
                     }
@@ -705,6 +705,19 @@ public class PlacementAIBrain : PlayerBrain
     }
     */
 
+    private void DebugPrint()
+    {
+        if(Data.color == Teams.Teamcolor.Blue && GetComponent<Player>().IsPiloted)
+        {
+            Debug.Log(transform.position.x);
+            Debug.Log(transform.position.z);
+            Debug.Log(Field.HeightOneThird);
+            Debug.Log(Field.HeightTwoThirds);
+            Debug.Log(playerplacement);
+            Debug.Log("");
+
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -731,6 +744,7 @@ public class PlacementAIBrain : PlayerBrain
             PlayerPosition = GetPlayerInTeam().transform;
             if (teamHasBall)
             {
+                DebugPrint();
                 DefenseModeReset();
                 DetermineDefending();
                 UpdatePlayersPlacement();
@@ -745,7 +759,13 @@ public class PlacementAIBrain : PlayerBrain
         }
 
         movementTarget.y = 0;
+
+        if (movementTarget.magnitude > 0.5f)
+            movementTarget = movementTarget.normalized;
+        else
+            movementTarget = Vector3.zero;
         PlayerAction act = PlayerAction.Move(movementTarget.normalized);
+        //else PlayerAction.Idle();
         action = act;
 
 
