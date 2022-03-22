@@ -120,7 +120,7 @@ public class Team : MonoBehaviour
         {
             ++ConcededGoals;
             ball.Restart();
-            Debug.Log(ConcededGoals);
+            UIManager.ActualiseScore();
         }
     }
 }

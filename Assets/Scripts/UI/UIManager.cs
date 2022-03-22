@@ -27,4 +27,10 @@ public class UIManager : MonoBehaviour
         uint secondes = timer % 60;
         instance.Timer.text = minutes.ToString() + " : " + secondes.ToString();
     }
+
+    public static void ActualiseScore()
+    {
+        instance.Score1.text = Field.Team2.ConcededGoals.ToString();
+        instance.Score2.text = Field.Team1.ConcededGoals.ToString();
+    }
 }
