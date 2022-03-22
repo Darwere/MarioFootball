@@ -33,13 +33,12 @@ public class PlacementAIBrain : PlayerBrain
     public bool otherTeamHasBall = false;
     [Space]
 
-    [SerializeField] private List<AIPlayerData> RightWingPlayers = new List<AIPlayerData>();
-    [SerializeField] private List<AIPlayerData> LeftWingPlayers = new List<AIPlayerData>();
-    [SerializeField] private List<AIPlayerData> CenterPlayers = new List<AIPlayerData>();
+    [SerializeField] private List<PlacementAIBrain> RightWingPlayers = new List<PlacementAIBrain>();
+    [SerializeField] private List<PlacementAIBrain> LeftWingPlayers = new List<PlacementAIBrain>();
+    [SerializeField] private List<PlacementAIBrain> CenterPlayers = new List<PlacementAIBrain>();
+    public Vector3 WingOccupancy;
     [Space]
     [SerializeField] private Transform PlayerPosition;
-    [SerializeField] private Transform BottomFieldWall;
-    [SerializeField] private Transform TopFieldWall;
     [SerializeField] private float Speed;
     [SerializeField] private float DisplacementStep;
     [Space]
@@ -49,10 +48,10 @@ public class PlacementAIBrain : PlayerBrain
     private float FieldWidth;
     private float DesiredX;
 
-    private List<AIPlayerData> SaturatedList, EmptyList;
+    private List<PlacementAIBrain> SaturatedList, EmptyList;
     private bool saturated = false;
 
-    private Placement playerplacement;
+    public Placement playerplacement;
     private Vector3 Displacement;
     private Vector3 DesiredPosition;
     private bool AIAlreadyMoving;
@@ -63,24 +62,6 @@ public class PlacementAIBrain : PlayerBrain
     private GameObject defenseTarget;
 
     private Vector3 movementTarget = new Vector3();
-
-    protected override void Awake()
-    {
-        //Player = GetComponent<Player>();
-        base.Awake();
-
-        
-
-    }
-
-    
-   
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
 
     //Default functions
@@ -102,6 +83,7 @@ public class PlacementAIBrain : PlayerBrain
 
         if (Data.color == Teams.Teamcolor.Blue)
         {
+            
             foreach (GameObject teammate in Teams.blueTeam)
             {
                 Teammates.Add(teammate);
@@ -135,27 +117,34 @@ public class PlacementAIBrain : PlayerBrain
 
     void StartInit()
     {
-        if (Player.Team == Field.Team1) Data.color = Teams.Teamcolor.Blue;
-        else Data.color = Teams.Teamcolor.Red;
-        Debug.LogWarning(Field.Team1);
+        if (Player.Team == Field.Team1) { Data.color = Teams.Teamcolor.Blue; TeamGoalPos = Field.Team1.transform.position; EnnemyGoalPos = Field.Team2.transform.position; }
+        else { Data.color = Teams.Teamcolor.Red; TeamGoalPos = Field.Team2.transform.position; EnnemyGoalPos = Field.Team1.transform.position; }
+
+        Speed = 5;
+        DisplacementStep = 2;
+        acceptanceDistance = 3;
+        /*Debug.LogWarning(Field.Team1);
         Debug.LogWarning(Player.Team);
         Debug.LogWarning(Data.color);
-        Debug.LogWarning("");
+        Debug.LogWarning("");*/
 
 
         if (Data.color == Teams.Teamcolor.Blue)
         {
             Teams.blueTeam.Add(this.gameObject);
+            GetComponent<MeshRenderer>().material.color = Color.blue;
         }
         else
         {
             Teams.redTeam.Add(this.gameObject);
-
+            GetComponent<MeshRenderer>().material.color = Color.red;
         }
 
         FieldWidth = Mathf.Min(Mathf.Abs(Field.BottomLeftCorner.y - Field.TopRightCorner.y), Mathf.Abs(Field.BottomLeftCorner.x - Field.TopRightCorner.x)); //TopFieldWall.position.x - BottomFieldWall.position.x;
         ThirdField = Field.HeightOneThird; //Mathf.Max(Mathf.Abs(Field.BottomLeftCorner.y - Field.TopRightCorner.y), Mathf.Abs(Field.BottomLeftCorner.x - Field.TopRightCorner.x)); //BottomFieldWall.position.x + FieldWidth / 3;
-        TwoThirdField = 2 * ThirdField;
+        
+        
+        TwoThirdField = Field.HeightTwoThirds;
 
 
         initialised = true;
@@ -208,6 +197,93 @@ public class PlacementAIBrain : PlayerBrain
 
 
 
+    #region Control Player Methods
+
+    protected override void Idle()
+    {
+
+    }
+
+    protected override void Move()
+    {
+        Player.transform.position += action.direction * Time.deltaTime * Player.Species.speed;
+    }
+
+    protected override void Pass()
+    {
+        //Field.Ball.Pass(action.startPosition, action.bezierPoint, action.endPosition, action.duration);
+        SwitchPlayer();
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Pass");
+    }
+
+    protected override void SwitchPlayer()
+    {
+        Player.IsPiloted = false; //last player piloted
+
+        Player = action.target;
+        Player.IsPiloted = true; //new player piloted
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Switch");
+    }
+
+    protected override void Shoot()
+    {
+        //Ball.Shoot(action.shootForce, action.direction, action.startPosition, action.duration);
+
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Shoot");
+    }
+
+    public override Vector3 MoveInput()
+    {
+        //Ball.Shoot(action.shootForce, action.direction, action.startPosition, action.duration);
+
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("MoveInput");
+        return Vector3.zero;
+    }
+
+    protected override void Tackle()
+    {
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Tackle");
+    }
+
+    protected override void Dribble()
+    {
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Drible");
+    }
+
+    protected override void Headbutt()
+    {
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Headbutt");
+    }
+
+    protected override void SendObject()
+    {
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("SendObject");
+    }
+
+    #endregion
+
+    public override void Act()
+    {
+        actionMethods[action.type].DynamicInvoke();
+    }
+
+    /*
     public override Vector3 Move()
     {
         return (movementTarget-transform.position).normalized;
@@ -217,7 +293,7 @@ public class PlacementAIBrain : PlayerBrain
     {
         throw new System.NotImplementedException();
     }
-
+    */
 
     //====================================================
 
@@ -284,18 +360,18 @@ public class PlacementAIBrain : PlayerBrain
         {*/
         Data.placement = playerplacement;
 
-        AssignPlacement(Data, playerplacement);
+        AssignPlacement(this, playerplacement);
 
         /*}*/
 
         foreach (GameObject player in Teammates)
         {
-            AssignPlacement(player.GetComponent<PlacementAIBrain>().Data, player.GetComponent<PlacementAIBrain>().playerplacement);
+            AssignPlacement(player.GetComponent<PlacementAIBrain>(), player.GetComponent<PlacementAIBrain>().playerplacement);
         }
 
     }
 
-    private void AssignPlacement(AIPlayerData player, Placement placement)
+    private void AssignPlacement(PlacementAIBrain player, Placement placement)
     {
         switch (placement)
         {
@@ -416,7 +492,7 @@ public class PlacementAIBrain : PlayerBrain
                     //Displacement = /*vect.normalized +*/ Random.Range(-0.1f, 0.1f) *Vector3.Cross(vect.normalized, Vector3.up);
                     Displacement.y = 0;
                     int otherdefending = Teammates[i].GetComponent<PlacementAIBrain>().defending ? 0 : 1;
-                    movementTarget -= 1.5f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized) * Time.deltaTime;
+                    movementTarget -= 5f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized) * Time.deltaTime;
                 }
             }
             for (int i = 0; i < toEnnemiesVects.Length; i++)
@@ -464,13 +540,14 @@ public class PlacementAIBrain : PlayerBrain
                 (CenterPlayers == GetSaturatedList() && playerplacement == Placement.Center))
             {
                 saturated = true;
+                //Debug.Log(this.gameObject.name + " is saturated \n");
             }
 
-            SaturatedList.Remove(Data);
+            SaturatedList.Remove(this);
             EmptyList = GetEmptyList();
             AIAlreadyMoving = false;
             bool otherMoving = false;
-            foreach (AIPlayerData player in SaturatedList)
+            foreach (PlacementAIBrain player in SaturatedList)
             {
                 if (AIAlreadyMoving)
                 {
@@ -532,7 +609,7 @@ public class PlacementAIBrain : PlayerBrain
         }
     }
 
-    private List<AIPlayerData> GetSaturatedList()
+    private List<PlacementAIBrain> GetSaturatedList()
     {
         if (RightWingPlayers.Count > 1)
             return RightWingPlayers;
@@ -544,7 +621,7 @@ public class PlacementAIBrain : PlayerBrain
             return CenterPlayers;
     }
 
-    private List<AIPlayerData> GetEmptyList()
+    private List<PlacementAIBrain> GetEmptyList()
     {
         if (RightWingPlayers.Count == 0)
             return RightWingPlayers;
@@ -632,8 +709,8 @@ public class PlacementAIBrain : PlayerBrain
     // Update is called once per frame
     void Update()
     {
-        
-        movementTarget = transform.position;
+
+        movementTarget = Vector3.zero; //transform.position;
 
         debugIsAIVisual = GetComponent<Player>().IsPiloted;
 
@@ -667,12 +744,15 @@ public class PlacementAIBrain : PlayerBrain
             }
         }
 
-        
+        movementTarget.y = 0;
+        PlayerAction act = PlayerAction.Move(movementTarget.normalized);
+        action = act;
 
+
+        WingOccupancy = new Vector3(LeftWingPlayers.Count, CenterPlayers.Count, RightWingPlayers.Count);
 
         //transform.position += movementTarget;
     }
-
 
 }
 
