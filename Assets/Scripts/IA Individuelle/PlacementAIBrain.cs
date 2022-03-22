@@ -132,12 +132,12 @@ public class PlacementAIBrain : PlayerBrain
         if (Data.color == Teams.Teamcolor.Blue)
         {
             Teams.blueTeam.Add(this.gameObject);
-            GetComponent<MeshRenderer>().material.color = Color.blue;
+            //GetComponent<MeshRenderer>().material.color = Color.blue;
         }
         else
         {
             Teams.redTeam.Add(this.gameObject);
-            GetComponent<MeshRenderer>().material.color = Color.red;
+            //GetComponent<MeshRenderer>().material.color = Color.red;
         }
 
         FieldWidth = Mathf.Min(Mathf.Abs(Field.BottomLeftCorner.y - Field.TopRightCorner.y), Mathf.Abs(Field.BottomLeftCorner.x - Field.TopRightCorner.x)); //TopFieldWall.position.x - BottomFieldWall.position.x;
