@@ -95,8 +95,9 @@ public class GoalBrain : PlayerBrain
 
 
 
-    public override void Act()
+    public override PlayerAction.ActionType Act()
     {
         actionMethods[action.type].DynamicInvoke();
+        return action.type;
     }
 }

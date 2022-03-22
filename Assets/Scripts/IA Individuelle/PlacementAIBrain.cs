@@ -132,12 +132,12 @@ public class PlacementAIBrain : PlayerBrain
         if (Data.color == Teams.Teamcolor.Blue)
         {
             Teams.blueTeam.Add(this.gameObject);
-            GetComponent<MeshRenderer>().material.color = Color.blue;
+            //GetComponent<MeshRenderer>().material.color = Color.blue;
         }
         else
         {
             Teams.redTeam.Add(this.gameObject);
-            GetComponent<MeshRenderer>().material.color = Color.red;
+            //GetComponent<MeshRenderer>().material.color = Color.red;
         }
 
         FieldWidth = Mathf.Min(Mathf.Abs(Field.BottomLeftCorner.y - Field.TopRightCorner.y), Mathf.Abs(Field.BottomLeftCorner.x - Field.TopRightCorner.x)); //TopFieldWall.position.x - BottomFieldWall.position.x;
@@ -278,9 +278,11 @@ public class PlacementAIBrain : PlayerBrain
 
     #endregion
 
-    public override void Act()
+    public override PlayerAction.ActionType Act()
     {
+        Debug.Log("ActionType : " + action.type);
         actionMethods[action.type].DynamicInvoke();
+        return action.type;
     }
 
     /*
@@ -448,7 +450,6 @@ public class PlacementAIBrain : PlayerBrain
                 bool canSeeGoal = true;
                 foreach (GameObject mate in Teammates)
                 {
-
                     Vector3 toGoal = Ennemies[i].transform.position - ((Ennemies[i].GetComponent<PlacementAIBrain>().Data.isAI)? GetPlayerInOtherTeam().transform.position : TeamGoalPos);
                     Vector3 toMate = Ennemies[i].transform.position - mate.transform.position;
 
@@ -760,11 +761,13 @@ public class PlacementAIBrain : PlayerBrain
 
         movementTarget.y = 0;
 
-        if (movementTarget.magnitude > 0.5f)
+        /*if (movementTarget.magnitude > 0.5f)
             movementTarget = movementTarget.normalized;
         else
-            movementTarget = Vector3.zero;
+            movementTarget = Vector3.zero;*/
+
         PlayerAction act = PlayerAction.Move(movementTarget.normalized);
+        Debug.Log(movementTarget);
         //else PlayerAction.Idle();
         action = act;
 
