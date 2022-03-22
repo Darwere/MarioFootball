@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
         Headbutting,
         Shooting,
         Falling,
-        Shocked
+        Shocked,
+        Waiting
     }
 
     [SerializeField] private PlayerSpecs specs;
@@ -70,15 +71,15 @@ public class Player : MonoBehaviour
         else
             gameObject.name += " team2";
 
-        animationMethods.Add(PlayerAction.ActionType.None, NoAnimation);
-        animationMethods.Add(PlayerAction.ActionType.Move, MoveAnimation);
-        animationMethods.Add(PlayerAction.ActionType.Pass, PassAnimation);
-        animationMethods.Add(PlayerAction.ActionType.Shoot, ShootAnimation);
-        animationMethods.Add(PlayerAction.ActionType.Tackle, TackleAnimation);
-        animationMethods.Add(PlayerAction.ActionType.Dribble, DribbleAnimation);
-        animationMethods.Add(PlayerAction.ActionType.Headbutt, HeadButtAnimation);
-        animationMethods.Add(PlayerAction.ActionType.ChangePlayer, NoAnimation);
-        animationMethods.Add(PlayerAction.ActionType.Throw, NoAnimation);
+        animationMethods.Add(PlayerAction.ActionType.None, NoAction);
+        animationMethods.Add(PlayerAction.ActionType.Move, MoveAction);
+        animationMethods.Add(PlayerAction.ActionType.Pass, PassAction);
+        animationMethods.Add(PlayerAction.ActionType.Shoot, ShootAction);
+        animationMethods.Add(PlayerAction.ActionType.Tackle, TackleAction);
+        animationMethods.Add(PlayerAction.ActionType.Dribble, DribbleAction);
+        animationMethods.Add(PlayerAction.ActionType.Headbutt, HeadButtAction);
+        animationMethods.Add(PlayerAction.ActionType.ChangePlayer, NoAction);
+        animationMethods.Add(PlayerAction.ActionType.Throw, NoAction);
     }
 
     private void Update()
@@ -93,47 +94,54 @@ public class Player : MonoBehaviour
     {
         this.ball = ball;
     }
-    #region Animation Launch
 
-    private void MoveAnimation()
+    #region Action
+
+    private void MoveAction()
     {
         animator.SetBool("Moving", true);
     }
 
-    private void PassAnimation()
+    private void PassAction()
     {
         animator.SetTrigger("Pass");
         animator.SetBool("Moving", false);
     }
 
-    private void ShootAnimation()
+    private void ShootAction()
     {
         animator.SetTrigger("Shoot");
         animator.SetBool("Moving", false);
     }
 
-    private void TackleAnimation()
+    private void TackleAction()
     {
         animator.SetTrigger("Tackle");
         animator.SetBool("Moving", false);
     }
 
-    private void HeadButtAnimation()
+    private void HeadButtAction()
     {
         animator.SetBool("Moving", false);
     }
 
-    private void DribbleAnimation()
+    private void DribbleAction()
     {
         animator.SetBool("Moving", false);
     }
 
-    private void NoAnimation()
+    private void NoAction()
     {
         animator.SetBool("Moving", false);
     }
 
     #endregion
+
+    public void GetPass()
+    {
+        this.ball = Field.Ball;
+        State = PlayerState.Waiting;
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
