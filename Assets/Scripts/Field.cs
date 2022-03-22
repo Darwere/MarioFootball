@@ -1,9 +1,12 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
 public class Field : MonoBehaviour
 {
     private static Field instance;
+
+    [SerializeField] private GameObject cam;
 
     [SerializeField] private float width;
     [SerializeField] private float height;
@@ -54,6 +57,7 @@ public class Field : MonoBehaviour
 
     private Ball ball;
     public static Ball Ball => instance.ball;
+    public static GameObject Cam => instance.cam;
 
     private void Awake()
     {
@@ -75,6 +79,7 @@ public class Field : MonoBehaviour
         heightFiveSixths = topLeftCorner.x + height * 5f / 6f;
 
         GameManager.BreedMePlease(team1, team2);
+
     }
     /// <summary>
     /// Assigne le ballon cr�� puis le positionne ainsi que les joueurs
@@ -85,10 +90,11 @@ public class Field : MonoBehaviour
         instance.ball = ball;
 
         ball.transform.position = instance.transform.position + ball.transform.position;
+        Cam.GetComponent<CinemachineVirtualCamera>().Follow = ball.transform;
+        Cam.GetComponent<CinemachineVirtualCamera>().LookAt = ball.transform;
 
         instance.SetTeamPosition();
     }
-
 
     private void SetTeamPosition()
     {
