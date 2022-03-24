@@ -66,10 +66,10 @@ public class Field : MonoBehaviour
 
     private void Start()
     {
-        bottomLeftCorner = new Vector3(height / 2, 0, -width / 2) + transform.position;
-        bottomRightCorner = new Vector3(height / 2, 0, width / 2) + transform.position;
-        topLeftCorner = new Vector3(-height / 2, 0, -width / 2) + transform.position;
-        topRightCorner = new Vector3(-height / 2, 0, width / 2) + transform.position;
+        bottomLeftCorner = new Vector3(width / 2, 0, -height / 2) + transform.position;
+        bottomRightCorner = new Vector3(-width / 2, 0, -height / 2) + transform.position;
+        topLeftCorner = new Vector3(-width / 2, 0, height / 2) + transform.position;
+        topRightCorner = new Vector3(-width / 2, 0, height / 2) + transform.position;
 
         heightOneThird = topLeftCorner.x + height / 3f;
         heightTwoThirds = topLeftCorner.x + height * 2f / 3f;
