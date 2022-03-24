@@ -1,5 +1,6 @@
 using Cinemachine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Field : MonoBehaviour
@@ -13,10 +14,13 @@ public class Field : MonoBehaviour
 
     [SerializeField] private Team team1, team2;
 
+    [SerializeField] private List<Transform> attackPos;
     [SerializeField] private Vector2 attackPosCaptain;
     [SerializeField] private Vector2 attackPosMate1;
     [SerializeField] private Vector2 attackPosMate2;
     [SerializeField] private Vector2 attackPosMate3;
+
+    [SerializeField] private List<Transform> defPos;
 
     [SerializeField] private Vector2 defPosCaptain;
     [SerializeField] private Vector2 defPosMate1;
@@ -98,6 +102,15 @@ public class Field : MonoBehaviour
 
     private void SetTeamPosition()
     {
+        for (int i = 0; i < Team1.Players.Length; i++)
+        {
+            Team1.Players[i].transform.position = attackPos[i].position;
+            Team2.Players[i].transform.position = defPos[i].position;
+        }
+
+
+        /* tout pareil qu'en dessous
+         
         Team1.Players[0].transform.position = VectorToPosition(attackPosCaptain);
         Team1.Players[1].transform.position = VectorToPosition(attackPosMate1);
         Team1.Players[2].transform.position = VectorToPosition(attackPosMate2);
@@ -107,12 +120,15 @@ public class Field : MonoBehaviour
         Team2.Players[1].transform.position = VectorToPosition(-defPosMate1);
         Team2.Players[2].transform.position = VectorToPosition(-defPosMate2);
         Team2.Players[3].transform.position = VectorToPosition(-defPosMate3);
+        */
     }
 
+    /*
+     * Normalement plus besoin, à suppr
     private Vector3 VectorToPosition(Vector2 vector)
     {
         return transform.position + new Vector3(vector.x * height / 2f, 0f, vector.y * width / 2f);
     }
-
+    */
         
 }
