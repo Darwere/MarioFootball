@@ -51,7 +51,6 @@ public class InputBrain : PlayerBrain
     protected override void Pass()
     {
         Field.Ball.Move(action.duration, action.startPosition, action.endPosition, action.bezierPoint);
-        Player.GetBall(null);
         SwitchPlayer();
         
         action.type = PlayerAction.ActionType.None;

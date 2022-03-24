@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
     private float minBezierZ;
     private float maxBezierZ;
     private Vector3 offset = new Vector3 (0,0.5f,0);
-
+    private Player player = new Player();
 
     private void Awake()
     {
@@ -115,9 +115,10 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();
-        if (player != null)
+        Debug.Log("non");
+        if (player != null && this.player != player)
         {
-            Debug.Log(player.HasBall);
+            Debug.Log("oui");
             AttachToPlayer(player);
         }
 
@@ -125,6 +126,7 @@ public class Ball : MonoBehaviour
 
     private void AttachToPlayer(Player parent)
     {
+        player = parent;
         isMovable = false;
         parent.GetBall(this);
         transform.parent = parent.transform;
