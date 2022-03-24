@@ -159,14 +159,14 @@ public class InputBrain : PlayerBrain
             return;
 
         PlayerAction act;
-        Debug.Log("Shoot direction : " + direction);
+        //Debug.Log("Shoot direction : " + direction);
         if (Player.HasBall)
             act = PlayerAction.Shoot(2f, direction, Player.transform.position, 2f); //Shoot
         else
         {
             Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position, direction);
             act = PlayerAction.Tackle(targetPlayer); //Tackle
-            Debug.Log("PlayerTarget transform : " + targetPlayer.transform.position);
+            //Debug.Log("PlayerTarget transform : " + targetPlayer.transform.position);
         }    
 
         action = act;

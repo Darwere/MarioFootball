@@ -117,6 +117,7 @@ public class Ball : MonoBehaviour
         Player player = collision.gameObject.GetComponent<Player>();
         if (player != null)
         {
+            Debug.Log(player.HasBall);
             AttachToPlayer(player);
         }
 
@@ -124,11 +125,11 @@ public class Ball : MonoBehaviour
 
     private void AttachToPlayer(Player parent)
     {
+        isMovable = false;
         parent.GetBall(this);
         transform.parent = parent.transform;
         transform.position += parent.transform.forward*1;
         ResetVelocity();
-        //isMovable = false;
         //isFree = false;
     }
 
