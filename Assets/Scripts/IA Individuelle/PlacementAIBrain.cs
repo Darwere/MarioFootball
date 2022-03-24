@@ -280,7 +280,6 @@ public class PlacementAIBrain : PlayerBrain
 
     public override PlayerAction.ActionType Act()
     {
-        Debug.Log("ActionType : " + action.type);
         actionMethods[action.type].DynamicInvoke();
         return action.type;
     }
@@ -767,7 +766,6 @@ public class PlacementAIBrain : PlayerBrain
             movementTarget = Vector3.zero;*/
 
         PlayerAction act = PlayerAction.Move(movementTarget.normalized);
-        Debug.Log(movementTarget);
         //else PlayerAction.Idle();
         action = act;
 

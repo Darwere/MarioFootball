@@ -741,7 +741,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2541457280464432744, guid: 5452780e0bf96584ca11e5f90cd82773, type: 3}
+  - {fileID: 2100000, guid: 689bf695f34c8c44987cc437e350091e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1366,7 +1366,7 @@ GameObject:
   - component: {fileID: 8714994655143966740}
   - component: {fileID: 3453928811637662733}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerTeam1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1432,7 +1432,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 051f0ef64ba75d947b9d05e8e90529b4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1452,6 +1452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   specs: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
   animator: {fileID: 8714994655143966740}
+  playerHips: {fileID: 1003953705266991791}
   IABrain: {fileID: 0}
 --- !u!1 &5905439336120886619
 GameObject:

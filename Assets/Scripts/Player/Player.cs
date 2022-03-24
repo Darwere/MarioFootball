@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     private Ball ball;
 
     [SerializeField] private Animator animator;
+    [SerializeField] private Transform playerHips;
+
     private Rigidbody rgbd;
 
     [SerializeField] public PlayerBrain IABrain;
@@ -140,9 +142,9 @@ public class Player : MonoBehaviour
 
     #region EventFunction
 
-    public void EndOfPass(Transform transform)
+    public void EndOfPass()
     {
-        transform.position = transform.position;
+        State = PlayerState.Moving;
     }
 
     #endregion

@@ -914,9 +914,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09eb34fcacb82354f823900c48510f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  captain1: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
+  captain1: {fileID: 11400000, guid: d79e8634fc168a0468277a285746380d, type: 2}
   captain2: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
-  mate1: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
+  mate1: {fileID: 11400000, guid: d79e8634fc168a0468277a285746380d, type: 2}
   mate2: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
   goalKeeper: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
 --- !u!114 &1642756265
@@ -997,11 +997,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: agoalBrainType
-      value: InputBrain
+      value: GoalBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
-      value: InputBrain
+      value: PlacementAIBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570014, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_Name
@@ -1078,11 +1078,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: agoalBrainType
-      value: InputBrain
+      value: GoalBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
-      value: InputBrain
+      value: PlacementAIBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570014, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_Name
