@@ -33,9 +33,9 @@ public class PlacementAIBrain : PlayerBrain
     public bool otherTeamHasBall = false;
     [Space]
 
-    [SerializeField] private List<PlacementAIBrain> RightWingPlayers = new List<PlacementAIBrain>();
-    [SerializeField] private List<PlacementAIBrain> LeftWingPlayers = new List<PlacementAIBrain>();
-    [SerializeField] private List<PlacementAIBrain> CenterPlayers = new List<PlacementAIBrain>();
+    private List<PlacementAIBrain> RightWingPlayers = new List<PlacementAIBrain>();
+    private List<PlacementAIBrain> LeftWingPlayers = new List<PlacementAIBrain>();
+    private List<PlacementAIBrain> CenterPlayers = new List<PlacementAIBrain>();
     public Vector3 WingOccupancy;
     [Space]
     [SerializeField] private Transform PlayerPosition;
@@ -52,6 +52,7 @@ public class PlacementAIBrain : PlayerBrain
     private bool saturated = false;
 
     public Placement playerplacement;
+    int uncoverDir = -1;
     private Vector3 Displacement;
     private Vector3 DesiredPosition;
     private bool AIAlreadyMoving;
@@ -453,7 +454,7 @@ public class PlacementAIBrain : PlayerBrain
                     Vector3 toGoal = Ennemies[i].transform.position - ((Ennemies[i].GetComponent<PlacementAIBrain>().Data.isAI)? GetPlayerInOtherTeam().transform.position : TeamGoalPos);
                     Vector3 toMate = Ennemies[i].transform.position - mate.transform.position;
 
-                    if (Vector3.Dot(toGoal, toMate) > 0.9f) canSeeGoal = false;
+                    if (Vector3.Angle(toGoal, toMate) < 5f) canSeeGoal = false;
                 }
                 
                 if (canSeeGoal) ennemyvisibility[i] = 0;
@@ -493,22 +494,25 @@ public class PlacementAIBrain : PlayerBrain
                     //Displacement = /*vect.normalized +*/ Random.Range(-0.1f, 0.1f) *Vector3.Cross(vect.normalized, Vector3.up);
                     Displacement.y = 0;
                     int otherdefending = Teammates[i].GetComponent<PlacementAIBrain>().defending ? 0 : 1;
-                    movementTarget -= 5f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized) * Time.deltaTime;
+                    movementTarget -= 5f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized);
                 }
             }
+            
             for (int i = 0; i < toEnnemiesVects.Length; i++)
             {
                 Vector3 vect = toEnnemiesVects[i];
                 if (vect.magnitude < 2 && !Ennemies[i].GetComponent<PlacementAIBrain>().AIAlreadyMoving /*&& !Teammates[i].GetComponent<AIController>().defending*/)
                 {
                     Displacement = Vector3.Cross(Vector3.up, vect.normalized) + Vector3.Cross(Vector3.up, vect.normalized);
-
+            
                     //Displacement = /*vect.normalized +*/ Random.Range(-0.1f, 0.1f) *Vector3.Cross(vect.normalized, Vector3.up);
                     Displacement.y = 0;
                     int otherdefending = Ennemies[i].GetComponent<PlacementAIBrain>().defending ? 1 : 1;
                     movementTarget -= 1.5f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized) * Time.deltaTime;
                 }
             }
+        
+        
         }
     }
 
@@ -520,21 +524,19 @@ public class PlacementAIBrain : PlayerBrain
             DesiredPosition = PlayerPosition.position + (TeamGoalPos - PlayerPosition.position) / 2;
             DesiredPosition.y = 0.5f;
             Displacement = DesiredPosition - transform.position;
-            PositionCorrecter(Displacement);
+            //PositionCorrecter(Displacement);
+            movementTarget += Displacement;
         }
         if (RightWingPlayers.Count == CenterPlayers.Count && CenterPlayers.Count == LeftWingPlayers.Count)
         {
-            if (Data.isAI)
-            {
-                DesiredX = GetDesiredX(Data);
-                DesiredPosition = new Vector3(DesiredX, 0.5f, PlayerPosition.position.z);
-                Displacement = DesiredPosition - transform.position;
-                PositionCorrecter(Displacement);
-            }
+            DesiredX = GetDesiredX(Data);
+            DesiredPosition = new Vector3(DesiredX, 0.5f, PlayerPosition.position.z);
+            Displacement = DesiredPosition - transform.position;
+            //PositionCorrecter(Displacement);
+            movementTarget += Displacement;
         }
         else
         {
-            
             SaturatedList = GetSaturatedList();
             if ((RightWingPlayers == GetSaturatedList() && playerplacement == Placement.RightWing) ||
                 (LeftWingPlayers == GetSaturatedList() && playerplacement == Placement.LeftWing) ||
@@ -568,19 +570,22 @@ public class PlacementAIBrain : PlayerBrain
                     {
                         DesiredPosition = new Vector3(TwoThirdField*1.5f, 0.5f, PlayerPosition.position.z);
                         Displacement = DesiredPosition - transform.position;
-                        PositionCorrecter(Displacement);
+                        //PositionCorrecter(Displacement);
+                        movementTarget += Displacement;
                     }
                     else if (EmptyList == LeftWingPlayers)
                     {
                         DesiredPosition = new Vector3(ThirdField*1.5f, 0.5f, PlayerPosition.position.z);
                         Displacement = DesiredPosition - transform.position;
-                        PositionCorrecter(Displacement);
+                        //PositionCorrecter(Displacement);
+                        movementTarget += Displacement;
                     }
                     else
                     {
                         DesiredPosition = new Vector3(0, 0.5f, PlayerPosition.position.z);
                         Displacement = DesiredPosition - transform.position;
-                        PositionCorrecter(Displacement);
+                        //PositionCorrecter(Displacement);
+                        movementTarget += Displacement;
                     }
                 }
             }
@@ -594,16 +599,22 @@ public class PlacementAIBrain : PlayerBrain
 
     private void AttackKeepSeeingTarget()
     {
+        
         foreach (GameObject ennemy in Ennemies)
         {
             Vector3 toEnnemy = ennemy.transform.position - transform.position;
             Vector3 toPlayer = PlayerPosition.position - transform.position;
 
-            float dot = Vector3.Dot(toEnnemy, toPlayer);
-            if (dot >0.9f && toEnnemy.magnitude < toPlayer.magnitude)
+            float dot = Vector3.Angle(toEnnemy, toPlayer);
+            if (Mathf.Abs(dot) < 10f && toEnnemy.magnitude < toPlayer.magnitude)
             {
-                Vector3 perp = -(toEnnemy - Vector3.Project(toEnnemy, toPlayer)).normalized;
-                movementTarget += perp;
+                //Debug.Log("not seeable");
+                if (Random.Range(0, 750f) <= 5f) uncoverDir *= -1;
+
+                //Vector3 perp = uncoverDir*(toEnnemy - Vector3.Project(toEnnemy, toPlayer)).normalized;
+                Vector3 perp = uncoverDir * (Vector3.Cross(Vector3.up, toPlayer.normalized)).normalized;
+
+                movementTarget += perp*10;
             }
         }
     }
@@ -687,35 +698,56 @@ public class PlacementAIBrain : PlayerBrain
     private void CoverPosition()
     {
         
-
-        if(Data.isAI)
+        if (defenseTarget == null)
         {
-            if (defenseTarget == null)
-            {
-                PlayerToCover();
-            }
-            GameObject otherPlayer = GetPlayerInOtherTeam();
-            bool coveringPlayer = (defenseTarget == otherPlayer);
-
-            if (coveringPlayer)
-            {
-                Vector3 playerToGoal = TeamGoalPos - otherPlayer.transform.position;
-                DesiredPosition = otherPlayer.transform.position + playerToGoal / 4;
-                DesiredPosition.y = 0.5f;
-            }
-            else
-            {
-                Vector3 ennemyToOtherPlayer = otherPlayer.transform.position - defenseTarget.transform.position;
-                DesiredPosition = defenseTarget.transform.position + ennemyToOtherPlayer / 4;
-                DesiredPosition.y = 0.5f;
-            }
-
-            Displacement = DesiredPosition - transform.position;
-            PositionCorrecter(Displacement);
+            PlayerToCover();
         }
+        GameObject otherPlayer = GetPlayerInOtherTeam();
+        bool coveringPlayer = (defenseTarget == otherPlayer);
+
+        if (coveringPlayer)
+        {
+            Vector3 playerToGoal = TeamGoalPos - otherPlayer.transform.position;
+            DesiredPosition = otherPlayer.transform.position + playerToGoal / 4;
+            DesiredPosition.y = 0.5f;
+        }
+        else
+        {
+            Vector3 ennemyToOtherPlayer = otherPlayer.transform.position - defenseTarget.transform.position;
+            DesiredPosition = defenseTarget.transform.position + ennemyToOtherPlayer / 3;
+            DesiredPosition.y = 0.5f;
+        }
+
+        Displacement = DesiredPosition - transform.position;
+        //PositionCorrecter(Displacement);
+        movementTarget += Displacement*2;
+
     }
 
+    void CheckMove()
+    {
+        Vector3 moveDir = movementTarget - transform.position;
+        if (Data.color == Teams.Teamcolor.Blue && this.gameObject == Teams.blueTeam[1]) Debug.Log(moveDir.magnitude);
 
+        moveDir.y = 0;
+        
+        if (moveDir.magnitude > 1.5f)
+        {
+            PlayerAction act = PlayerAction.Move(moveDir.normalized);
+            //Debug.Log(movementTarget);
+            //else PlayerAction.Idle();
+            action = act;
+        }
+        else
+        {
+            action = PlayerAction.Move(Vector3.zero);
+        }
+
+        
+
+
+
+    }
     /*
     private Vector3 Move()
     {
@@ -741,7 +773,7 @@ public class PlacementAIBrain : PlayerBrain
     void Update()
     {
 
-        movementTarget = Vector3.zero; //transform.position;
+        movementTarget = transform.position;
 
         debugIsAIVisual = GetComponent<Player>().IsPiloted;
 
@@ -762,7 +794,7 @@ public class PlacementAIBrain : PlayerBrain
             PlayerPosition = GetPlayerInTeam().transform;
             if (teamHasBall)
             {
-                DebugPrint();
+                //DebugPrint();
                 DefenseModeReset();
                 DetermineDefending();
                 UpdatePlayersPlacement();
@@ -776,19 +808,9 @@ public class PlacementAIBrain : PlayerBrain
                 CoverPosition();
             }
         }
+        CheckMove();
 
-        movementTarget.y = 0;
-
-        /*if (movementTarget.magnitude > 0.5f)
-            movementTarget = movementTarget.normalized;
-        else
-            movementTarget = Vector3.zero;*/
-
-        PlayerAction act = PlayerAction.Move(movementTarget.normalized);
-        Debug.Log(movementTarget);
-        //else PlayerAction.Idle();
-        action = act;
-
+        
 
         WingOccupancy = new Vector3(LeftWingPlayers.Count, CenterPlayers.Count, RightWingPlayers.Count);
 
