@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     private Ball ball;
 
     [SerializeField] private Animator animator;
+    [SerializeField] private Transform playerHips;
+
     private Rigidbody rgbd;
 
     [SerializeField] public PlayerBrain IABrain;
@@ -116,6 +118,7 @@ public class Player : MonoBehaviour
 
     private void TackleAction()
     {
+        State = PlayerState.Tackling;
         animator.SetTrigger("Tackle");
         animator.SetBool("Moving", false);
     }
@@ -133,6 +136,15 @@ public class Player : MonoBehaviour
     private void NoAction()
     {
         animator.SetBool("Moving", false);
+    }
+
+    #endregion
+
+    #region EventFunction
+
+    public void EndOfPass()
+    {
+        State = PlayerState.Moving;
     }
 
     #endregion
