@@ -116,6 +116,7 @@ public class Player : MonoBehaviour
 
     private void TackleAction()
     {
+        State = PlayerState.Tackling;
         animator.SetTrigger("Tackle");
         animator.SetBool("Moving", false);
     }
@@ -133,6 +134,15 @@ public class Player : MonoBehaviour
     private void NoAction()
     {
         animator.SetBool("Moving", false);
+    }
+
+    #endregion
+
+    #region EventFunction
+
+    public void EndOfPass(Transform transform)
+    {
+        transform.position = transform.position;
     }
 
     #endregion
