@@ -453,7 +453,7 @@ public class PlacementAIBrain : PlayerBrain
                     Vector3 toGoal = Ennemies[i].transform.position - ((Ennemies[i].GetComponent<PlacementAIBrain>().Data.isAI)? GetPlayerInOtherTeam().transform.position : TeamGoalPos);
                     Vector3 toMate = Ennemies[i].transform.position - mate.transform.position;
 
-                    if (Vector3.Dot(toGoal, toMate) < 0.1f) canSeeGoal = false;
+                    if (Vector3.Dot(toGoal, toMate) > 0.9f) canSeeGoal = false;
                 }
                 
                 if (canSeeGoal) ennemyvisibility[i] = 0;
@@ -592,7 +592,24 @@ public class PlacementAIBrain : PlayerBrain
         
     }
 
-   
+    private void AttackKeepSeeingTarget()
+    {
+        foreach (GameObject ennemy in Ennemies)
+        {
+            Vector3 toEnnemy = ennemy.transform.position - transform.position;
+            Vector3 toPlayer = PlayerPosition.position - transform.position;
+
+            float dot = Vector3.Dot(toEnnemy, toPlayer);
+            if (dot >0.9f && toEnnemy.magnitude < toPlayer.magnitude)
+            {
+                Vector3 perp = -(toEnnemy - Vector3.Project(toEnnemy, toPlayer)).normalized;
+                movementTarget += perp;
+            }
+        }
+    }
+
+
+
     private void PositionCorrecter(Vector3 Displacement)
     {
         if (Displacement.magnitude > acceptanceDistance)
@@ -750,6 +767,7 @@ public class PlacementAIBrain : PlayerBrain
                 DetermineDefending();
                 UpdatePlayersPlacement();
                 CheckAttackPlacement();
+                AttackKeepSeeingTarget();
             }
             else
             {
