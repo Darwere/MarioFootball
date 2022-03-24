@@ -51,7 +51,6 @@ public class InputBrain : PlayerBrain
     protected override void Pass()
     {
         Field.Ball.Move(action.duration, action.startPosition, action.endPosition, action.bezierPoint);
-        Player.GetBall(null);
         SwitchPlayer();
         
         action.type = PlayerAction.ActionType.None;
@@ -79,6 +78,7 @@ public class InputBrain : PlayerBrain
     protected override void Tackle()
     {
         //action.type = PlayerAction.ActionType.None;
+        StartCoroutine(Player.Tackle(action.direction));
         Debug.Log("Tackle");
     }
 
@@ -169,8 +169,10 @@ public class InputBrain : PlayerBrain
                 act = PlayerAction.Shoot(2f, direction, Player.transform.position, 2f); //Shoot
             else
             {
+                //Tackle
                 Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position, direction);
-                act = PlayerAction.Tackle(targetPlayer); //Tackle
+                Vector3 vector = targetPlayer.transform.position - Player.transform.position;
+                act = PlayerAction.Tackle(vector.normalized);
             }
         }
         action = act;

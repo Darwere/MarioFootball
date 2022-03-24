@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour
     private Ball ball;
 
     [SerializeField] private Animator animator;
-    [SerializeField] private Transform playerHips;
+    [SerializeField] private AnimationClip tackleAnimation;
 
     private Rigidbody rgbd;
 
@@ -32,7 +33,7 @@ public class Player : MonoBehaviour
     public bool CanGetBall => !IsStunned && State != PlayerState.Headbutting && !HasBall;
     public bool IsStunned => State == PlayerState.Shocked || State == PlayerState.Falling;
 
-    public bool HasBall { get => ball; }
+    public bool HasBall => Field.Ball.transform.parent == transform;
     public bool IsDoped { get; private set; }
     public bool CanMove => State == PlayerState.Moving;
 
@@ -97,6 +98,19 @@ public class Player : MonoBehaviour
         this.ball = ball;
     }
 
+    public IEnumerator Tackle(Vector3 direction)
+    {
+        yield return new WaitForEndOfFrame(); //Wait next frame to change the State
+
+        while (State == PlayerState.Tackling)
+        {
+            transform.position += direction * (specs.tackleRange * Time.deltaTime);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        yield return null;
+    }
+
     #region Action
 
     private void MoveAction()
@@ -105,7 +119,7 @@ public class Player : MonoBehaviour
     }
 
     private void PassAction()
-    {
+    { 
         animator.SetTrigger("Pass");
         animator.SetBool("Moving", false);
     }
@@ -144,6 +158,7 @@ public class Player : MonoBehaviour
 
     public void EndOfPass()
     {
+        ball = null;
         State = PlayerState.Moving;
     }
 
