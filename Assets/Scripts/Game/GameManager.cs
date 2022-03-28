@@ -85,6 +85,10 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             --timer;
+            if (timer == 0)
+            {
+                //timeOut();
+            }
             UIManager.ActualiseTimer(timer);
         }
     }
