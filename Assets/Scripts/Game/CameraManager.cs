@@ -14,11 +14,13 @@ public class CameraManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        Debug.Log(instance.name);
     }
 
     public static void Init()
     {
-        instance.target = Field.Ball.gameObject;
+        //instance.target = ball.gameObject;
         
         instance.yValues = instance.transform.position.y;
         //instance.zValues = instance.transform.position.z;
@@ -33,16 +35,16 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target.transform.position.x > RightBorder && target.transform.position.x<LeftBorder)
+        if (Field.Ball.transform.position.x > RightBorder && Field.Ball.transform.position.x<LeftBorder)
         {
             Debug.Log("dans le if");
-            Vector3 newCamPosition = new Vector3(target.transform.position.x, yValues, target.transform.position.z);
+            Vector3 newCamPosition = new Vector3(Field.Ball.transform.position.x, yValues, Field.Ball.transform.position.z);
             gameObject.transform.position = newCamPosition;
         }
         else
         {
-            Vector3 newCamPosition = new Vector3(transform.position.x, yValues, target.transform.position.z);
-            gameObject.transform.position = newCamPosition;
+            Vector3 newCamPosition = new Vector3(transform.position.x, yValues, Field.Ball.transform.position.z);
+            transform.position = newCamPosition;
         }
 
         

@@ -13,9 +13,11 @@ public class Field : MonoBehaviour
     [SerializeField] private float height;
 
     [SerializeField] private Team team1, team2;
+    [SerializeField] private Team attackTeam, defTeam;
+
+
 
     [SerializeField] private List<Transform> attackPos;
-
     [SerializeField] private List<Transform> defPos;
 
 
@@ -73,8 +75,10 @@ public class Field : MonoBehaviour
         heightOneSixths = topLeftCorner.x + height / 6f;
         heightThreeSixths = topLeftCorner.x + height * 3f / 6f;
         heightFiveSixths = topLeftCorner.x + height * 5f / 6f;
-
+        attackTeam = Team1;
+        defTeam = Team2;
         GameManager.BreedMePlease(team1, team2);
+
 
     }
     /// <summary>
@@ -89,39 +93,33 @@ public class Field : MonoBehaviour
         //Cam.GetComponent<CinemachineVirtualCamera>().Follow = ball.transform;
         //Cam.GetComponent<CinemachineVirtualCamera>().LookAt = ball.transform;
 
-        SetTeamPosition();
+        SetTeamPosition(Team1);
         CameraManager.Init();
     }
 
-    public static void SetTeamPosition()
+    public static void SetTeamPosition(Team _attackTeam)
     {
+        if (_attackTeam != instance.attackTeam)
+        {
+            Team temp = instance.attackTeam;
+            instance.attackTeam = _attackTeam;
+            instance.defTeam = temp;
+        }
+        
         for (int i = 0; i < Team1.Players.Length; i++)
         {
-            Team1.Players[i].transform.position = instance.attackPos[i].position;
-            Team2.Players[i].transform.position = instance.defPos[i].position;
+            instance.attackTeam.Players[i].transform.position = instance.attackPos[i].position;
+            instance.defTeam.Players[i].transform.position = instance.XAxisSymmetry(instance.defPos[i].position);
         }
+        instance.attackTeam.Goal.transform.position = instance.attackPos[instance.attackPos.Count-1].position;
+        instance.defTeam.Goal.transform.position = instance.XAxisSymmetry(instance.defPos[instance.defPos.Count-1].position);
 
-
-        /* tout pareil qu'en dessous
-         
-        Team1.Players[0].transform.position = VectorToPosition(attackPosCaptain);
-        Team1.Players[1].transform.position = VectorToPosition(attackPosMate1);
-        Team1.Players[2].transform.position = VectorToPosition(attackPosMate2);
-        Team1.Players[3].transform.position = VectorToPosition(attackPosMate3);
-
-        Team2.Players[0].transform.position = VectorToPosition(-defPosCaptain);
-        Team2.Players[1].transform.position = VectorToPosition(-defPosMate1);
-        Team2.Players[2].transform.position = VectorToPosition(-defPosMate2);
-        Team2.Players[3].transform.position = VectorToPosition(-defPosMate3);
-        */
     }
 
-    /*
-     * Normalement plus besoin, à suppr
-    private Vector3 VectorToPosition(Vector2 vector)
+
+    public Vector3 XAxisSymmetry(Vector3 initial)
     {
-        return transform.position + new Vector3(vector.x * height / 2f, 0f, vector.y * width / 2f);
+        return new Vector3(-initial.x,initial.y,initial.z);
     }
-    */
-        
+
 }

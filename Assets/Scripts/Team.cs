@@ -117,7 +117,7 @@ public class Team : MonoBehaviour
         {
             ++ConcededGoals;
             ball.Restart();
-            Field.SetTeamPosition();
+            Field.SetTeamPosition(this);
             UIManager.ActualiseScore();
         }
     }
