@@ -10,7 +10,7 @@ public class Ball : MonoBehaviour
     private Vector3 bezierPoint;
     private float force;
     private bool trail;
-    private bool isFree;
+    private bool isFree = true;
     private Color trailColorBegin;
     private Color trailColorEnd;
     private Rigidbody rbBall;
@@ -117,7 +117,8 @@ public class Ball : MonoBehaviour
         Player player = collision.gameObject.GetComponent<Player>();
         if (player != null && this.player != player)
         {
-            AttachToPlayer(player);
+            if(isFree)
+                AttachToPlayer(player);
         }
 
     }
@@ -129,14 +130,18 @@ public class Ball : MonoBehaviour
         parent.GetBall(this);
         transform.parent = parent.transform;
         transform.position = parent.transform.position + parent.transform.forward + Vector3.up * transform.position.y;
+        isFree = false;
         ResetVelocity();
+
+        rbBall.isKinematic = true;
         //isFree = false;
     }
 
-    private void DetachFromParent()
+    public void DetachFromParent()
     {
         transform.parent = null;
-        //isFree = true;
+        rbBall.isKinematic = false;
+        isFree = true;
         //isMovable = true;
     }
 }

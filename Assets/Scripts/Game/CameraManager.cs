@@ -9,7 +9,6 @@ public class CameraManager : MonoBehaviour
 
     private float yValues;
     private float zValues;
-    private GameObject target;
     private static CameraManager instance;
     private void Awake()
     {
@@ -20,8 +19,6 @@ public class CameraManager : MonoBehaviour
 
     public static void Init()
     {
-        //instance.target = ball.gameObject;
-        
         instance.yValues = instance.transform.position.y;
         //instance.zValues = instance.transform.position.z;
        

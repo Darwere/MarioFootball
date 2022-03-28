@@ -7,15 +7,11 @@ public class Field : MonoBehaviour
 {
     private static Field instance;
 
-    [SerializeField] private GameObject cam;
-
     [SerializeField] private float width;
     [SerializeField] private float height;
 
     [SerializeField] private Team team1, team2;
     [SerializeField] private Team attackTeam, defTeam;
-
-
 
     [SerializeField] private List<Transform> attackPos;
     [SerializeField] private List<Transform> defPos;
@@ -55,7 +51,6 @@ public class Field : MonoBehaviour
 
     private Ball ball;
     public static Ball Ball => instance.ball;
-    public static GameObject Cam => instance.cam;
 
     private void Awake()
     {
@@ -90,8 +85,6 @@ public class Field : MonoBehaviour
         instance.ball = ball;
 
         ball.transform.position = instance.transform.position + ball.transform.position;
-        //Cam.GetComponent<CinemachineVirtualCamera>().Follow = ball.transform;
-        //Cam.GetComponent<CinemachineVirtualCamera>().LookAt = ball.transform;
 
         SetTeamPosition(Team1);
         CameraManager.Init();
