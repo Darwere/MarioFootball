@@ -115,7 +115,6 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();
-
         if (player != null && this.player != player)
         {
             AttachToPlayer(player);
@@ -129,7 +128,7 @@ public class Ball : MonoBehaviour
         isMovable = false;
         parent.GetBall(this);
         transform.parent = parent.transform;
-        transform.position += parent.transform.forward*1;
+        transform.position = parent.transform.position + parent.transform.forward + Vector3.up * transform.position.y;
         ResetVelocity();
         //isFree = false;
     }

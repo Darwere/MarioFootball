@@ -74,7 +74,7 @@ public class Team : MonoBehaviour
         {
             if(player.transform.position != startPos)
             {
-                Debug.Log(player.transform.position + " Angle : " + Vector3.Angle(player.transform.position - startPos, dir));
+                //Debug.Log(player.transform.position + " Angle : " + Vector3.Angle(player.transform.position - startPos, dir));
                 if (angle > Vector3.Angle(player.transform.position - startPos, dir))
                 { 
                     angle = Vector3.Angle(player.transform.position - startPos, dir);
@@ -117,6 +117,7 @@ public class Team : MonoBehaviour
         {
             ++ConcededGoals;
             ball.Restart();
+            Field.SetTeamPosition();
             UIManager.ActualiseScore();
         }
     }
