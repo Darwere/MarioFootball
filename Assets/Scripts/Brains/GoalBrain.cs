@@ -43,7 +43,7 @@ public class GoalBrain : PlayerBrain
         else { action = PlayerAction.Move(Vector3.zero); }
     }
 
-    #region Control Player Methods
+    /*#region Control Player Methods
 
     protected override void Idle()
     {
@@ -91,13 +91,13 @@ public class GoalBrain : PlayerBrain
 
     }
 
-    #endregion
+    #endregion*/
 
 
 
-    public override PlayerAction.ActionType Act()
+    /*public override PlayerAction.ActionType Act()
     {
         actionMethods[action.type].DynamicInvoke();
         return action.type;
-    }
+    }*/
 }

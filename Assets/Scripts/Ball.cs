@@ -115,16 +115,15 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();
-        Debug.Log("Pas de passe a soi-meme !");
+
         if (player != null && this.player != player)
         {
-            Debug.Log("Récupération de balle");
             AttachToPlayer(player);
         }
 
     }
 
-    private void AttachToPlayer(Player parent)
+    public void AttachToPlayer(Player parent)
     {
         player = parent;
         isMovable = false;

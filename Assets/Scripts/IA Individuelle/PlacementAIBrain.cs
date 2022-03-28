@@ -197,7 +197,7 @@ public class PlacementAIBrain : PlayerBrain
 
 
 
-    #region Control Player Methods
+    /*#region Control Player Methods
 
     protected override void Idle()
     {
@@ -236,7 +236,7 @@ public class PlacementAIBrain : PlayerBrain
 
         action.type = PlayerAction.ActionType.None;
         Debug.Log("Shoot");
-    }
+    }*/
 
     public override Vector3 MoveInput()
     {
@@ -246,7 +246,7 @@ public class PlacementAIBrain : PlayerBrain
         action.type = PlayerAction.ActionType.None;
         Debug.Log("MoveInput");
         return Vector3.zero;
-    }
+    }/*
 
     protected override void Tackle()
     {

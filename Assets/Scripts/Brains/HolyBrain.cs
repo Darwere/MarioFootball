@@ -88,7 +88,7 @@ public class HolyBrain : PlayerBrain
         return new Vector3(desiredX, 1f, capz) - transform.position;
     }
 
-    #region Control Player Methods
+    /*#region Control Player Methods
 
     protected override void Idle()
     {
@@ -141,5 +141,5 @@ public class HolyBrain : PlayerBrain
     {
         actionMethods[action.type].DynamicInvoke();
         return action.type;
-    }
+    }*/
 }

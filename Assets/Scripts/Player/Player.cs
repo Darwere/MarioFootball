@@ -162,6 +162,12 @@ public class Player : MonoBehaviour
         State = PlayerState.Moving;
     }
 
+    public void EndOfFall()
+    {
+        ball = null;
+        State = PlayerState.Moving;
+    }
+
     #endregion
 
     public void GetPass()
@@ -170,10 +176,26 @@ public class Player : MonoBehaviour
         State = PlayerState.Waiting;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void GetTackled()
     {
-
+        State = PlayerState.Falling;
+        animator.SetTrigger("TackleFall");
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {  
+        Player player = collision.gameObject.GetComponent<Player>();
 
+        if (player != null)
+        {
+            if(Team != player.Team)
+            {
+                if (State == PlayerState.Tackling)
+                {
+                    player.GetTackled();
+                    Field.Ball.AttachToPlayer(this);
+                }
+            }
+        }
+    }
 }

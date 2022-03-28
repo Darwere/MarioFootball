@@ -43,25 +43,78 @@ public abstract class PlayerBrain : MonoBehaviour
 
     #region Control Player Methods
 
-    protected abstract void Idle();
+    protected void Idle()
+    {
 
-    protected abstract void Move();
+    }
 
-    protected abstract void Pass();
+    protected void Move()
+    {
+        Player.transform.position += action.direction * Time.deltaTime * Player.Species.speed;
+        if (action.direction != Vector3.zero)
+        {
+            Player.transform.forward = action.direction;
+        }
+    }
 
-    protected abstract void SwitchPlayer();
+    protected void Pass()
+    {
+        Field.Ball.Move(action.duration, action.startPosition, action.endPosition, action.bezierPoint);
+        SwitchPlayer();
 
-    protected abstract void Shoot();
+        action.type = PlayerAction.ActionType.None;
+    }
 
-    protected abstract void Tackle();
+    protected void SwitchPlayer()
+    {
+        Player.IsPiloted = false; //last player piloted
 
-    protected abstract void Dribble();
+        Player = action.target;
+        Player.IsPiloted = true; //new player piloted
 
-    protected abstract void Headbutt();
+        action.type = PlayerAction.ActionType.None;
+    }
 
-    protected abstract void SendObject();
+    protected void Shoot()
+    {
+
+        Field.Ball.Shoot(Enemies.ShootPoint, action.shootForce, action.direction, action.duration);
+
+        Player.GetBall(null);
+        action.type = PlayerAction.ActionType.None;
+    }
+
+    protected void Tackle()
+    {
+        //action.type = PlayerAction.ActionType.None;
+        StartCoroutine(Player.Tackle(action.direction));
+
+        Debug.Log("Tackle");
+    }
+
+    protected void Dribble()
+    {
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Drible");
+    }
+
+    protected void Headbutt()
+    {
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Headbutt");
+    }
+
+    protected void SendObject()
+    {
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("SendObject");
+    }
 
     #endregion
+
     /// <summary>
     /// Calcule le déplacement que l'IA doit appliquer au joueur/que la manette détecte
     /// </summary>
@@ -69,5 +122,16 @@ public abstract class PlayerBrain : MonoBehaviour
     /// <returns>Le vecteur de déplacement.</returns>
     public abstract Vector3 MoveInput();
 
-    public abstract PlayerAction.ActionType Act();
+    //public abstract PlayerAction.ActionType Act();
+
+    public PlayerAction.ActionType Act()
+    {
+        PlayerAction.ActionType lastActionType = action.type;
+
+        actionMethods[action.type].DynamicInvoke();
+
+        if (action.type != PlayerAction.ActionType.Move)
+            action.type = PlayerAction.ActionType.None; //Reset l'action
+        return lastActionType;
+    }
 }

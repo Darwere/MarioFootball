@@ -15,24 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SprintActivate",
-                    "type": "Value",
-                    "id": "757f9cd0-0c4f-4e3d-8a6a-688460928afc",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "SprintStop",
-                    "type": "Value",
-                    "id": "3b7a889d-f722-47b3-be6f-121e7d9544d7",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Press(behavior=1)",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Pass/SwitchPlayer",
                     "type": "Value",
                     "id": "40131ae6-2d4f-4b41-817f-b06df8d22bca",
@@ -182,28 +164,6 @@
                 },
                 {
                     "name": "",
-                    "id": "5b812bcb-614b-4a02-ad6f-fed70d9449be",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyBoard",
-                    "action": "SprintActivate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e764c0bc-a00e-405c-b3ad-58fb37706a12",
-                    "path": "<Gamepad>/leftStickPress",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "GamePad",
-                    "action": "SprintActivate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f89ab11b-87af-4c17-bc2f-7284e007d11f",
                     "path": "<Keyboard>/z",
                     "interactions": "",
@@ -243,28 +203,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "SendObject",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a090aa8f-f482-4582-b471-5f9610a7e629",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyBoard",
-                    "action": "SprintStop",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "776ba31a-dc1f-42f9-82d0-b12799436626",
-                    "path": "<Gamepad>/leftStickPress",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "GamePad",
-                    "action": "SprintStop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
