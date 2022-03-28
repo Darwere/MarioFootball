@@ -17,12 +17,13 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        matches = new Queue<Match>();
+        matches.Enqueue(debugMatch);
     }
 
     private void Start()
     {
-        matches = new Queue<Match>();
-        matches.Enqueue(debugMatch);
         StartCoroutine(DecreaseTimer());
     }
 
