@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
     private float minBezierZ;
     private float maxBezierZ;
     private Vector3 offset = new Vector3 (0,0.5f,0);
-
+    private Player player = new Player();
 
     private void Awake()
     {
@@ -115,8 +115,10 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();
-        if (player != null)
+        Debug.Log("Pas de passe a soi-meme !");
+        if (player != null && this.player != player)
         {
+            Debug.Log("Récupération de balle");
             AttachToPlayer(player);
         }
 
@@ -124,11 +126,12 @@ public class Ball : MonoBehaviour
 
     private void AttachToPlayer(Player parent)
     {
+        player = parent;
+        isMovable = false;
         parent.GetBall(this);
         transform.parent = parent.transform;
         transform.position += parent.transform.forward*1;
         ResetVelocity();
-        //isMovable = false;
         //isFree = false;
     }
 
