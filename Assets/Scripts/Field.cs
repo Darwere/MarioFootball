@@ -68,15 +68,15 @@ public class Field : MonoBehaviour
     {
         bottomLeftCorner = new Vector3(width / 2, 0, -height / 2) + transform.position;
         bottomRightCorner = new Vector3(-width / 2, 0, -height / 2) + transform.position;
-        topLeftCorner = new Vector3(-width / 2, 0, height / 2) + transform.position;
+        topLeftCorner = new Vector3(width / 2, 0, height / 2) + transform.position;
         topRightCorner = new Vector3(-width / 2, 0, height / 2) + transform.position;
 
-        heightOneThird = topLeftCorner.x + height / 3f;
-        heightTwoThirds = topLeftCorner.x + height * 2f / 3f;
+        heightOneThird = bottomLeftCorner.z + height / 3f;
+        heightTwoThirds = bottomLeftCorner.z + height * 2f / 3f;
 
-        heightOneSixths = topLeftCorner.x + height / 6f;
-        heightThreeSixths = topLeftCorner.x + height * 3f / 6f;
-        heightFiveSixths = topLeftCorner.x + height * 5f / 6f;
+        heightOneSixths = bottomLeftCorner.z + height / 6f;
+        heightThreeSixths = bottomLeftCorner.z + height * 3f / 6f;
+        heightFiveSixths = bottomLeftCorner.z + height * 5f / 6f;
 
         GameManager.BreedMePlease(team1, team2);
 
