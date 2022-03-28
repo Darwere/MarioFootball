@@ -98,27 +98,35 @@ public class Field : MonoBehaviour
 
     private void SetTeamPosition(Team _attackTeam)
     {
-        if (_attackTeam != attackTeam)
+        if (_attackTeam == Team1)
         {
-            Team temp = attackTeam;
-            attackTeam = _attackTeam;
-            defTeam = temp;
+            for (int i = 0; i < Team1.Players.Length; i++)
+            {
+                Team1.Players[i].transform.position = attackPos[i].position;
+                Team2.Players[i].transform.position = XAxisSymmetry(defPos[i].position);
+            }
+            Team1.Goal.transform.position = attackPos[attackPos.Count - 1].position;
+            Team2.Goal.transform.position = XAxisSymmetry(defPos[defPos.Count - 1].position);
         }
-        
-        for (int i = 0; i < Team1.Players.Length; i++)
+        else
         {
-            attackTeam.Players[i].transform.position = attackPos[i].position;
-            defTeam.Players[i].transform.position = XAxisSymmetry(defPos[i].position);
+            for (int i = 0; i < Team1.Players.Length; i++)
+            {
+                Team2.Players[i].transform.position = XAxisSymmetry(attackPos[i].position);
+                Team1.Players[i].transform.position = defPos[i].position;
+            }
+            Team2.Goal.transform.position = XAxisSymmetry(attackPos[attackPos.Count - 1].position);
+            Team1.Goal.transform.position = defPos[defPos.Count - 1].position;
         }
-        attackTeam.Goal.transform.position = attackPos[attackPos.Count-1].position;
-        defTeam.Goal.transform.position = XAxisSymmetry(defPos[defPos.Count-1].position);
+
+
 
     }
 
 
     public Vector3 XAxisSymmetry(Vector3 initial)
     {
-        return new Vector3(-initial.x,initial.y,initial.z);
+        return new Vector3(-initial.x, initial.y, initial.z);
     }
 
 }
