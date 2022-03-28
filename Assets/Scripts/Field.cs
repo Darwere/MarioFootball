@@ -86,10 +86,11 @@ public class Field : MonoBehaviour
         instance.ball = ball;
 
         ball.transform.position = instance.transform.position + ball.transform.position;
-        Cam.GetComponent<CinemachineVirtualCamera>().Follow = ball.transform;
-        Cam.GetComponent<CinemachineVirtualCamera>().LookAt = ball.transform;
+        //Cam.GetComponent<CinemachineVirtualCamera>().Follow = ball.transform;
+        //Cam.GetComponent<CinemachineVirtualCamera>().LookAt = ball.transform;
 
         SetTeamPosition();
+        CameraManager.Init();
     }
 
     public static void SetTeamPosition()
