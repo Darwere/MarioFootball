@@ -1364,7 +1364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1032065938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1491,14 +1491,6 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f9364ab6-dddc-46d9-8bf9-4a47f934bbbf
-    m_ActionName: Item Selection Menu/Selection item rigth
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e6932946-6bf4-4008-8a53-447576968566
-    m_ActionName: Item Selection Menu/Selection item left
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1032065942}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
@@ -1526,6 +1518,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 12693e32-a0c4-42ba-814f-0584f3c7f799
     m_ActionName: Control Menu/Validate[/DualShock4GamepadHID/buttonEast,/DualShock4GamepadHID1/buttonEast,/DualShock4GamepadHID2/buttonEast,/DualShock4GamepadHID3/buttonEast,/DualShock4GamepadHID4/buttonEast,/DualShock4GamepadHID5/buttonEast,/DualShock4GamepadHID6/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 588371e8-14e9-4e1e-98c4-7112679237c1
+    m_ActionName: Control Menu/Selection Item Down
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 18c2ec8f-c68d-4155-86bc-7c84ee9d774a
+    m_ActionName: Control Menu/Selection Item Up
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Control Menu
@@ -2006,7 +2006,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1222859413
 MonoBehaviour:
   m_ObjectHideFlags: 0
