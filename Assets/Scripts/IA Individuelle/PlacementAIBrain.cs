@@ -281,7 +281,6 @@ public class PlacementAIBrain : PlayerBrain
 
     public override PlayerAction.ActionType Act()
     {
-        Debug.Log("ActionType : " + action.type);
         actionMethods[action.type].DynamicInvoke();
         return action.type;
     }

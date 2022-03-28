@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22b18ff61a2fb884a906898fb289f729, type: 3}
-  m_Name: DefaultSpecs
+  m_Name: DefaultSpecsTeam1
   m_EditorClassIdentifier: 
   name: Mario 2.0
   weight: 70
   accuracy: 0.7
   speed: 10
+  tackleRange: 5
   stunTime: 1
-  prefab: {fileID: 768283636445659015, guid: 2d251407ec186d94682db68a04a9db90, type: 3}
+  prefab: {fileID: 1405520251746878004, guid: acfc792c01e441641975460f1a948658, type: 3}

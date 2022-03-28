@@ -71,11 +71,11 @@ public struct PlayerAction
         return action;
     }
 
-    public static PlayerAction Tackle(Player target)
+    public static PlayerAction Tackle(Vector3 direction)
     {
         PlayerAction action = new PlayerAction();
         action.type = ActionType.Tackle;
-        action.target = target;
+        action.direction = direction;
 
         return action;
     }
