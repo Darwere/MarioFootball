@@ -14,18 +14,11 @@ public class Field : MonoBehaviour
 
     [SerializeField] private Team team1, team2;
 
-    [SerializeField] private List<Transform> attackPos;
-    [SerializeField] private Vector2 attackPosCaptain;
-    [SerializeField] private Vector2 attackPosMate1;
-    [SerializeField] private Vector2 attackPosMate2;
-    [SerializeField] private Vector2 attackPosMate3;
+    [SerializeField] private int actualTeam = 1;
 
+    [SerializeField] private List<Transform> attackPos;
     [SerializeField] private List<Transform> defPos;
 
-    [SerializeField] private Vector2 defPosCaptain;
-    [SerializeField] private Vector2 defPosMate1;
-    [SerializeField] private Vector2 defPosMate2;
-    [SerializeField] private Vector2 defPosMate3;
 
     public static Team Team1 => instance.team1;
     public static Team Team2 => instance.team2;
@@ -105,30 +98,17 @@ public class Field : MonoBehaviour
         for (int i = 0; i < Team1.Players.Length; i++)
         {
             Team1.Players[i].transform.position = attackPos[i].position;
-            Team2.Players[i].transform.position = defPos[i].position;
+            Team2.Players[i].transform.position = XAxisSymmetry(defPos[i].position);
         }
+        Team1.Goal.transform.position = attackPos[attackPos.Count-1].position;
+        Team2.Goal.transform.position = XAxisSymmetry(defPos[defPos.Count-1].position);
 
-
-        /* tout pareil qu'en dessous
-         
-        Team1.Players[0].transform.position = VectorToPosition(attackPosCaptain);
-        Team1.Players[1].transform.position = VectorToPosition(attackPosMate1);
-        Team1.Players[2].transform.position = VectorToPosition(attackPosMate2);
-        Team1.Players[3].transform.position = VectorToPosition(attackPosMate3);
-
-        Team2.Players[0].transform.position = VectorToPosition(-defPosCaptain);
-        Team2.Players[1].transform.position = VectorToPosition(-defPosMate1);
-        Team2.Players[2].transform.position = VectorToPosition(-defPosMate2);
-        Team2.Players[3].transform.position = VectorToPosition(-defPosMate3);
-        */
     }
 
-    /*
-     * Normalement plus besoin, à suppr
-    private Vector3 VectorToPosition(Vector2 vector)
+
+    public Vector3 XAxisSymmetry(Vector3 initial)
     {
-        return transform.position + new Vector3(vector.x * height / 2f, 0f, vector.y * width / 2f);
+        return new Vector3(-initial.x,initial.y,initial.z);
     }
-    */
-        
+
 }

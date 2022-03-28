@@ -17,11 +17,11 @@ public class GoalBrain : PlayerBrain
         ball = Field.Ball;
         if (Player.Team == Field.Team1)
         {
-            goalPos = (Field.TopLeftCorner + Field.BottomLeftCorner) / 2;
+            goalPos = (Field.TopRightCorner + Field.BottomRightCorner) / 2;
         }
         else if (Player.Team == Field.Team2)
         {
-            goalPos = (Field.TopRightCorner + Field.BottomRightCorner) / 2;
+            goalPos = (Field.TopLeftCorner + Field.BottomLeftCorner) / 2;
         }
         else
         {
