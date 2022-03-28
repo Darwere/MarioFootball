@@ -767,7 +767,7 @@ public class PlacementAIBrain : PlayerBrain
             movementTarget = Vector3.zero;*/
 
         PlayerAction act = PlayerAction.Move(movementTarget.normalized);
-        Debug.Log(movementTarget);
+        //Debug.Log(movementTarget);
         //else PlayerAction.Idle();
         action = act;
 
