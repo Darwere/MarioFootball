@@ -13,8 +13,9 @@ public class Field : MonoBehaviour
     [SerializeField] private float height;
 
     [SerializeField] private Team team1, team2;
+    [SerializeField] private Team attackTeam, defTeam;
 
-    [SerializeField] private int actualTeam = 1;
+
 
     [SerializeField] private List<Transform> attackPos;
     [SerializeField] private List<Transform> defPos;
@@ -74,8 +75,10 @@ public class Field : MonoBehaviour
         heightOneSixths = topLeftCorner.x + height / 6f;
         heightThreeSixths = topLeftCorner.x + height * 3f / 6f;
         heightFiveSixths = topLeftCorner.x + height * 5f / 6f;
-
+        attackTeam = Team1;
+        defTeam = Team2;
         GameManager.BreedMePlease(team1, team2);
+
 
     }
     /// <summary>
@@ -90,18 +93,25 @@ public class Field : MonoBehaviour
         Cam.GetComponent<CinemachineVirtualCamera>().Follow = ball.transform;
         Cam.GetComponent<CinemachineVirtualCamera>().LookAt = ball.transform;
 
-        instance.SetTeamPosition();
+        instance.SetTeamPosition(Team1);
     }
 
-    private void SetTeamPosition()
+    private void SetTeamPosition(Team _attackTeam)
     {
+        if (_attackTeam != attackTeam)
+        {
+            Team temp = attackTeam;
+            attackTeam = _attackTeam;
+            defTeam = temp;
+        }
+        
         for (int i = 0; i < Team1.Players.Length; i++)
         {
-            Team1.Players[i].transform.position = attackPos[i].position;
-            Team2.Players[i].transform.position = XAxisSymmetry(defPos[i].position);
+            attackTeam.Players[i].transform.position = attackPos[i].position;
+            defTeam.Players[i].transform.position = XAxisSymmetry(defPos[i].position);
         }
-        Team1.Goal.transform.position = attackPos[attackPos.Count-1].position;
-        Team2.Goal.transform.position = XAxisSymmetry(defPos[defPos.Count-1].position);
+        attackTeam.Goal.transform.position = attackPos[attackPos.Count-1].position;
+        defTeam.Goal.transform.position = XAxisSymmetry(defPos[defPos.Count-1].position);
 
     }
 
