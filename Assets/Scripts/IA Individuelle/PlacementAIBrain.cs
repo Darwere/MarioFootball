@@ -1145,10 +1145,10 @@ public class PlacementAIBrain : PlayerBrain
             {
                 BallRadius();
             }
-            WallAvoidance();
+            
         }
 
-
+        WallAvoidance();
         CheckMove();
 
 
