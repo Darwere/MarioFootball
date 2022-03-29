@@ -177,6 +177,8 @@ public class Player : MonoBehaviour
     {
         State = PlayerState.Falling;
         animator.SetTrigger("TackleFall");
+        if (HasBall)
+            Field.Ball.DetachFromParent();
     }
 
     private void OnCollisionEnter(Collision collision)

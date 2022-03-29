@@ -21,13 +21,6 @@ public class InputBrain : PlayerBrain
         }
     }*/
 
-    public override Vector3 MoveInput()
-    {
-
-
-        return new Vector3(-movementInput.y, 0, movementInput.x).normalized;
-    }
-
     #region InputEvent
 
     public void Movement(InputAction.CallbackContext input)

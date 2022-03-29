@@ -61,11 +61,11 @@ public class Field : MonoBehaviour
     {
         bottomLeftCorner = new Vector3(width / 2, 0, -height / 2) + transform.position;
         bottomRightCorner = new Vector3(-width / 2, 0, -height / 2) + transform.position;
-        topLeftCorner = new Vector3(-width / 2, 0, height / 2) + transform.position;
+        topLeftCorner = new Vector3(width / 2, 0, height / 2) + transform.position;
         topRightCorner = new Vector3(-width / 2, 0, height / 2) + transform.position;
 
-        heightOneThird = topLeftCorner.x + height / 3f;
-        heightTwoThirds = topLeftCorner.x + height * 2f / 3f;
+        heightOneThird = bottomLeftCorner.z + height / 3f;
+        heightTwoThirds = bottomLeftCorner.z + height * 2f / 3f;
 
         heightOneSixths = topLeftCorner.x + height / 6f;
         heightThreeSixths = topLeftCorner.x + height * 3f / 6f;
@@ -98,14 +98,15 @@ public class Field : MonoBehaviour
             instance.attackTeam = _attackTeam;
             instance.defTeam = temp;
         }
-        
+
+        Team defTeam = instance.defTeam;
         for (int i = 0; i < Team1.Players.Length; i++)
         {
-            instance.attackTeam.Players[i].transform.position = instance.attackPos[i].position;
-            instance.defTeam.Players[i].transform.position = instance.XAxisSymmetry(instance.defPos[i].position);
+            _attackTeam.Players[i].transform.position = instance.attackPos[i].position;
+            defTeam.Players[i].transform.position = instance.XAxisSymmetry(instance.defPos[i].position);
         }
-        instance.attackTeam.Goal.transform.position = instance.attackPos[instance.attackPos.Count-1].position;
-        instance.defTeam.Goal.transform.position = instance.XAxisSymmetry(instance.defPos[instance.defPos.Count-1].position);
+        _attackTeam.Goal.transform.position = instance.attackPos[instance.attackPos.Count-1].position;
+        defTeam.Goal.transform.position = instance.XAxisSymmetry(instance.defPos[instance.defPos.Count-1].position);
 
     }
 
