@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
         Shooting,
         Falling,
         Shocked,
+        KickOff,
         Waiting
     }
 
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
     public bool HasBall => Field.Ball.transform.parent == transform;
     public bool IsDoped { get; private set; }
     public bool CanMove => State == PlayerState.Moving;
+    public bool IsKickOff => State == PlayerState.KickOff;
 
     public bool IsPiloted { get; set; } = false;
     public PlayerSpecs Species => specs;
@@ -85,10 +87,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (IsPiloted)
-            animationMethods[Team.Brain.Act()].DynamicInvoke(); //Team.Brain.Act() return une ActionType
-        else
-            animationMethods[IABrain.Act()].DynamicInvoke(); //IABrain.Act() return une ActionType
+        if (CanMove || (State == PlayerState.KickOff && HasBall))
+        {
+            if (IsPiloted)
+                animationMethods[Team.Brain.Act()].DynamicInvoke(); //Team.Brain.Act() return une ActionType
+            else
+                animationMethods[IABrain.Act()].DynamicInvoke(); //IABrain.Act() return une ActionType
+        }
     }
 
     public IEnumerator Tackle(Vector3 direction)
@@ -165,6 +170,16 @@ public class Player : MonoBehaviour
     {
         State = PlayerState.Waiting;
         StartCoroutine(PassInMovement());
+    }
+
+    public void KickOff()
+    {
+        State = PlayerState.KickOff;
+    }
+
+    public void StartPlaying()
+    {
+        State = PlayerState.Moving;
     }
 
     IEnumerator PassInMovement()

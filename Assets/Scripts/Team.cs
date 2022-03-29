@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using System.Collections;
 
 public class Team : MonoBehaviour
 {
@@ -132,6 +133,31 @@ public class Team : MonoBehaviour
         }
 
         Brain.SetPlayer(player);
+    }
+
+    public void WaitKickOff()
+    {
+        foreach(Player player in Players)
+        {
+            player.KickOff();
+        }
+        Goal.KickOff();
+        StartCoroutine(EndKickOff());
+    }
+
+    private IEnumerator EndKickOff()
+    {
+        yield return new WaitUntil(() => Field.Ball.transform.parent == null);
+        EndingKickOff();
+    }
+
+    private void EndingKickOff()
+    {
+        foreach (Player player in Players)
+        {
+            player.StartPlaying();
+        }
+        Goal.StartPlaying();
     }
 
     private void OnCollisionEnter(Collision collision)

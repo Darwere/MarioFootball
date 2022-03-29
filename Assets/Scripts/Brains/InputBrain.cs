@@ -44,11 +44,8 @@ public class InputBrain : PlayerBrain
             moveDirection = direction;
         }
 
-        if(Player.CanMove)
-        {
-            PlayerAction act = PlayerAction.Move(moveDirection);
-            action = act;
-        }
+        PlayerAction act = PlayerAction.Move(moveDirection);
+        action = act;
         
     }
 
@@ -63,7 +60,7 @@ public class InputBrain : PlayerBrain
         Vector3 startPos = Player.transform.position;
         Player targetPlayer = Allies.GetPlayerWithDirection(startPos, direction);
 
-        if (Player.HasBall && Player.CanMove)
+        if (Player.HasBall && (Player.CanMove || Player.IsKickOff))
             act = PlayerAction.Pass(direction, startPos, targetPlayer.transform.position, 1f, targetPlayer); //Pass
         else
             act = PlayerAction.ChangePlayer(targetPlayer);  //SwitchPlayer

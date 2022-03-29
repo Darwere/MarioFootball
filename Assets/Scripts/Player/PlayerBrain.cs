@@ -53,7 +53,6 @@ public abstract class PlayerBrain : MonoBehaviour
         Vector3 movement = action.direction * Time.deltaTime * Player.Species.speed;
         Collider collider = Player.GetComponent<Collider>();
         Vector3 startPosition = Player.transform.position + new Vector3(0, collider.bounds.extents.y, 0);
-        Debug.DrawRay(startPosition, action.direction, Color.red, movement.magnitude * 2);
         
         if (Physics.Raycast(startPosition, action.direction, movement.magnitude * 2))
             movement = Vector3.zero;
@@ -136,10 +135,17 @@ public abstract class PlayerBrain : MonoBehaviour
     {
         PlayerAction.ActionType lastActionType = action.type;
 
-        actionMethods[action.type].DynamicInvoke();
+        if (Player.CanMove ||
+            (Player.IsKickOff && Player.HasBall && action.type == PlayerAction.ActionType.Pass))
+        {
+            actionMethods[action.type].DynamicInvoke();
 
-        if (action.type != PlayerAction.ActionType.Move)
-            action.type = PlayerAction.ActionType.None; //Reset l'action
+            if (action.type != PlayerAction.ActionType.Move)
+                action.type = PlayerAction.ActionType.None; //Reset l'action
+        }
+        else
+            lastActionType = PlayerAction.ActionType.None;
+
         return lastActionType;
     }
 }
