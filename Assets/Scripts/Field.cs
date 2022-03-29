@@ -113,6 +113,16 @@ public class Field : MonoBehaviour
             attackTeam.Goal.transform.position = attackPos[attackPos.Count - 1].position;
             defTeam.Goal.transform.position = instance.XAxisSymmetry(defPos[defPos.Count - 1].position);
         }
+        else
+        {
+            for (int i = 0; i < Team1.Players.Length; i++)
+            {
+                attackTeam.Players[i].transform.position = instance.XAxisSymmetry(attackPos[i].position);
+                defTeam.Players[i].transform.position = defPos[i].position;
+            }
+            attackTeam.Goal.transform.position = instance.XAxisSymmetry(attackPos[attackPos.Count - 1].position);
+            defTeam.Goal.transform.position = defPos[defPos.Count - 1].position;
+        }
     }
 
     public Vector3 XAxisSymmetry(Vector3 initial)
