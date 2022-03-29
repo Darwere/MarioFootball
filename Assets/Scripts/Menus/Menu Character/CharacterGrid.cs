@@ -3,16 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CharacterGrid : MonoBehaviour
 {
     public GameObject PrefabCharacter;
-    GameObject characterSelected;
     public List<CharacterData> Characters;
-    List<GameObject> listCharacters=new List<GameObject>();
-    int compteurCharacter=0;
-    // Start is called before the first frame update
+
+    private GameObject characterSelected;
+    private List<GameObject> listCharacters=new List<GameObject>();
+    private int compteurCharacter=0;
+    
     void Start()
     {
         foreach(var character in Characters)
@@ -20,6 +22,10 @@ public class CharacterGrid : MonoBehaviour
             
             GameObject characterGo = GameObject.Instantiate(PrefabCharacter, transform);
             listCharacters.Add(characterGo);
+
+            characterGo.AddComponent<PlayerSpecChoice>();
+            characterGo.GetComponent<PlayerSpecChoice>().PlayerSpecs=character.PlayerSpecs;
+
             CharacterUI characterUI = characterGo.GetComponent<CharacterUI>();
             characterUI.Picture.sprite = character.Picture;
             //characterUI.Picture.GetComponent<RectTransform>().pivot = character.Offset;
@@ -48,11 +54,6 @@ public class CharacterGrid : MonoBehaviour
             }
         }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void SelectionCharacter()
@@ -101,5 +102,11 @@ public class CharacterGrid : MonoBehaviour
             SelectionCharacter();
 
         }
+    }
+
+    public void ValidateChoice()
+    {
+        Match.instance.captain1=characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
+        SceneManager.LoadScene("ball 1");
     }
 }

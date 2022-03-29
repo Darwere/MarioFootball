@@ -8,4 +8,11 @@ public class Match : MonoBehaviour
     public PlayerSpecs mate2;
 
     public PlayerSpecs goalKeeper;
+
+    public static Match instance;
+
+    private void Awake()
+    {
+        instance = this; 
+    }
 }

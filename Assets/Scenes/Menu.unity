@@ -1364,7 +1364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1032065938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1806,18 +1806,22 @@ MonoBehaviour:
     Picture: {fileID: 21300000, guid: ef50e36d2c631cd4c8c6e18a763e5c86, type: 3}
     Offset: {x: 0, y: 0}
     Size: {x: 0, y: 0}
+    PlayerSpecs: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
   - Name: YOSHI
     Picture: {fileID: 21300000, guid: 4a93395d74100124c99fe5a4c5261937, type: 3}
     Offset: {x: 0, y: 0}
     Size: {x: 0, y: 0}
+    PlayerSpecs: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
   - Name: WARIO
     Picture: {fileID: 21300000, guid: e56f9862d992bb54e9db7a4eb24c01f6, type: 3}
     Offset: {x: 0, y: 0}
     Size: {x: 0, y: 0}
+    PlayerSpecs: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
   - Name: MARIO
     Picture: {fileID: 21300000, guid: 6208c6c089f5ec741af496708d6c834e, type: 3}
     Offset: {x: 0, y: 0}
     Size: {x: 0, y: 0}
+    PlayerSpecs: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
 --- !u!1 &1204317945
 GameObject:
   m_ObjectHideFlags: 0
@@ -2006,7 +2010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1222859413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2154,7 +2158,19 @@ MonoBehaviour:
     m_ActionId: a949530c-8f98-4a81-903e-c5642cf8bb1c
     m_ActionName: Control Menu/Selection Item Left[/DualShock4GamepadHID/dpad/left,/DualShock4GamepadHID1/dpad/left,/DualShock4GamepadHID2/dpad/left,/DualShock4GamepadHID3/dpad/left]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1190733836}
+        m_TargetAssemblyTypeName: CharacterGrid, Assembly-CSharp
+        m_MethodName: ValidateChoice
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 12693e32-a0c4-42ba-814f-0584f3c7f799
     m_ActionName: Control Menu/Validate[/DualShock4GamepadHID/buttonEast,/DualShock4GamepadHID1/buttonEast,/DualShock4GamepadHID2/buttonEast,/DualShock4GamepadHID3/buttonEast,/DualShock4GamepadHID4/buttonEast,/DualShock4GamepadHID5/buttonEast,/DualShock4GamepadHID6/buttonEast]
   - m_PersistentCalls:
@@ -4036,3 +4052,64 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &2106724184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2106724187}
+  - component: {fileID: 2106724186}
+  - component: {fileID: 2106724185}
+  m_Layer: 0
+  m_Name: CharacterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2106724185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106724184}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5905a701e59f8a4c8047b784f27c894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2106724186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106724184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09eb34fcacb82354f823900c48510f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  captain1: {fileID: 0}
+  captain2: {fileID: 0}
+  mate1: {fileID: 0}
+  mate2: {fileID: 0}
+  goalKeeper: {fileID: 0}
+--- !u!4 &2106724187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106724184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 934.2793, y: 554.7264, z: -309.68567}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

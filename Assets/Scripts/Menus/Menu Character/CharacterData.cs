@@ -11,4 +11,5 @@ public class CharacterData
     public Sprite Picture;
     public Vector2 Offset;
     public Vector2 Size;
+    public PlayerSpecs PlayerSpecs;
 }
