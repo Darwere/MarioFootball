@@ -110,6 +110,30 @@ public class Team : MonoBehaviour
         return playerTarget;
     }
 
+    public void ChangePilotedPlayer(Player player)
+    {
+        if (Goal.IsPiloted)
+        {
+            Goal.IsPiloted = false;
+            player.IsPiloted = true;
+        }
+        else
+        {
+
+            foreach (Player allie in Players)
+            {
+                if (allie.IsPiloted)
+                {
+                    allie.IsPiloted = false;
+                    player.IsPiloted = true;
+                }
+            }
+
+        }
+
+        Brain.SetPlayer(player);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         Ball ball = collision.gameObject.GetComponent<Ball>();
