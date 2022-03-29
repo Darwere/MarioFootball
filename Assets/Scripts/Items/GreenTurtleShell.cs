@@ -34,7 +34,7 @@ public class GreenTurtleShell : Item
 
     protected override void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
         Player player = collision.gameObject.GetComponent<Player>();
         Ball ball = collision.gameObject.GetComponent<Ball>();
         if (player != null)
