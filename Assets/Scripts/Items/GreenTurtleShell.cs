@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class GreenTurtleShell : Item
 {
+    public GameObject destructionParticule;
+
     [SerializeField]
     private float speed = 10f;
-    private int countWallHit = 0;
 
+    private int countWallHit = 0;
     private Vector3 direction;
 
     private void Start()
@@ -20,6 +22,8 @@ public class GreenTurtleShell : Item
         if(countWallHit == 3)
         {
             direction = Vector3.zero;
+            GameObject particule = Instantiate(destructionParticule, transform.position, Quaternion.identity);
+            Destroy(particule, 0.3f);
             Destroy(this.gameObject, 0.1f);
         }
     }
@@ -38,6 +42,8 @@ public class GreenTurtleShell : Item
             player.GetTackled();
             //Rajouter particules eclatement
             direction = Vector3.zero;
+            GameObject particule = Instantiate(destructionParticule, transform.position, Quaternion.identity);
+            Destroy(particule, 0.3f);
             Destroy(this.gameObject,0.1f);
         }
         else if(ball!=null)
