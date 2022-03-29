@@ -193,7 +193,8 @@ public class Player : MonoBehaviour
                 if (State == PlayerState.Tackling)
                 {
                     player.GetTackled();
-                    Field.Ball.AttachToPlayer(this);
+                    if (player.HasBall)
+                        Field.Ball.DetachFromParent();
                 }
             }
         }
