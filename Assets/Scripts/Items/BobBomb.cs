@@ -9,7 +9,7 @@ public class BobBomb : Item
         
     }
 
-    protected override void OnTriggerEnter(Collider other)
+    protected override void OnCollisionEnter(Collision collision)
     {
         
     }
