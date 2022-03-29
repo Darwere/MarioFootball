@@ -50,11 +50,18 @@ public abstract class PlayerBrain : MonoBehaviour
 
     protected void Move()
     {
-        Player.transform.position += action.direction * Time.deltaTime * Player.Species.speed;
+        Vector3 movement = action.direction * Time.deltaTime * Player.Species.speed;
+        Collider collider = Player.GetComponent<Collider>();
+        Vector3 startPosition = Player.transform.position + new Vector3(0, collider.bounds.extents.y, 0);
+        Debug.DrawRay(startPosition, action.direction, Color.red, movement.magnitude * 2);
+        
+        if (Physics.Raycast(startPosition, action.direction, movement.magnitude * 2))
+            movement = Vector3.zero;
+       
+        Player.transform.position += movement;
+
         if (action.direction != Vector3.zero)
-        {
             Player.transform.forward = action.direction;
-        }
     }
 
     protected void Pass()
