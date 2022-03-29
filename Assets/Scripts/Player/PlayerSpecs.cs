@@ -16,6 +16,9 @@ public class PlayerSpecs : ScriptableObject
     public float speed = 4f;
 
     [Range(0f, 5f)]
+    public float tackleRange = 3f;
+
+    [Range(0f, 5f)]
     public float stunTime = 1f;
 
     public GameObject prefab;

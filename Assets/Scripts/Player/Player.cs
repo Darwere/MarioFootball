@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,14 +12,15 @@ public class Player : MonoBehaviour
         Headbutting,
         Shooting,
         Falling,
-        Shocked
+        Shocked,
+        Waiting
     }
 
     [SerializeField] private PlayerSpecs specs;
 
-    private Ball ball;
+    [SerializeField] private Animator animator;
+    [SerializeField] private AnimationClip tackleAnimation;
 
-    private Animator animator;
     private Rigidbody rgbd;
 
     [SerializeField] public PlayerBrain IABrain;
@@ -27,13 +31,16 @@ public class Player : MonoBehaviour
     public bool CanGetBall => !IsStunned && State != PlayerState.Headbutting && !HasBall;
     public bool IsStunned => State == PlayerState.Shocked || State == PlayerState.Falling;
 
-    public bool HasBall { get => ball; }
+    public bool HasBall => Field.Ball.transform.parent == transform;
     public bool IsDoped { get; private set; }
     public bool CanMove => State == PlayerState.Moving;
 
     public bool IsPiloted { get; set; } = false;
+    public PlayerSpecs Species => specs;
 
     public Vector3 Position => transform.position;
+
+    private Dictionary<PlayerAction.ActionType, Action> animationMethods = new Dictionary<PlayerAction.ActionType, Action>();
 
     public static Player CreatePlayer(GameObject prefab, Team team, bool isGoalKeeper = false)
     {
@@ -52,7 +59,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
         rgbd = GetComponent<Rigidbody>();
     }
 
@@ -65,22 +71,131 @@ public class Player : MonoBehaviour
             gameObject.name += " team1";
         else
             gameObject.name += " team2";
+
+        animationMethods.Add(PlayerAction.ActionType.None, NoAction);
+        animationMethods.Add(PlayerAction.ActionType.Move, MoveAction);
+        animationMethods.Add(PlayerAction.ActionType.Pass, PassAction);
+        animationMethods.Add(PlayerAction.ActionType.Shoot, ShootAction);
+        animationMethods.Add(PlayerAction.ActionType.Tackle, TackleAction);
+        animationMethods.Add(PlayerAction.ActionType.Dribble, DribbleAction);
+        animationMethods.Add(PlayerAction.ActionType.Headbutt, HeadButtAction);
+        animationMethods.Add(PlayerAction.ActionType.ChangePlayer, NoAction);
+        animationMethods.Add(PlayerAction.ActionType.Throw, NoAction);
     }
 
     private void Update()
     {
-        Vector3 move = transform.position + (IsPiloted ? Team.Brain.Move() : IABrain.Move());
-        if (move.x < Field.BottomLeftCorner.x
-            && move.x > Field.TopLeftCorner.x
-            && move.z < Field.TopRightCorner.z
-            && move.z > Field.TopLeftCorner.z)
+        if (IsPiloted)
+            animationMethods[Team.Brain.Act()].DynamicInvoke(); //Team.Brain.Act() return une ActionType
+        else
+            animationMethods[IABrain.Act()].DynamicInvoke(); //IABrain.Act() return une ActionType
+    }
+
+    public IEnumerator Tackle(Vector3 direction)
+    {
+        yield return new WaitForEndOfFrame(); //Wait next frame to change the State
+
+        while (State == PlayerState.Tackling)
         {
-            transform.position = move;
+            transform.position += direction * (specs.tackleRange * Time.deltaTime);
+            yield return new WaitForSeconds(Time.deltaTime);
         }
+
+        yield return null;
+    }
+
+    #region Action
+
+    private void MoveAction()
+    {
+        animator.SetBool("Moving", true);
+    }
+
+    private void PassAction()
+    { 
+        animator.SetTrigger("Pass");
+        animator.SetBool("Moving", false);
+    }
+
+    private void ShootAction()
+    {
+        animator.SetTrigger("Shoot");
+        animator.SetBool("Moving", false);
+    }
+
+    private void TackleAction()
+    {
+        State = PlayerState.Tackling;
+        animator.SetTrigger("Tackle");
+        animator.SetBool("Moving", false);
+    }
+
+    private void HeadButtAction()
+    {
+        animator.SetBool("Moving", false);
+    }
+
+    private void DribbleAction()
+    {
+        animator.SetBool("Moving", false);
+    }
+
+    private void NoAction()
+    {
+        animator.SetBool("Moving", false);
+    }
+
+    #endregion
+
+    #region EventFunction
+
+    public void EndOfPass()
+    {
+        State = PlayerState.Moving;
+    }
+
+    public void EndOfFall()
+    {
+        State = PlayerState.Moving;
+    }
+
+    #endregion
+
+    public void Wait()
+    {
+        State = PlayerState.Waiting;
+        StartCoroutine(PassInMovement());
+    }
+
+    IEnumerator PassInMovement()
+    {
+        yield return new WaitUntil(() => Field.Ball.transform.parent != null);
+        State = PlayerState.Moving;
+    }
+
+    public void GetTackled()
+    {
+        State = PlayerState.Falling;
+        animator.SetTrigger("TackleFall");
+        if (HasBall)
+            Field.Ball.DetachFromParent();
     }
 
     private void OnCollisionEnter(Collision collision)
-    {
+    {  
+        Player player = collision.gameObject.GetComponent<Player>();
 
+        if (player != null)
+        {
+            if(Team != player.Team)
+            {
+                if (State == PlayerState.Tackling)
+                {
+                    player.GetTackled();
+                    if (player.HasBall)
+                        Field.Ball.DetachFromParent();
+                }
+            }
+        }
     }
 }

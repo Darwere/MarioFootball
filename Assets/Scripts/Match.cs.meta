@@ -3,7 +3,12 @@ guid: 09eb34fcacb82354f823900c48510f76
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - captain1: {instanceID: 0}
+  - captain2: {instanceID: 0}
+  - mate1: {instanceID: 0}
+  - mate2: {instanceID: 0}
+  - goalKeeper: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -1,4 +1,6 @@
+using Cinemachine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Field : MonoBehaviour
@@ -9,16 +11,11 @@ public class Field : MonoBehaviour
     [SerializeField] private float height;
 
     [SerializeField] private Team team1, team2;
+    [SerializeField] private Team attackTeam, defTeam;
 
-    [SerializeField] private Vector2 attackPosCaptain;
-    [SerializeField] private Vector2 attackPosMate1;
-    [SerializeField] private Vector2 attackPosMate2;
-    [SerializeField] private Vector2 attackPosMate3;
+    [SerializeField] private List<Transform> attackPos;
+    [SerializeField] private List<Transform> defPos;
 
-    [SerializeField] private Vector2 defPosCaptain;
-    [SerializeField] private Vector2 defPosMate1;
-    [SerializeField] private Vector2 defPosMate2;
-    [SerializeField] private Vector2 defPosMate3;
 
     public static Team Team1 => instance.team1;
     public static Team Team2 => instance.team2;
@@ -62,19 +59,22 @@ public class Field : MonoBehaviour
 
     private void Start()
     {
-        bottomLeftCorner = new Vector3(height / 2, 0, -width / 2) + transform.position;
-        bottomRightCorner = new Vector3(height / 2, 0, width / 2) + transform.position;
-        topLeftCorner = new Vector3(-height / 2, 0, -width / 2) + transform.position;
-        topRightCorner = new Vector3(-height / 2, 0, width / 2) + transform.position;
+        bottomLeftCorner = new Vector3(width / 2, 0, -height / 2) + transform.position;
+        bottomRightCorner = new Vector3(-width / 2, 0, -height / 2) + transform.position;
+        topLeftCorner = new Vector3(width / 2, 0, height / 2) + transform.position;
+        topRightCorner = new Vector3(-width / 2, 0, height / 2) + transform.position;
 
-        heightOneThird = topLeftCorner.x + height / 3f;
-        heightTwoThirds = topLeftCorner.x + height * 2f / 3f;
+        heightOneThird = bottomLeftCorner.z + height / 3f;
+        heightTwoThirds = bottomLeftCorner.z + height * 2f / 3f;
 
         heightOneSixths = topLeftCorner.x + height / 6f;
         heightThreeSixths = topLeftCorner.x + height * 3f / 6f;
         heightFiveSixths = topLeftCorner.x + height * 5f / 6f;
-
+        attackTeam = Team1;
+        defTeam = Team2;
         GameManager.BreedMePlease(team1, team2);
+
+
     }
     /// <summary>
     /// Assigne le ballon cr�� puis le positionne ainsi que les joueurs
@@ -84,29 +84,36 @@ public class Field : MonoBehaviour
     {
         instance.ball = ball;
 
-        ball.transform.position = instance.transform.position;
+        ball.transform.position = instance.transform.position + ball.transform.position;
 
-        instance.SetTeamPosition();
+        SetTeamPosition(Team1);
+        CameraManager.Init();
     }
 
-
-    private void SetTeamPosition()
+    public static void SetTeamPosition(Team _attackTeam)
     {
-        Team1.Players[0].transform.position = VectorToPosition(attackPosCaptain);
-        Team1.Players[1].transform.position = VectorToPosition(attackPosMate1);
-        Team1.Players[2].transform.position = VectorToPosition(attackPosMate2);
-        Team1.Players[3].transform.position = VectorToPosition(attackPosMate3);
+        if (_attackTeam != instance.attackTeam)
+        {
+            Team temp = instance.attackTeam;
+            instance.attackTeam = _attackTeam;
+            instance.defTeam = temp;
+        }
 
-        Team2.Players[0].transform.position = VectorToPosition(-defPosCaptain);
-        Team2.Players[1].transform.position = VectorToPosition(-defPosMate1);
-        Team2.Players[2].transform.position = VectorToPosition(-defPosMate2);
-        Team2.Players[3].transform.position = VectorToPosition(-defPosMate3);
+        Team defTeam = instance.defTeam;
+        for (int i = 0; i < Team1.Players.Length; i++)
+        {
+            _attackTeam.Players[i].transform.position = instance.attackPos[i].position;
+            defTeam.Players[i].transform.position = instance.XAxisSymmetry(instance.defPos[i].position);
+        }
+        _attackTeam.Goal.transform.position = instance.attackPos[instance.attackPos.Count-1].position;
+        defTeam.Goal.transform.position = instance.XAxisSymmetry(instance.defPos[instance.defPos.Count-1].position);
+
     }
 
-    private Vector3 VectorToPosition(Vector2 vector)
+
+    public Vector3 XAxisSymmetry(Vector3 initial)
     {
-        return transform.position + new Vector3(vector.x * height / 2f, 1f, vector.y * width / 2f);
+        return new Vector3(-initial.x,initial.y,initial.z);
     }
 
-        
 }
