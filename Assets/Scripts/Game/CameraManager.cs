@@ -14,7 +14,7 @@ public class CameraManager : MonoBehaviour
     {
         instance = this;
 
-        Debug.Log(instance.name);
+        //Debug.Log(instance.name);
     }
 
     public static void Init()
@@ -34,7 +34,7 @@ public class CameraManager : MonoBehaviour
     {
         if (Field.Ball.transform.position.x > RightBorder && Field.Ball.transform.position.x<LeftBorder)
         {
-            Debug.Log("dans le if");
+            //Debug.Log("dans le if");
             Vector3 newCamPosition = new Vector3(Field.Ball.transform.position.x, yValues, Field.Ball.transform.position.z);
             gameObject.transform.position = newCamPosition;
         }
