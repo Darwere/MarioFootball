@@ -61,9 +61,11 @@ public abstract class PlayerBrain : MonoBehaviour
     {
         Field.Ball.Move(action.duration, action.startPosition, action.endPosition, action.bezierPoint);
         SwitchPlayer();
+        action.target.Wait();
 
         action.type = PlayerAction.ActionType.None;
     }
+
 
     protected void SwitchPlayer()
     {
@@ -80,7 +82,7 @@ public abstract class PlayerBrain : MonoBehaviour
 
         Field.Ball.Shoot(Enemies.ShootPoint, action.shootForce, action.direction, action.duration);
 
-        Player.GetBall(null);
+        Field.Ball.DetachFromParent();
         action.type = PlayerAction.ActionType.None;
     }
 

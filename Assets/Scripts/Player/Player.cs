@@ -18,8 +18,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private PlayerSpecs specs;
 
-    private Ball ball;
-
     [SerializeField] private Animator animator;
     [SerializeField] private AnimationClip tackleAnimation;
 
@@ -93,11 +91,6 @@ public class Player : MonoBehaviour
             animationMethods[IABrain.Act()].DynamicInvoke(); //IABrain.Act() return une ActionType
     }
 
-    public void GetBall(Ball ball)
-    {
-        this.ball = ball;
-    }
-
     public IEnumerator Tackle(Vector3 direction)
     {
         yield return new WaitForEndOfFrame(); //Wait next frame to change the State
@@ -158,22 +151,26 @@ public class Player : MonoBehaviour
 
     public void EndOfPass()
     {
-        ball = null;
         State = PlayerState.Moving;
     }
 
     public void EndOfFall()
     {
-        ball = null;
         State = PlayerState.Moving;
     }
 
     #endregion
 
-    public void GetPass()
+    public void Wait()
     {
-        this.ball = Field.Ball;
         State = PlayerState.Waiting;
+        StartCoroutine(PassInMovement());
+    }
+
+    IEnumerator PassInMovement()
+    {
+        yield return new WaitUntil(() => Field.Ball.transform.parent != null);
+        State = PlayerState.Moving;
     }
 
     public void GetTackled()

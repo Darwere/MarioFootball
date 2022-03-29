@@ -112,26 +112,15 @@ public class Ball : MonoBehaviour
         DetachFromParent();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        Player player = collision.gameObject.GetComponent<Player>();
-        if (player != null && this.player != player)
-        {
-            if(isFree)
-                AttachToPlayer(player);
-        }
-
-    }
-
     public void AttachToPlayer(Player parent)
     {
         player = parent;
         isMovable = false;
-        parent.GetBall(this);
         transform.parent = parent.transform;
         transform.position = parent.transform.position + parent.transform.forward + Vector3.up * transform.position.y;
         isFree = false;
         ResetVelocity();
+        player.Team.ChangePilotedPlayer(player);
 
         rbBall.isKinematic = true;
         //isFree = false;
@@ -143,5 +132,15 @@ public class Ball : MonoBehaviour
         rbBall.isKinematic = false;
         isFree = true;
         //isMovable = true;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Player player = collision.gameObject.GetComponent<Player>();
+        if (player != null && this.player != player)
+        {
+            if (isFree)
+                AttachToPlayer(player);
+        }
     }
 }
