@@ -41,7 +41,7 @@ public class CharacterGrid : MonoBehaviour
         if (!context.performed)
             return;
         Vector2 positionJoystick = context.ReadValue<Vector2>();
-        Debug.Log(positionJoystick);
+        //Debug.Log(positionJoystick);
         if (Math.Abs(positionJoystick.y) > 0)
         {
             if (positionJoystick.x > 0.5)
@@ -107,6 +107,6 @@ public class CharacterGrid : MonoBehaviour
     public void ValidateChoice()
     {
         Match.instance.captain1=characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
-        SceneManager.LoadScene("ball 1");
+        SceneManager.LoadScene("Ball 1");
     }
 }
