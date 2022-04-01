@@ -103,7 +103,8 @@ public class InputBrain : PlayerBrain
         else
         {
             Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position,direction);
-            act = PlayerAction.HeadButt(targetPlayer); //HeadButt
+            Vector3 vector = targetPlayer.transform.position - Player.transform.position;
+            act = PlayerAction.HeadButt(vector.normalized); //HeadButt
         }
             
 

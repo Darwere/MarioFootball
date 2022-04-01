@@ -109,8 +109,8 @@ public abstract class PlayerBrain : MonoBehaviour
 
     protected void Headbutt()
     {
-
-        action.type = PlayerAction.ActionType.None;
+        StartCoroutine(Player.HeadButt(action.direction));
+        //action.type = PlayerAction.ActionType.None;
         Debug.Log("Headbutt");
     }
 

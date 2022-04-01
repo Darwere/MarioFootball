@@ -109,6 +109,19 @@ public class Player : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator HeadButt(Vector3 direction)
+    {
+        yield return new WaitForEndOfFrame(); //Wait next frame to change the State
+
+        while (State == PlayerState.Headbutting)
+        {
+            transform.position += direction * (specs.tackleRange * Time.deltaTime);
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        yield return null;
+    }
+
     #region Action
 
     private void MoveAction()
@@ -137,6 +150,8 @@ public class Player : MonoBehaviour
 
     private void HeadButtAction()
     {
+        State = PlayerState.Headbutting;
+        animator.SetTrigger("HeadButting");
         animator.SetBool("Moving", false);
     }
 
@@ -154,14 +169,14 @@ public class Player : MonoBehaviour
 
     #region EventFunction
 
-    public void EndOfPass()
+    public void StartMoving()
     {
         State = PlayerState.Moving;
     }
 
-    public void EndOfFall()
+    public void StartWaiting()
     {
-        State = PlayerState.Moving;
+        State = PlayerState.Waiting;
     }
 
     #endregion
@@ -209,6 +224,10 @@ public class Player : MonoBehaviour
                     player.GetTackled();
                     if (player.HasBall)
                         Field.Ball.DetachFromParent();
+                }
+                else if( State == PlayerState.Headbutting)
+                {
+                    
                 }
             }
         }
