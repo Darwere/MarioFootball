@@ -109,13 +109,13 @@ public class Player : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator HeadButt(Vector3 direction)
+    public IEnumerator GotHit(Vector3 direction)
     {
         yield return new WaitForEndOfFrame(); //Wait next frame to change the State
-
-        while (State == PlayerState.Headbutting)
+        Debug.Log(State);
+        while (State == PlayerState.Falling)
         {
-            transform.position += direction * (specs.tackleRange * Time.deltaTime);
+            transform.position += direction * 1.5f * Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
@@ -179,6 +179,23 @@ public class Player : MonoBehaviour
         State = PlayerState.Waiting;
     }
 
+    public void CheckPlayerHit()
+    {
+        Collider collider = GetComponent<Collider>();
+        RaycastHit hit;
+        Vector3 startPosition = transform.position + new Vector3(0, collider.bounds.extents.y, 0);
+        float distance = 4;
+        Debug.DrawRay(startPosition, transform.forward, Color.red, distance);
+        Physics.Raycast(startPosition, transform.forward, out hit, distance);
+        Player player = hit.collider.gameObject.GetComponent<Player>();
+
+        if (player != null && player.State != PlayerState.Falling)
+        {
+            Vector3 direction = player.transform.position - transform.position;
+            player.GetHeadbutted(direction);
+        }
+    }
+
     #endregion
 
     public void Wait()
@@ -207,8 +224,21 @@ public class Player : MonoBehaviour
     {
         State = PlayerState.Falling;
         animator.SetTrigger("TackleFall");
+
         if (HasBall)
             Field.Ball.DetachFromParent();
+    }
+
+    public void GetHeadbutted(Vector3 direction)
+    {
+        State = PlayerState.Falling;
+        animator.SetTrigger("Knocked");
+
+        if (HasBall)
+            Field.Ball.DetachFromParent();
+
+        transform.LookAt(direction);
+        StartCoroutine(GotHit(direction));
     }
 
     private void OnCollisionEnter(Collision collision)

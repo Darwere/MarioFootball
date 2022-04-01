@@ -85,7 +85,6 @@ public abstract class PlayerBrain : MonoBehaviour
 
     protected void Shoot()
     {
-
         Field.Ball.Shoot(Enemies.ShootPoint, action.shootForce, action.direction, action.duration);
 
         Field.Ball.DetachFromParent();
@@ -109,7 +108,7 @@ public abstract class PlayerBrain : MonoBehaviour
 
     protected void Headbutt()
     {
-        StartCoroutine(Player.HeadButt(action.direction));
+        //StartCoroutine(Player.HeadButt(action.direction));
         //action.type = PlayerAction.ActionType.None;
         Debug.Log("Headbutt");
     }
