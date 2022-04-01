@@ -502,7 +502,7 @@ public class PlacementAIBrain : PlayerBrain
 
     private void DefenseMode()
     {
-        if (Random.Range(0, 1000f) <= 5f) defenseMode++;
+        //if (Random.Range(0, 1000f) <= 5f) defenseMode++;
         if (defenseMode >= 2) defenseMode = 0;
 
         switch (defenseMode)
@@ -937,7 +937,7 @@ public class PlacementAIBrain : PlayerBrain
 
         moveDir.y = 0;
 
-        if (moveDir.magnitude > 0f)
+        if (moveDir.magnitude > 1.5f)
         {
             PlayerAction act = PlayerAction.Move(moveDir.normalized);
             //Debug.Log(movementTarget);
@@ -1051,7 +1051,7 @@ public class PlacementAIBrain : PlayerBrain
                 UpdatePlayersPlacement();
                 CheckAttackPlacement();
                 AttackKeepSeeingTarget();
-                if (defensivePosition && !defending)
+                if (defensivePosition)
                 {
 
                     GoFurtherThanPlayer();

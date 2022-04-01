@@ -1065,19 +1065,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed0bf450a0e1f54aa990d662d0a384c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< Updated upstream
   Score1: {fileID: 345718328}
   Score2: {fileID: 1003947195}
   Timer: {fileID: 957315463}
 --- !u!114 &862040370
-=======
-  captain1: {fileID: 11400000, guid: d79e8634fc168a0468277a285746380d, type: 2}
-  captain2: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
-  mate1: {fileID: 11400000, guid: d79e8634fc168a0468277a285746380d, type: 2}
-  mate2: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
-  goalKeeper: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
---- !u!114 &1642756265
->>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
