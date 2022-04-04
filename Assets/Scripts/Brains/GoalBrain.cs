@@ -6,10 +6,6 @@ public class GoalBrain : PlayerBrain
     Vector3 goalPos;
     float goalRadius = 7.5f;
     float tolerance = 1f;
-    public override Vector3 MoveInput()
-    {
-        return Vector3.zero;
-    }
 
     protected override void Start()
     {

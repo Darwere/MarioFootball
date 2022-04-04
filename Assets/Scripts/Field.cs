@@ -61,11 +61,11 @@ public class Field : MonoBehaviour
     {
         bottomLeftCorner = new Vector3(width / 2, 0, -height / 2) + transform.position;
         bottomRightCorner = new Vector3(-width / 2, 0, -height / 2) + transform.position;
-        topLeftCorner = new Vector3(-width / 2, 0, height / 2) + transform.position;
+        topLeftCorner = new Vector3(width / 2, 0, height / 2) + transform.position;
         topRightCorner = new Vector3(-width / 2, 0, height / 2) + transform.position;
 
-        heightOneThird = topLeftCorner.x + height / 3f;
-        heightTwoThirds = topLeftCorner.x + height * 2f / 3f;
+        heightOneThird = bottomLeftCorner.z + height / 3f;
+        heightTwoThirds = bottomLeftCorner.z + height * 2f / 3f;
 
         heightOneSixths = topLeftCorner.x + height / 6f;
         heightThreeSixths = topLeftCorner.x + height * 3f / 6f;
@@ -90,29 +90,44 @@ public class Field : MonoBehaviour
         CameraManager.Init();
     }
 
-    public static void SetTeamPosition(Team _attackTeam)
+    public static void SetTeamPosition(Team attackTeam)
     {
-        if (_attackTeam != instance.attackTeam)
-        {
-            Team temp = instance.attackTeam;
-            instance.attackTeam = _attackTeam;
-            instance.defTeam = temp;
-        }
-        
-        for (int i = 0; i < Team1.Players.Length; i++)
-        {
-            instance.attackTeam.Players[i].transform.position = instance.attackPos[i].position;
-            instance.defTeam.Players[i].transform.position = instance.XAxisSymmetry(instance.defPos[i].position);
-        }
-        instance.attackTeam.Goal.transform.position = instance.attackPos[instance.attackPos.Count-1].position;
-        instance.defTeam.Goal.transform.position = instance.XAxisSymmetry(instance.defPos[instance.defPos.Count-1].position);
+        List<Transform> attackPos = instance.attackPos;
+        List<Transform> defPos = instance.defPos;
 
+
+        Team defTeam = attackTeam == Team1 ? Team2 : Team1;
+
+        Field.Ball.AttachToPlayer(attackTeam.Players[0]);
+
+        attackTeam.WaitKickOff();
+        defTeam.WaitKickOff();
+
+        if (attackTeam == Team1)
+        {
+            for (int i = 0; i < attackTeam.Players.Length; i++)
+            {
+                attackTeam.Players[i].transform.position = attackPos[i].position;
+                defTeam.Players[i].transform.position = instance.XAxisSymmetry(defPos[i].position);
+            }
+            attackTeam.Goal.transform.position = attackPos[attackPos.Count - 1].position;
+            defTeam.Goal.transform.position = instance.XAxisSymmetry(defPos[defPos.Count - 1].position);
+        }
+        else
+        {
+            for (int i = 0; i < Team1.Players.Length; i++)
+            {
+                attackTeam.Players[i].transform.position = instance.XAxisSymmetry(attackPos[i].position);
+                defTeam.Players[i].transform.position = defPos[i].position;
+            }
+            attackTeam.Goal.transform.position = instance.XAxisSymmetry(attackPos[attackPos.Count - 1].position);
+            defTeam.Goal.transform.position = defPos[defPos.Count - 1].position;
+        }
     }
-
 
     public Vector3 XAxisSymmetry(Vector3 initial)
     {
-        return new Vector3(-initial.x,initial.y,initial.z);
+        return new Vector3(-initial.x, initial.y, initial.z);
     }
 
 }
