@@ -69,8 +69,10 @@ public class PlacementAIBrain : PlayerBrain
     public GameObject defenseTarget;
 
     private Vector3 movementTarget = new Vector3();
+    Vector3 previousMovement = new Vector3();
     List<Vector3> debugMovement = new List<Vector3>();
-
+    int framecount = 0;
+    int frameDelay = 1;
 
     //Default functions
 
@@ -211,6 +213,95 @@ public class PlacementAIBrain : PlayerBrain
     //====================================================
     // PlayerBrain Function Requirements
 
+    #region Control Player Methods
+    /*
+    protected override void Idle()
+    {
+
+    }
+
+    protected override void Move()
+    {
+        Player.transform.position += action.direction * Time.deltaTime * Player.Species.speed;
+    }
+
+    protected override void Pass()
+    {
+        //Field.Ball.Pass(action.startPosition, action.bezierPoint, action.endPosition, action.duration);
+        SwitchPlayer();
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Pass");
+    }
+
+    protected override void SwitchPlayer()
+    {
+        Player.IsPiloted = false; //last player piloted
+
+        Player = action.target;
+        Player.IsPiloted = true; //new player piloted
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Switch");
+    }
+
+    protected override void Shoot()
+    {
+        //Ball.Shoot(action.shootForce, action.direction, action.startPosition, action.duration);
+
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Shoot");
+    }
+
+    public override Vector3 MoveInput()
+    {
+        //Ball.Shoot(action.shootForce, action.direction, action.startPosition, action.duration);
+
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("MoveInput");
+        return Vector3.zero;
+    }
+
+    protected override void Tackle()
+    {
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Tackle");
+    }
+
+    protected override void Dribble()
+    {
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Drible");
+    }
+
+    protected override void Headbutt()
+    {
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("Headbutt");
+    }
+
+    protected override void SendObject()
+    {
+
+        action.type = PlayerAction.ActionType.None;
+        Debug.Log("SendObject");
+    }
+
+    
+
+    public override PlayerAction.ActionType Act()
+    {
+        actionMethods[action.type].DynamicInvoke();
+        return action.type;
+    }
+    */
+    #endregion
+
     //====================================================
 
 
@@ -218,6 +309,20 @@ public class PlacementAIBrain : PlayerBrain
     //Value Checkup FUnctions
 
     #region Value Checkup Functions
+
+    private bool FrameDecisionDelay(int f)
+    {
+        framecount++;
+        if(framecount>=f)
+        {
+            framecount = 0;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     private void GetTeamSituation()
     {
@@ -249,7 +354,7 @@ public class PlacementAIBrain : PlayerBrain
         {
             GetTeamSituation();
         }
-
+        /*
         if (Data.color == Teams.Teamcolor.Red && !Data.isAI)
         {
             Debug.Log("");
@@ -258,6 +363,7 @@ public class PlacementAIBrain : PlayerBrain
             Debug.Log(referenceToOtherGoal.magnitude);
             Debug.Log(referenceToGoal.magnitude);
         }
+        */
     }
 
     private void GetPlayerWithBall()
@@ -502,7 +608,7 @@ public class PlacementAIBrain : PlayerBrain
 
     private void DefenseMode()
     {
-        //if (Random.Range(0, 1000f) <= 5f) defenseMode++;
+        if (Random.Range(0, 1000f) <= 5f) defenseMode++;
         if (defenseMode >= 2) defenseMode = 0;
 
         switch (defenseMode)
@@ -559,8 +665,10 @@ public class PlacementAIBrain : PlayerBrain
                     //Displacement = /*vect.normalized +*/ Random.Range(-0.1f, 0.1f) *Vector3.Cross(vect.normalized, Vector3.up);
                     Displacement.y = 0;
                     int otherdefending = Teammates[i].GetComponent<PlacementAIBrain>().defending ? 0 : 1;
-                    movementTarget -= 10f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized);
-                    debugMovement.Add(-10f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized));
+                    Vector3 move = 10f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized);
+                    move.y = 0;
+                    movementTarget -= move;
+                    debugMovement.Add(-move);
                 }
             }
 
@@ -574,13 +682,36 @@ public class PlacementAIBrain : PlayerBrain
                     //Displacement = /*vect.normalized +*/ Random.Range(-0.1f, 0.1f) *Vector3.Cross(vect.normalized, Vector3.up);
                     Displacement.y = 0;
                     int otherdefending = Ennemies[i].GetComponent<PlacementAIBrain>().defending ? 1 : 1;
-                    movementTarget -= 5f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized);
-                    debugMovement.Add(-5f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized));
+                    Vector3 move = 5f * Speed * (Displacement.normalized * DisplacementStep * otherdefending + 1f * vect.normalized);
+                    move.y = 0;
+                    movementTarget -= move;
+                    debugMovement.Add(-move);
                 }
             }
 
 
         }
+    }
+
+    private void GlobalTeamSpread()
+    {
+        /*
+        Vector3 Displacement = new Vector3();
+        foreach(GameObject mate in Teammates)
+        {
+            Vector3 toMate = mate.transform.position - transform.position;
+            Displacement += toMate;
+        }
+        movementTarget += -4*Displacement.normalized;
+        debugMovement.Add(-4*Displacement.normalized);
+        */
+        Vector3 averageTeam = new Vector3();
+        foreach (GameObject mate in Teammates) averageTeam += mate.transform.position;
+        averageTeam += transform.position;
+        averageTeam /= Teammates.Count + 1;
+
+        movementTarget += -10*averageTeam.normalized;
+        debugMovement.Add(-10*averageTeam.normalized);
     }
 
     private void CheckAttackPlacement()
@@ -591,6 +722,7 @@ public class PlacementAIBrain : PlayerBrain
             DesiredPosition = PlayerPosition.position + (TeamGoalPos - PlayerPosition.position) / 2;
             DesiredPosition.y = 0.5f;
             Displacement = DesiredPosition - transform.position;
+            Displacement.y = 0;
             //PositionCorrecter(Displacement);
             movementTarget += Displacement * 2;
             debugMovement.Add(Displacement * 2);
@@ -600,6 +732,7 @@ public class PlacementAIBrain : PlayerBrain
             DesiredZ = GetDesiredZ(Data);
             DesiredPosition = new Vector3(PlayerPosition.position.z, 0.5f, DesiredZ);
             Displacement = DesiredPosition - transform.position;
+            Displacement.y = 0;
             //PositionCorrecter(Displacement);
             movementTarget += Displacement * 5;
             debugMovement.Add(Displacement * 5);
@@ -648,6 +781,7 @@ public class PlacementAIBrain : PlayerBrain
                         DesiredPosition = new Vector3(PlayerPosition.position.x, 0.5f, 0);
                     }
                     Displacement = DesiredPosition - transform.position;
+                    Displacement.y = 0;
                     //PositionCorrecter(Displacement);
                     movementTarget += Displacement * 10;
                     debugMovement.Add(Displacement * 10);
@@ -676,7 +810,9 @@ public class PlacementAIBrain : PlayerBrain
                 if (Random.Range(0, 750f) <= 5f) uncoverDir *= -1;
 
                 //Vector3 perp = uncoverDir*(toEnnemy - Vector3.Project(toEnnemy, toPlayer)).normalized;
-                Vector3 perp = uncoverDir * (Vector3.Cross(Vector3.up, toPlayer.normalized)).normalized;
+                Vector3 perp = uncoverDir * (Vector3.Cross(Vector3.up, toPlayer.normalized));
+                perp.y = 0;
+                perp = perp.normalized;
 
                 movementTarget += perp * 5;
                 debugMovement.Add(perp * 5);
@@ -697,8 +833,10 @@ public class PlacementAIBrain : PlayerBrain
         //Displacement *= Displacement.magnitude > DisplacementStep ? DisplacementStep / Displacement.magnitude : 1;
         if (!atDesired)
         {
-            movementTarget += Speed * (Displacement.normalized * DisplacementStep) * Time.deltaTime;
-            debugMovement.Add(Speed * (Displacement.normalized * DisplacementStep) * Time.deltaTime);
+            Vector3 move = Speed * (Displacement.normalized * DisplacementStep) * Time.deltaTime;
+            move.y = 0;
+            movementTarget += move;
+            debugMovement.Add(move);
         }
     }
 
@@ -784,11 +922,13 @@ public class PlacementAIBrain : PlayerBrain
 
 
         Displacement = DesiredPosition - transform.position;
+        Displacement.y = 0;
         //PositionCorrecter(Displacement);
         movementTarget += Displacement * 2;
         debugMovement.Add(Displacement * 2);
 
     }
+
     /*
     private void AverageCovering()
     {
@@ -858,9 +998,11 @@ public class PlacementAIBrain : PlayerBrain
             furthestCorner = corner;
         }
 
-        DesiredPosition = (furthestCorner - averageTeam) / 2;
-        movementTarget += (DesiredPosition - transform.position) / 4;
-        debugMovement.Add((DesiredPosition - transform.position) / 4);
+        DesiredPosition = (furthestCorner + averageTeam) / 2;
+        Vector3 move = (DesiredPosition - transform.position) / 4;
+        move.y = 0;
+        movementTarget += move;
+        debugMovement.Add(move);
 
     }
 
@@ -876,16 +1018,16 @@ public class PlacementAIBrain : PlayerBrain
             Vector3 addedMove = (TeamGoalPos - transform.position);
             addedMove = new Vector3(addedMove.x, 0, 0);
             //Debug.DrawRay(transform.position, -addedMove.normalized * 10, Color.green, 0.1f);
-            movementTarget -= addedMove.normalized * 10f;
-            debugMovement.Add(-addedMove.normalized * 10f);
+            movementTarget -= addedMove.normalized * 20f;
+            debugMovement.Add(-addedMove.normalized * 20f);
         }
         else if ((playerXDist + 10f) < selfXDist)
         {
             Vector3 addedMove = (TeamGoalPos - transform.position);
             addedMove = new Vector3(addedMove.x, 0, 0);
             //Debug.DrawRay(transform.position, -addedMove.normalized * 10, Color.green, 0.1f);
-            movementTarget += addedMove.normalized * 20f;
-            debugMovement.Add(addedMove.normalized * 20f);
+            movementTarget += addedMove.normalized * 40f;
+            debugMovement.Add(addedMove.normalized * 40f);
 
         }
 
@@ -895,9 +1037,9 @@ public class PlacementAIBrain : PlayerBrain
     {
         Vector3 avoider = new Vector3();
         Vector3 nextPos = transform.position + (movementTarget - transform.position).normalized;
-        if(nextPos.x > Field.BottomLeftCorner.x 
-            && nextPos.x > Field.BottomRightCorner.x 
-            && nextPos.x > Field.TopLeftCorner.x 
+        if (nextPos.x > Field.BottomLeftCorner.x
+            && nextPos.x > Field.BottomRightCorner.x
+            && nextPos.x > Field.TopLeftCorner.x
             && nextPos.x > Field.TopRightCorner.x)
         {
             avoider += Vector3.right * 50f;
@@ -910,7 +1052,7 @@ public class PlacementAIBrain : PlayerBrain
             avoider += Vector3.right * -50f;
         }
 
-        
+
         if (nextPos.z > Field.BottomLeftCorner.z
             && nextPos.z > Field.BottomRightCorner.z
             && nextPos.z > Field.TopLeftCorner.z
@@ -925,30 +1067,36 @@ public class PlacementAIBrain : PlayerBrain
         {
             avoider += Vector3.forward * -50f;
         }
-
+        avoider.y = 0;
         movementTarget += avoider;
         debugMovement.Add(avoider);
     }
 
     private void CheckMove()
     {
-        Vector3 moveDir = movementTarget - transform.position;
+        movementTarget -= transform.position;
+        Vector3 moveDir = Vector3.Lerp(previousMovement, movementTarget, 0.1f);
         //if (Data.color == Teams.Teamcolor.Blue && this.gameObject == Teams.blueTeam[1]) Debug.Log(moveDir.magnitude);
 
         moveDir.y = 0;
 
-        if (moveDir.magnitude > 1.5f)
+        if (moveDir.magnitude > 3f)
         {
             PlayerAction act = PlayerAction.Move(moveDir.normalized);
             //Debug.Log(movementTarget);
             //else PlayerAction.Idle();
             action = act;
+            frameDelay = 15;
         }
         else
         {
-            action = PlayerAction.Move(Vector3.zero);
+            PlayerAction act = new PlayerAction();
+            act.type = PlayerAction.ActionType.None;
+            action = act;
+            //transform.LookAt(Field.Ball.transform);
+            frameDelay = 30;
         }
-
+        previousMovement = movementTarget;
 
 
 
@@ -960,6 +1108,9 @@ public class PlacementAIBrain : PlayerBrain
         if (playerWithBall != this.gameObject)
         {
             Vector3 toBall = Field.Ball.gameObject.transform.position - transform.position;
+            toBall.y = 0;
+            toBall *= (teamHasBall) ? -10 : 1;
+
             if (toBall.magnitude <= ballSeekingRadius)
             {
                 movementTarget += toBall.normalized * 2;
@@ -996,29 +1147,18 @@ public class PlacementAIBrain : PlayerBrain
     {
         Color rayColor = (forceColor) ? Color.green : ((Data.color == Teams.Teamcolor.Blue) ? Color.blue : Color.red);
         Vector3 position = transform.position;
-        foreach(Vector3 thought in debugMovement)
+        foreach (Vector3 thought in debugMovement)
         {
             Debug.DrawRay(position, thought, rayColor, 0.1f);
             position += thought;
         }
-        Debug.DrawRay(transform.position, movementTarget-transform.position, new Color(0.5f, 0.5f, 0.5f, 0.5f), 0.1f);
+        Debug.DrawRay(transform.position, movementTarget - transform.position, new Color(0.5f, 0.5f, 0.5f, 0.5f), 0.1f);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Field.Ball.transform.parent != null)
-        {
-            foreach(Player player in Allies.Players)
-            {
-                if (Field.Ball.transform.parent == player.transform)
-                    teamHasBall = true;
-                else
-                    teamHasBall = false;
-            }
-        }
-
         DebugRay(false);
         CheckBallPossession();
         movementTarget = transform.position;
@@ -1051,7 +1191,7 @@ public class PlacementAIBrain : PlayerBrain
                 UpdatePlayersPlacement();
                 CheckAttackPlacement();
                 AttackKeepSeeingTarget();
-                if (defensivePosition)
+                if (defensivePosition && !defending)
                 {
 
                     GoFurtherThanPlayer();
@@ -1069,11 +1209,11 @@ public class PlacementAIBrain : PlayerBrain
             {
                 BallRadius();
             }
-            
+
         }
 
-        WallAvoidance();
-        CheckMove();
+        //WallAvoidance();
+        if(FrameDecisionDelay(frameDelay)) CheckMove();
 
 
 
