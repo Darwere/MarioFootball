@@ -7,9 +7,8 @@ public class GoalBrain : PlayerBrain
     float goalRadius = 7.5f;
     float tolerance = 1f;
 
-    protected override void Start()
+    protected void Start()
     {
-        base.Start();
         ball = Field.Ball;
         if (Player.Team == Field.Team1)
         {
@@ -38,62 +37,4 @@ public class GoalBrain : PlayerBrain
         }
         else { action = PlayerAction.Move(Vector3.zero); }
     }
-
-    /*#region Control Player Methods
-
-    protected override void Idle()
-    {
-
-    }
-
-    protected override void Move()
-    {
-
-        Player.transform.position += action.direction * Time.deltaTime * Player.Species.speed;
-    }
-
-    protected override void Pass()
-    {
-
-    }
-
-    protected override void SwitchPlayer()
-    {
-
-    }
-
-    protected override void Shoot()
-    {
-
-    }
-
-    protected override void Tackle()
-    {
-
-    }
-
-    protected override void Dribble()
-    {
-
-    }
-
-    protected override void Headbutt()
-    {
-
-    }
-
-    protected override void SendObject()
-    {
-
-    }
-
-    #endregion*/
-
-
-
-    /*public override PlayerAction.ActionType Act()
-    {
-        actionMethods[action.type].DynamicInvoke();
-        return action.type;
-    }*/
 }

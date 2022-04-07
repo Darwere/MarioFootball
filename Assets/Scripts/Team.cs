@@ -155,6 +155,7 @@ public class Team : MonoBehaviour
     {
         foreach (Player player in Players)
         {
+            if(player.State != Player.PlayerState.Waiting)
             player.StartPlaying();
         }
         Goal.StartPlaying();
