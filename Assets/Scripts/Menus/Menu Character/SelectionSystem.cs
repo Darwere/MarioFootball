@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class SelectionSystem : MonoBehaviour
 {
     public List<GameObject> ListButtons = new List<GameObject>();
-    int compteurButtons = 0;
-    GameObject buttonSelected;
+
+    
+    private int compteurButtons = 0;
+    private GameObject buttonSelected;
+    PlayerInput playerInput;
 
 
     public void SelectionCharacter()
@@ -28,6 +32,7 @@ public class SelectionSystem : MonoBehaviour
 
     public void SelectionCharacterRight()
     {
+        Debug.Log(playerInput.playerIndex);
         DeselectionCharacterUI(ListButtons[compteurButtons]);
         compteurButtons++;
         if (compteurButtons < ListButtons.Count)

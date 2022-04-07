@@ -76,7 +76,7 @@ public class Switcher : MonoBehaviour
                 if (team == Teams.Teamcolor.Blue) bluePlayer = switchTeam[index];
                 else redPlayer = switchTeam[index];
 
-                if (selectSwitchedPlayer) Selection.activeObject = switchTeam[index];
+                //if (selectSwitchedPlayer) Selection.activeObject = switchTeam[index];
                 //switchTeam[i].GetComponent<Player>().isAI = true;
                 //switchTeam[index].GetComponent<Player>().isAI = false;
                 break;

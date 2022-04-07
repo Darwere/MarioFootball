@@ -221,7 +221,7 @@ RectTransform:
   - {fileID: 1216094732}
   - {fileID: 1879960597}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -476,7 +476,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 283765358}
-  - component: {fileID: 283765357}
   - component: {fileID: 283765356}
   m_Layer: 0
   m_Name: ControllerManager
@@ -497,21 +496,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NotificationBehavior: 0
-  m_MaxPlayerCount: -1
+  m_NotificationBehavior: 2
+  m_MaxPlayerCount: 2
   m_AllowJoining: 1
-  m_JoinBehavior: 2
+  m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 283765357}
-        m_TargetAssemblyTypeName: ControllerManager, Assembly-CSharp
-        m_MethodName: OnPlayerJoined
-        m_Mode: 2
+      - m_Target: {fileID: -1204181922565031881, guid: 855ba3ec658599e47aae5431ebb74816, type: 3}
+        m_TargetAssemblyTypeName: PlayerSelection, Assembly-CSharp
+        m_MethodName: playerJoined
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.InputSystem.PlayerInput,
-            Unity.InputSystem
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -523,16 +521,24 @@ MonoBehaviour:
   m_JoinAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: Join
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 
+      m_Id: 16fd6c4d-121d-45b2-9652-02fff8b374bb
       m_Processors: 
       m_Interactions: 
-      m_SingletonActionBindings: []
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 7878819c-db97-420f-81d8-85f1862e82af
+        m_Path: <Gamepad>/buttonEast
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Join
+        m_Flags: 0
       m_Flags: 0
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 509172843661933800, guid: 855ba3ec658599e47aae5431ebb74816, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
@@ -542,18 +548,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &283765357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 283765355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36aa362ca49716c49ab1e5a18ee9a21f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &283765358
 Transform:
   m_ObjectHideFlags: 0
@@ -566,7 +560,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &363662876
 GameObject:
@@ -661,7 +655,7 @@ RectTransform:
   m_Children:
   - {fileID: 907949048}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1415,36 +1409,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961969863}
   m_CullTransparentMesh: 1
---- !u!1 &997036214
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 997036216}
-  m_Layer: 0
-  m_Name: _Script
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &997036216
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 997036214}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1039.4097, y: 538.52637, z: 644.7326}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1032065937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,7 +1508,7 @@ RectTransform:
   - {fileID: 1716888462}
   - {fileID: 1648309398}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1901,6 +1865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c67aa8dec37df45810e428c7c0a698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  listCharacters: []
   PrefabCharacter: {fileID: 5754313268897098529, guid: cc5d43e7231c2bd45b9214e19d1a72e3, type: 3}
   Characters:
   - Name: DAISY
@@ -2204,7 +2169,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222859412}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -2243,35 +2208,11 @@ MonoBehaviour:
     m_ActionId: d8dc6383-d563-4ab4-845b-5e50fc4cb998
     m_ActionName: Control Menu/Previous Scene Changement[/DualShock4GamepadHID/buttonWest,/DualShock4GamepadHID1/buttonWest,/DualShock4GamepadHID2/buttonWest,/DualShock4GamepadHID3/buttonWest]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1190733836}
-        m_TargetAssemblyTypeName: CharacterGrid, Assembly-CSharp
-        m_MethodName: ListenController
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: a949530c-8f98-4a81-903e-c5642cf8bb1c
     m_ActionName: Control Menu/Selection Item Left[/DualShock4GamepadHID/dpad/left,/DualShock4GamepadHID1/dpad/left,/DualShock4GamepadHID2/dpad/left,/DualShock4GamepadHID3/dpad/left]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1190733836}
-        m_TargetAssemblyTypeName: CharacterGrid, Assembly-CSharp
-        m_MethodName: ValidateChoice
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 12693e32-a0c4-42ba-814f-0584f3c7f799
     m_ActionName: Control Menu/Validate[/DualShock4GamepadHID/buttonEast,/DualShock4GamepadHID1/buttonEast,/DualShock4GamepadHID2/buttonEast,/DualShock4GamepadHID3/buttonEast,/DualShock4GamepadHID4/buttonEast,/DualShock4GamepadHID5/buttonEast,/DualShock4GamepadHID6/buttonEast]
   - m_PersistentCalls:
@@ -4212,5 +4153,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -186,8 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55b22583b79c79439ddb8f7e7dcc3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ateamBrainType: HolyBrain
-  agoalBrainType: HolyBrain
+  ateamBrainType: GoalBrain
+  agoalBrainType: GoalBrain
   ConcededGoals: 0
   ShootPoints:
   - {fileID: 994263396262917775}
