@@ -114984,7 +114984,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.7666667
-    functionName: EndOfPass
+    functionName: StartPlaying
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

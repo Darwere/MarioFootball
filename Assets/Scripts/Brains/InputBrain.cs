@@ -8,19 +8,6 @@ public class InputBrain : PlayerBrain
 
     private Vector3 direction;
 
-    /*private void FixedUpdate()
-    {
-        if (action.type == PlayerAction.ActionType.Move)
-        {
-            Player.GetComponent<Rigidbody>().MovePosition(Player.transform.position + action.direction * Time.deltaTime * Player.Species.speed);
-
-            if (action.direction != Vector3.zero)
-            {
-                //Player.transform.forward = action.direction;
-            }
-        }
-    }*/
-
     #region InputEvent
 
     public void Movement(InputAction.CallbackContext input)
@@ -46,7 +33,6 @@ public class InputBrain : PlayerBrain
 
         PlayerAction act = PlayerAction.Move(moveDirection);
         action = act;
-        
     }
 
     public void Pass_SwitchPlayer(InputAction.CallbackContext input)
@@ -61,7 +47,7 @@ public class InputBrain : PlayerBrain
         Player targetPlayer = Allies.GetPlayerWithDirection(startPos, direction);
 
         if (Player.HasBall && (Player.CanMove || Player.IsKickOff))
-            act = PlayerAction.Pass(direction, startPos, targetPlayer.transform.position, 1f, targetPlayer); //Pass
+            act = PlayerAction.Pass(direction, Field.Ball.transform.position, targetPlayer.transform.position, 1f, targetPlayer); //Pass
         else
             act = PlayerAction.ChangePlayer(targetPlayer);  //SwitchPlayer
 
@@ -103,7 +89,8 @@ public class InputBrain : PlayerBrain
         else
         {
             Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position,direction);
-            act = PlayerAction.HeadButt(targetPlayer); //HeadButt
+            Vector3 vector = targetPlayer.transform.position - Player.transform.position;
+            act = PlayerAction.HeadButt(vector.normalized); //HeadButt
         }
             
 
