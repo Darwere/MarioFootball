@@ -13,12 +13,15 @@ public class Team : MonoBehaviour
     [SerializeField] private string agoalBrainType;
     public Type GoalBrainType => Type.GetType(agoalBrainType);
 
+    [SerializeField] private string aPilotedBrainType;
+    public Type PilotedBrainType => Type.GetType(aPilotedBrainType);
+
     public Player[] Players { get; private set; }
     public PlayerBrain[] Brains { get; private set; }
     public Player Goal { get; private set; }
 
     public int ConcededGoals;
-    public InputBrain Brain { get; private set; }
+    public PlayerBrain Brain { get; private set; }
     [SerializeField]
     private Transform[] ShootPoints;
     public Transform[] ShootPoint => ShootPoints;
@@ -28,7 +31,8 @@ public class Team : MonoBehaviour
 
     private void Awake()
     {
-        Brain = GetComponent<InputBrain>();
+        gameObject.AddComponent(PilotedBrainType);
+        Brain = GetComponent<PlayerBrain>();
     }
 
     /// <summary>

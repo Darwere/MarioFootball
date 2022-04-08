@@ -8,7 +8,31 @@ public class InputBrain : PlayerBrain
 
     private Vector3 direction;
 
+    private PlayerControllers playerControllers;
     #region InputEvent
+    protected override void Awake()
+    {
+        base.Awake();
+        playerControllers = new PlayerControllers();
+    }
+
+    private void Start()
+    {
+        playerControllers.PlayerController.Move.Enable();
+        playerControllers.PlayerController.Move.performed += Movement;
+
+        playerControllers.PlayerController.PassSwitchPlayer.Enable();
+        playerControllers.PlayerController.PassSwitchPlayer.performed += Pass_SwitchPlayer;
+
+        playerControllers.PlayerController.ShootTackle.Enable();
+        playerControllers.PlayerController.ShootTackle.performed += Shoot_Tackle;
+
+        playerControllers.PlayerController.DribbleHeadButt.Enable();
+        playerControllers.PlayerController.DribbleHeadButt.performed += Dribble_HeadButt;
+
+        playerControllers.PlayerController.SendObject.Enable();
+        playerControllers.PlayerController.SendObject.performed += SendObject;
+    }
 
     public void Movement(InputAction.CallbackContext input)
     {
@@ -52,6 +76,7 @@ public class InputBrain : PlayerBrain
             act = PlayerAction.ChangePlayer(targetPlayer);  //SwitchPlayer
 
         action = act;
+        Debug.Log(Player.transform.position);
     }
 
     public void Shoot_Tackle(InputAction.CallbackContext input)

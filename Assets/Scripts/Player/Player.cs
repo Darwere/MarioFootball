@@ -136,8 +136,6 @@ public class Player : MonoBehaviour
     {
         savedAction = lastAction;
 
-        Debug.Log("Pass");
-
         animator.SetTrigger("Pass");
         animator.SetBool("Moving", false);
     }

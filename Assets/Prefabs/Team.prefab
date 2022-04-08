@@ -132,7 +132,6 @@ GameObject:
   - component: {fileID: 5965256866810570008}
   - component: {fileID: 5965256866810570013}
   - component: {fileID: 5965256866810570012}
-  - component: {fileID: 5965256866810570011}
   m_Layer: 0
   m_Name: Team
   m_TagString: Untagged
@@ -186,8 +185,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55b22583b79c79439ddb8f7e7dcc3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ateamBrainType: HolyBrain
-  agoalBrainType: HolyBrain
+  ateamBrainType: GoalBrain
+  agoalBrainType: GoalBrain
+  aPilotedBrainType: GoalBrain
   ConcededGoals: 0
   ShootPoints:
   - {fileID: 994263396262917775}
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: e46576fb1466f8b489facd91213b072b, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5965256866810570011}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
         m_MethodName: Movement
         m_Mode: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
     m_ActionName: PlayerController/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5965256866810570011}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
         m_MethodName: Pass_SwitchPlayer
         m_Mode: 0
@@ -255,7 +255,7 @@ MonoBehaviour:
     m_ActionName: PlayerController/Pass/SwitchPlayer[/Keyboard/q]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5965256866810570011}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
         m_MethodName: Shoot_Tackle
         m_Mode: 0
@@ -271,7 +271,7 @@ MonoBehaviour:
     m_ActionName: PlayerController/Shoot/Tacle[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5965256866810570011}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
         m_MethodName: Dribble_HeadButt
         m_Mode: 0
@@ -287,7 +287,7 @@ MonoBehaviour:
     m_ActionName: PlayerController/Dribble/HeadButt[/Keyboard/z]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5965256866810570011}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
         m_MethodName: SendObject
         m_Mode: 0
@@ -306,18 +306,6 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerController
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &5965256866810570011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5965256866810570014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab046ee872cfe654b88c0433ca7ff0f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6253678028880466652
 GameObject:
   m_ObjectHideFlags: 0
