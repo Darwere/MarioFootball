@@ -1081,6 +1081,20 @@ public class PlacementAIBrain : PlayerBrain
         debugMovement.Add(avoider);
     }
 
+    private void WallUnstick()
+    {
+        if( (movementTarget.x > Field.BottomLeftCorner.x && movementTarget.x> Field.TopRightCorner.x)  ||
+            (movementTarget.y > Field.BottomLeftCorner.y && movementTarget.y > Field.TopRightCorner.y) ||
+            (movementTarget.x < Field.BottomLeftCorner.x && movementTarget.x < Field.TopRightCorner.x) ||
+            (movementTarget.y < Field.BottomLeftCorner.y && movementTarget.y < Field.TopRightCorner.y)    )
+        {
+            Vector3 middle = (Field.BottomLeftCorner + Field.BottomRightCorner + Field.TopLeftCorner + Field.TopRightCorner) / 4;
+            movementTarget += (middle-transform.position).normalized * 15f;
+            debugMovement.Add((middle-transform.position).normalized * 15f);
+            Debug.DrawRay(transform.position, (middle - transform.position).normalized * 5f, Color.magenta, 0.1f);        }
+
+    }
+
     private void CheckMove()
     {
         if (FrameDecisionDelay(frameDelay)) choiceDir = movementTarget-transform.position;
@@ -1229,6 +1243,7 @@ public class PlacementAIBrain : PlayerBrain
             }
 
         }
+        WallUnstick();
         GlobalTeamSpread();
         //WallAvoidance();
         CheckMove();
