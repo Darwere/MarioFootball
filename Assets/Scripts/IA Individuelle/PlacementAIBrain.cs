@@ -1023,7 +1023,7 @@ public class PlacementAIBrain : PlayerBrain
         {
             Vector3 addedMove = (goal - transform.position);
             addedMove = new Vector3(-addedMove.x, 0, 0);
-            Debug.DrawRay(transform.position, addedMove.normalized * 35f, Color.green, 0.1f);
+            //Debug.DrawRay(transform.position, addedMove.normalized * 35f, Color.green, 0.1f);
             //Debug.DrawRay(transform.position, -addedMove.normalized * 10, Color.green, 0.1f);
             movementTarget += addedMove.normalized * 35f;
             debugMovement.Add(addedMove.normalized * 35f);
@@ -1083,15 +1083,18 @@ public class PlacementAIBrain : PlayerBrain
 
     private void WallUnstick()
     {
-        if( (movementTarget.x > Field.BottomLeftCorner.x && movementTarget.x> Field.TopRightCorner.x)  ||
-            (movementTarget.y > Field.BottomLeftCorner.y && movementTarget.y > Field.TopRightCorner.y) ||
-            (movementTarget.x < Field.BottomLeftCorner.x && movementTarget.x < Field.TopRightCorner.x) ||
-            (movementTarget.y < Field.BottomLeftCorner.y && movementTarget.y < Field.TopRightCorner.y)    )
+        Vector3 move = (movementTarget - transform.position).normalized * 3;
+
+        if( (move.x > Field.BottomLeftCorner.x && move.x> Field.TopRightCorner.x)  ||
+            (move.y > Field.BottomLeftCorner.y && move.y > Field.TopRightCorner.y) ||
+            (move.x < Field.BottomLeftCorner.x && move.x < Field.TopRightCorner.x) ||
+            (move.y < Field.BottomLeftCorner.y && move.y < Field.TopRightCorner.y)    )
         {
             Vector3 middle = (Field.BottomLeftCorner + Field.BottomRightCorner + Field.TopLeftCorner + Field.TopRightCorner) / 4;
             movementTarget += (middle-transform.position).normalized * 15f;
             debugMovement.Add((middle-transform.position).normalized * 15f);
-            Debug.DrawRay(transform.position, (middle - transform.position).normalized * 5f, Color.magenta, 0.1f);        }
+            //Debug.DrawRay(transform.position, (middle - transform.position).normalized * 5f, Color.magenta, 0.1f);
+        }
 
     }
 
@@ -1110,7 +1113,7 @@ public class PlacementAIBrain : PlayerBrain
             //Debug.Log(movementTarget);
             //else PlayerAction.Idle();
             action = act;
-            frameDelay = 15 + Random.Range(-5,6);
+            frameDelay = 20 + Random.Range(-5,6);
         }
         else
         {
@@ -1118,9 +1121,9 @@ public class PlacementAIBrain : PlayerBrain
             act.type = PlayerAction.ActionType.None;
             action = act;
             //transform.LookAt(Field.Ball.transform);
-            frameDelay = 30 + Random.Range(-5, 6);
+            frameDelay = 40 + Random.Range(-5, 6);
         }
-        previousMovement = movementTarget;
+        previousMovement = choiceDir;
 
 
 
@@ -1184,7 +1187,8 @@ public class PlacementAIBrain : PlayerBrain
     // Update is called once per frame
     void Update()
     {
-        DebugRay(false);
+        //
+        //DebugRay(false);
         CheckBallPossession();
         movementTarget = transform.position;
 
