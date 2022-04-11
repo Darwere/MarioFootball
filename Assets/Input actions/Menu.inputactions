@@ -181,6 +181,17 @@
                     "action": "Next Scene Changement",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "311717e7-c2a0-49ce-aa0c-02895ba71d5b",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Next Scene Changement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
