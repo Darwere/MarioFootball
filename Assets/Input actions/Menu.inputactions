@@ -74,6 +74,17 @@
                 },
                 {
                     "name": "",
+                    "id": "58f03cfb-800d-41ca-a553-355ca3614d61",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Validate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9b8430cd-8d7e-4366-977f-fe956740cfb9",
                     "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
@@ -85,9 +96,31 @@
                 },
                 {
                     "name": "",
+                    "id": "45816ed2-3caa-404f-b8a9-840fca273e24",
+                    "path": "<Keyboard>/w",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection Item Up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9542a6b7-a913-4067-b7d5-323b5f1fc23b",
                     "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection Item Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "04f5264a-613c-4637-9888-63aa12e81b32",
+                    "path": "<Keyboard>/s",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "Selection Item Down",

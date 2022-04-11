@@ -10,6 +10,7 @@ public class SelectionSystem1 : MonoBehaviour
     public List<GameObject> ListItems = new List<GameObject>();
     public List<GameObject> ListCanvasItems = new List<GameObject>();
     public GameObject ActualCanvas;
+    public AudioSource audioSelection;
 
     
     int counterItem = 0; //Variable qui parcourt la liste
@@ -64,6 +65,7 @@ public class SelectionSystem1 : MonoBehaviour
 
     public void SelectionItemUp()
     {
+        audioSelection.Play();
 
         DeselectionItemUI(ListItems[counterItem]);
         counterItem++;
@@ -81,6 +83,7 @@ public class SelectionSystem1 : MonoBehaviour
 
     public void SelectionItemDown()
     {
+        audioSelection.Play();
 
         DeselectionItemUI(ListItems[counterItem]);
         counterItem--;
