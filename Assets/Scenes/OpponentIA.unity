@@ -514,7 +514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
-      value: GoalBrain
+      value: InputBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: aPilotedBrainType
@@ -1814,7 +1814,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5965256866810570012, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: agoalBrainType
@@ -1822,7 +1822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
-      value: GoalBrain
+      value: InputBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: aPilotedBrainType

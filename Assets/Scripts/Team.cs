@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class Team : MonoBehaviour
 {
@@ -66,8 +67,18 @@ public class Team : MonoBehaviour
 
         Brains = Players.Select(player => player.IABrain).ToArray();
 
+        if(Brain.GetType() != typeof(InputBrain)) //désactiver les actions si ce n'est pas une personne qui contrôle le joueur
+                                                  //event unity necessite que inputBrain soit un component par défaut
+        {
+            gameObject.GetComponent<PlayerInput>().DeactivateInput();
+        }
+
+
         players[0].IsPiloted = true;
         Brain.SetPlayer(players[0]);
+
+        if (Brain.GetType() != typeof(InputBrain))
+            Brain.Init();
     }
 
     public Player GetPlayerWithDirection(Vector3 startPos, Vector3 dir)

@@ -10,16 +10,13 @@ namespace BehaviorTree
         public Selector() : base() { }
         public Selector(List<Node> children) : base(children) { }
 
-
         public override NodeAction Evaluate()
         {
-            bool anyChildIsRunning = false;
 
             foreach (Node node in children)
             {
                 switch (node.Evaluate().State)
                 {
-
                     case NodeState.Failure:
                         continue;
 
@@ -36,7 +33,7 @@ namespace BehaviorTree
                 }
             }
 
-            nodeAction.State = anyChildIsRunning ? NodeState.Running : NodeState.Succes;
+            nodeAction.State = NodeState.Failure;
             return nodeAction;
         }
     }

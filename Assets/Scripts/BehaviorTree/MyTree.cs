@@ -2,19 +2,20 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
-    public abstract class Tree : PlayerBrain
+    public abstract class MyTree : PlayerBrain
     {
-        private Node root = null;
+        protected Node root = null;
         protected NodeAction nodeAction = new NodeAction();
 
-        protected void Start()
+        public override void Init()
         {
+            Debug.Log("test");
             root = SetUpTree();
         }
 
-        protected void Update()
+        protected virtual void Update()
         {
-            if(root != null)
+            if (root != null)
             {
                 nodeAction = root.Evaluate();
                 action = nodeAction.Action;
