@@ -22,7 +22,7 @@ public class BobBomb : Item
         timeLeft -= Time.deltaTime;
         if (timeLeft <= 0)
         {
-            GameObject explosion = Instantiate(explosionArea, transform.position, Quaternion.identity);
+            Instantiate(explosionArea, transform.position, Quaternion.identity);
             GameObject particule = Instantiate(explosionParticule, transform.position, Quaternion.identity);
             Destroy(particule, 1.5f);
             Destroy(this.gameObject);

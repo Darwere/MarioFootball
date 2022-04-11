@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class KeyBobBombe : MonoBehaviour
 {
-    private int x;
+    private float x;
     void Update()
     {
-        x++;
+        x+=0.002f;
         x %= 360;
-        transform.rotation = Quaternion.Euler(x, -90, 90);
+        transform.Rotate(0, x, 0, Space.Self);
+        //transform.rotation = Quaternion.Euler(x, -90, 90);
     }
 
 
