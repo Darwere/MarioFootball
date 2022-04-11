@@ -12,9 +12,9 @@ public class NotNearestAllie : Node
             this.allies.Add(allie);
     }
 
-    public override NodeAction Evaluate()
+    public override NodeState Evaluate()
     {
-        Debug.Log("NotNearestAllie");
+        
         Transform playerTransform = (Transform)GetData("playerTransform");
         float MinSquareDistance = float.MaxValue;
         Player playerToSwitch = null;
@@ -22,7 +22,7 @@ public class NotNearestAllie : Node
         foreach(Player allie in allies)
         {
             Vector3 vector = allie.transform.position - Field.Ball.transform.position;
-            if(vector.sqrMagnitude < MinSquareDistance)
+            if(allie.transform.position != playerTransform.position && vector.sqrMagnitude < MinSquareDistance)
             {
                 MinSquareDistance = vector.sqrMagnitude;
                 playerToSwitch = allie;
@@ -30,16 +30,14 @@ public class NotNearestAllie : Node
         }
         float playerSquareDistance = (playerTransform.position - Field.Ball.transform.position).sqrMagnitude;
 
-        if (MinSquareDistance < playerSquareDistance)
+        if (MinSquareDistance < playerSquareDistance - 1f)
         {
-            nodeAction.State = NodeState.Succes;
+            state = NodeState.Succes;
             Node root = GetRootNode();
             root.SetData("playerToSwitch", playerToSwitch);
-
-            return nodeAction;
+            return state;
         }
-
-        nodeAction.State = NodeState.Failure;
-        return nodeAction;
+        state = NodeState.Failure;
+        return state;
     }
 }

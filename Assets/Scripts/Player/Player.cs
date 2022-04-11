@@ -94,7 +94,6 @@ public class Player : MonoBehaviour
             if (IsPiloted)
             {
                 lastAction = Team.Brain.Act();
-
                 actionMethods[lastAction.type].DynamicInvoke(); //Team.Brain.Act() return une ActionType
             }
                 
@@ -145,7 +144,7 @@ public class Player : MonoBehaviour
     {
         IsPiloted = false; //last player piloted
 
-        Team.Brain.SetPlayer(savedAction.target);
+        Team.Brain.SetPlayer(lastAction.target);
         animator.SetBool("Moving", false);
     }
 
@@ -221,7 +220,12 @@ public class Player : MonoBehaviour
     {
         transform.forward = savedAction.target.transform.position - transform.position;
         Field.Ball.Move(savedAction.duration, savedAction.startPosition, savedAction.endPosition, savedAction.bezierPoint);
-        SwitchPlayer();
+
+        IsPiloted = false; //last player piloted
+
+        Team.Brain.SetPlayer(savedAction.target);
+        animator.SetBool("Moving", false);
+
         savedAction.target.Wait();
     }
 

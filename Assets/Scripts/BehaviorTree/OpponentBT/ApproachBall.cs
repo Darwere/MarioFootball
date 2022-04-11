@@ -8,9 +8,8 @@ public class ApproachBall : Node
     private float waitCounter = 0f;
     private bool waiting = false;
 
-    public override NodeAction Evaluate()
+    public override NodeState Evaluate()
     {
-        Debug.Log("ApproachBall");
         Transform playerTransform = (Transform)GetData("playerTransform");
         if (waiting)
         {
@@ -28,9 +27,14 @@ public class ApproachBall : Node
                 waiting = true;
             }
             else
-                nodeAction.Action = PlayerAction.Move(direction.normalized);
+            {
+                PlayerAction action = PlayerAction.Move(direction.normalized);
+                Node root = GetRootNode();
+                root.SetData("action", action);
+            }
+                
         }
-        nodeAction.State = NodeState.Running;
-        return nodeAction;
+        state = NodeState.Running;
+        return state;
     }
 }

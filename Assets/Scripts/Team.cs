@@ -32,8 +32,15 @@ public class Team : MonoBehaviour
 
     private void Awake()
     {
-        gameObject.AddComponent(PilotedBrainType);
         Brain = GetComponent<PlayerBrain>();
+
+        if (PilotedBrainType != Brain.GetType()) //désactiver les actions si ce n'est pas une personne qui contrôle le joueur
+                                                   //event unity necessite que inputBrain soit un component par défaut
+        {
+            Destroy(GetComponent<PlayerBrain>());
+            gameObject.AddComponent(PilotedBrainType);
+            Brain = GetComponent<OpponentTree>();
+        }
     }
 
     /// <summary>
@@ -60,6 +67,7 @@ public class Team : MonoBehaviour
     /// <param name="goalKeeper">Le gardien</param>
     public void Init(Player[] players, Player goalKeeper)
     {
+        
         Players = players;
         Goal = goalKeeper;
 
@@ -67,18 +75,11 @@ public class Team : MonoBehaviour
 
         Brains = Players.Select(player => player.IABrain).ToArray();
 
-        if(Brain.GetType() != typeof(InputBrain)) //désactiver les actions si ce n'est pas une personne qui contrôle le joueur
-                                                  //event unity necessite que inputBrain soit un component par défaut
-        {
-            gameObject.GetComponent<PlayerInput>().DeactivateInput();
-        }
-
 
         players[0].IsPiloted = true;
         Brain.SetPlayer(players[0]);
 
-        if (Brain.GetType() != typeof(InputBrain))
-            Brain.Init();
+        Brain.Init();
     }
 
     public Player GetPlayerWithDirection(Vector3 startPos, Vector3 dir)

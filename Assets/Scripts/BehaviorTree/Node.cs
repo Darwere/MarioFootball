@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine;
 
 namespace BehaviorTree
 {
@@ -11,7 +11,7 @@ namespace BehaviorTree
         Failure
     }
 
-    public class NodeAction
+    /*public class NodeAction
     {
         public NodeState State;
         public PlayerAction Action;
@@ -22,11 +22,11 @@ namespace BehaviorTree
             Action = new PlayerAction();
             Action.type = PlayerAction.ActionType.None;
         }
-    }
+    }*/
 
     public class Node
     {
-        protected NodeAction nodeAction = new NodeAction();
+        protected NodeState state = new NodeState();
 
         public Node Parent;
         protected List<Node> children = new List<Node>();
@@ -50,7 +50,7 @@ namespace BehaviorTree
             children.Add(node);
         }
 
-        public virtual NodeAction Evaluate() => new NodeAction();
+        public virtual NodeState Evaluate() => new NodeState();
 
         public void SetData(string key, object value)
         {
@@ -99,7 +99,7 @@ namespace BehaviorTree
         {
             Node parent = this.Parent;
 
-            while(parent != null)
+            while(parent.Parent != null)
             {
                 parent = parent.Parent;
             }

@@ -11,18 +11,18 @@ namespace BehaviorTree
         public Sequence(List<Node> children) : base(children) { }
 
 
-        public override NodeAction Evaluate()
+        public override NodeState Evaluate()
         {
             bool anyChildIsRunning = false;
 
             foreach(Node node in children)
             {
-                switch(node.Evaluate().State)
+                switch(node.Evaluate())
                 {
 
                     case NodeState.Failure:
-                        nodeAction.State = NodeState.Failure;
-                        return nodeAction;
+                        state = NodeState.Failure;
+                        return state;
 
                     case NodeState.Succes:
                         continue;
@@ -32,13 +32,13 @@ namespace BehaviorTree
                         continue;
 
                     default:
-                        nodeAction.State = NodeState.Succes;
-                        return nodeAction;
+                        state = NodeState.Succes;
+                        return state;
                 }
             }
 
-            nodeAction.State = anyChildIsRunning ? NodeState.Running : NodeState.Succes;
-            return nodeAction;
+            state = anyChildIsRunning ? NodeState.Running : NodeState.Succes;
+            return state;
         }
     }
 }

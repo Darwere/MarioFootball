@@ -3,25 +3,24 @@ using UnityEngine;
 
 public class BallInRange : Node
 {
-    private Transform player;
     private float range = 0f;
 
-    public BallInRange(float range, Transform player)
+    public BallInRange(float range)
     {
         this.range = range;
-        this.player = player;
     }
 
-    public override NodeAction Evaluate()
+    public override NodeState Evaluate()
     {
-        Vector3 direction = Field.Ball.transform.position - player.transform.position;
+        Transform playerTransform = (Transform)GetData("playerTransform");
+        Vector3 direction = Field.Ball.transform.position - playerTransform.position;
 
         if (direction.sqrMagnitude < range * range)
-            nodeAction.State = NodeState.Succes;
+            state = NodeState.Succes;
         else
-            nodeAction.State = NodeState.Failure;
+            state = NodeState.Failure;
 
-        return nodeAction;
+        return state;
     }
 
 }

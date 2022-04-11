@@ -14,7 +14,7 @@ public abstract class PlayerBrain : MonoBehaviour
 
     public virtual void Init()
     {
-
+        return;
     }
 
     protected virtual void Awake()

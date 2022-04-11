@@ -5,11 +5,9 @@ namespace BehaviorTree
     public abstract class MyTree : PlayerBrain
     {
         protected Node root = null;
-        protected NodeAction nodeAction = new NodeAction();
 
         public override void Init()
         {
-            Debug.Log("test");
             root = SetUpTree();
         }
 
@@ -17,8 +15,11 @@ namespace BehaviorTree
         {
             if (root != null)
             {
-                nodeAction = root.Evaluate();
-                action = nodeAction.Action;
+                root.Evaluate();
+                action = (PlayerAction)root.GetData("action");
+                root.ClearData("action");
+                if(action.type == PlayerAction.ActionType.ChangePlayer)
+                    Debug.Log(action.target);
             }    
         }
 

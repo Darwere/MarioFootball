@@ -3,26 +3,23 @@ using UnityEngine;
 
 public class SwitchPlayer : Node
 {
-    public override NodeAction Evaluate()
+    public override NodeState Evaluate()
     {
-        Debug.Log("SwitchPlayer");
         Player target = (Player)GetData("playerToSwitch");
 
-        if(target.GetType() == typeof(Player))
+        if(target != null)
         {
-            Debug.Log("WP");
-            nodeAction.State = NodeState.Succes;
-            nodeAction.Action = PlayerAction.ChangePlayer(target);
-
+            
+            state = NodeState.Succes;
             Node root = GetRootNode();
             root.ClearData("playerToSwitch");
-            root.ClearData("playerTransform");
             root.SetData("playerTransform", target.transform);
-
-            return nodeAction;
+            PlayerAction action = PlayerAction.ChangePlayer(target);
+            root.SetData("action", action);
+            return state;
         }
 
-        nodeAction.State = NodeState.Failure;
-        return nodeAction;
+        state = NodeState.Failure;
+        return state;
     }
 }
