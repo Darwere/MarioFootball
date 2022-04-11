@@ -258,7 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 24
   hauteur: 21
-  explosionParticule: {fileID: 4743871302515942032, guid: 118153a9571168b48be5e252ba513631, type: 3}
+  explosionParticule: {fileID: 31045244631927530, guid: 33135b3b6baad3346b50c78545844827, type: 3}
   explosionArea: {fileID: 7518784833803752287, guid: 44584af87da04f940a41051c44eb5c65, type: 3}
 --- !u!54 &6031591382451120491
 Rigidbody:
