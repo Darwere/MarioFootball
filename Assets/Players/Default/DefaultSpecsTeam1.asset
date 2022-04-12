@@ -16,6 +16,7 @@ MonoBehaviour:
   weight: 70
   accuracy: 0.7
   speed: 10
+  shootRange: 40
   tackleRange: 5
   stunTime: 1
   prefab: {fileID: 1405520251746878004, guid: acfc792c01e441641975460f1a948658, type: 3}
