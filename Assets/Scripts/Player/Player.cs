@@ -175,7 +175,8 @@ public class Player : MonoBehaviour
     }
 
     protected void Headbutt()
-    {        
+    {
+        State = PlayerState.Headbutting;
         animator.SetTrigger("HeadButting");
         animator.SetBool("Moving", false);
     }
@@ -218,15 +219,14 @@ public class Player : MonoBehaviour
 
     public void LaunchPass()
     {
-        transform.forward = savedAction.target.transform.position - transform.position;
+        transform.forward = savedAction.direction;
         Field.Ball.Move(savedAction.duration, savedAction.startPosition, savedAction.endPosition, savedAction.bezierPoint);
 
-        IsPiloted = false; //last player piloted
-
-        Team.Brain.SetPlayer(savedAction.target);
-        animator.SetBool("Moving", false);
-
-        savedAction.target.Wait();
+        if(savedAction.target != null)
+        {
+            SwitchPlayer();
+            savedAction.target.Wait();
+        }
     }
 
     public void StartMoving()
@@ -247,12 +247,16 @@ public class Player : MonoBehaviour
         float distance = 4;
         Debug.DrawRay(startPosition, transform.forward, Color.red, distance);
         Physics.Raycast(startPosition, transform.forward, out hit, distance);
-        Player player = hit.collider.gameObject.GetComponent<Player>();
 
-        if (player != null && player.State != PlayerState.Falling)
+        if (hit.collider != null)
         {
-            Vector3 direction = player.transform.position - transform.position;
-            player.GetHeadbutted(direction);
+            Player player = hit.collider.gameObject.GetComponent<Player>();
+
+            if (player != null && player.State != PlayerState.Falling)
+            {
+                Vector3 direction = player.transform.position - transform.position;
+                player.GetHeadbutted(direction);
+            }
         }
     }
 

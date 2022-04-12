@@ -42,12 +42,19 @@ public class InputBrain : PlayerBrain
         act.type = PlayerAction.ActionType.None; //Reset l'action
 
         Vector3 startPos = Player.transform.position;
-        Player targetPlayer = Allies.GetPlayerWithDirection(startPos, direction);
+        Player targetPlayer;
 
         if (Player.HasBall && (Player.CanMove || Player.IsKickOff))
+        {
+            targetPlayer = Allies.GetPlayerWithDirection(startPos, direction, 180f);
             act = PlayerAction.Pass(direction, Field.Ball.transform.position, targetPlayer.transform.position, 1f, targetPlayer); //Pass
+        }
         else
+        {
+            targetPlayer = Allies.GetPlayerWithDirection(startPos, direction, 180f);
             act = PlayerAction.ChangePlayer(targetPlayer);  //SwitchPlayer
+        }
+            
 
         action = act;
     }
@@ -67,8 +74,14 @@ public class InputBrain : PlayerBrain
             else
             {
                 //Tackle
-                Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position, direction);
-                Vector3 vector = targetPlayer.transform.position - Player.transform.position;
+                Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position, direction, 20f);
+                Vector3 vector;
+
+                if (targetPlayer != null)
+                    vector = targetPlayer.transform.position - Player.transform.position;
+                else
+                    vector = direction;
+
                 act = PlayerAction.Tackle(vector.normalized);
             }
         }
@@ -86,12 +99,17 @@ public class InputBrain : PlayerBrain
             act = PlayerAction.Dribble(); //Dribble
         else
         {
-            Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position,direction);
-            Vector3 vector = targetPlayer.transform.position - Player.transform.position;
+            Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position,direction, 20f);
+            Vector3 vector;
+
+            if (targetPlayer != null)
+                vector = targetPlayer.transform.position - Player.transform.position;
+            else
+                vector = direction;
+
             act = PlayerAction.HeadButt(vector.normalized); //HeadButt
         }
             
-
         action = act;
     }
 

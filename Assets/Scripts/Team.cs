@@ -82,19 +82,22 @@ public class Team : MonoBehaviour
         Brain.Init();
     }
 
-    public Player GetPlayerWithDirection(Vector3 startPos, Vector3 dir)
+    public Player GetPlayerWithDirection(Vector3 startPos, Vector3 dir, float angleThreshold)
     {
-        Player targetPlayer = new Player();
+        Player targetPlayer = null;
+        float minAngle = angleThreshold;
+        float newAngle;
 
-        float angle = float.MaxValue;
-        foreach(Player player in Players)
+        foreach (Player player in Players)
         {
             if(player.transform.position != startPos)
             {
-                //Debug.Log(player.transform.position + " Angle : " + Vector3.Angle(player.transform.position - startPos, dir));
-                if (angle > Vector3.Angle(player.transform.position - startPos, dir))
+                Debug.Log(player.transform.position + " Angle : " + Vector3.Angle(player.transform.position - startPos, dir));
+                newAngle = Vector3.Angle(player.transform.position - startPos, dir);
+
+                if (minAngle > newAngle)
                 { 
-                    angle = Vector3.Angle(player.transform.position - startPos, dir);
+                    minAngle = newAngle;
                     targetPlayer = player;
                 }       
             }
