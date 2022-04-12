@@ -222,10 +222,14 @@ public class Player : MonoBehaviour
 
     public void LaunchPass()
     {
-        transform.forward = savedAction.target.transform.position - transform.position;
+        transform.forward = savedAction.direction;
         Field.Ball.Move(savedAction.duration, savedAction.startPosition, savedAction.endPosition, savedAction.bezierPoint);
-        SwitchPlayer();
-        savedAction.target.Wait();
+
+        if(savedAction.target != null)
+        {
+            SwitchPlayer();
+            savedAction.target.Wait();
+        }
     }
 
     public void StartMoving()
