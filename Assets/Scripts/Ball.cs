@@ -107,7 +107,7 @@ public class Ball : MonoBehaviour
                 randomBezier = Random.Range(minBezierZ, maxBezierZ);
             }
         }
-        Vector3 vecInterpolation = new Vector3((posCage.position.x / 2 - 5), posCage.position.y + 4f, randomBezier);
+        Vector3 vecInterpolation = new Vector3((posCage.position.x), posCage.position.y + 4f, randomBezier);
         Move(1, transform.position, posCage.position, vecInterpolation);
         DetachFromParent();
     }

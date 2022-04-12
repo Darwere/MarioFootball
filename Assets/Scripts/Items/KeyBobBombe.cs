@@ -10,7 +10,6 @@ public class KeyBobBombe : MonoBehaviour
         x+=0.002f;
         x %= 360;
         transform.Rotate(0, x, 0, Space.Self);
-        //transform.rotation = Quaternion.Euler(x, -90, 90);
     }
 
 
