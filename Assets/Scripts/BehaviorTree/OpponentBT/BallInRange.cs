@@ -12,8 +12,8 @@ public class BallInRange : Node
 
     public override NodeState Evaluate()
     {
-        Transform playerTransform = (Transform)GetData("playerTransform");
-        Vector3 direction = Field.Ball.transform.position - playerTransform.position;
+        Player playerTransform = (Player)GetData("player");
+        Vector3 direction = Field.Ball.transform.position - playerTransform.transform.position;
 
         if (direction.sqrMagnitude < range * range)
             state = NodeState.Succes;

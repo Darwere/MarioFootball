@@ -86,7 +86,7 @@ namespace BehaviorTree
             Node node = Parent;
             while (node != null)
             {
-                bool cleared = ClearData(key);
+                bool cleared = node.ClearData(key);
                 if (cleared)
                     return true;
                 node = node.Parent;

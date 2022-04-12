@@ -10,7 +10,7 @@ public class ApproachBall : Node
 
     public override NodeState Evaluate()
     {
-        Transform playerTransform = (Transform)GetData("playerTransform");
+        Player player = (Player)GetData("player");
         if (waiting)
         {
             waitCounter += Time.deltaTime;
@@ -20,7 +20,7 @@ public class ApproachBall : Node
         }
         else
         {
-            Vector3 direction = Field.Ball.transform.position - playerTransform.position;
+            Vector3 direction = Field.Ball.transform.position - player.transform.position;
             if (direction.magnitude < 1f)
             {
                 waitCounter = 0f;

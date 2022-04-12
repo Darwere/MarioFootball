@@ -15,20 +15,20 @@ public class NotNearestAllie : Node
     public override NodeState Evaluate()
     {
         
-        Transform playerTransform = (Transform)GetData("playerTransform");
+        Player player = (Player)GetData("player");
         float MinSquareDistance = float.MaxValue;
         Player playerToSwitch = null;
 
         foreach(Player allie in allies)
         {
             Vector3 vector = allie.transform.position - Field.Ball.transform.position;
-            if(allie.transform.position != playerTransform.position && vector.sqrMagnitude < MinSquareDistance)
+            if(allie.transform.position != player.transform.position && vector.sqrMagnitude < MinSquareDistance)
             {
                 MinSquareDistance = vector.sqrMagnitude;
                 playerToSwitch = allie;
             }  
         }
-        float playerSquareDistance = (playerTransform.position - Field.Ball.transform.position).sqrMagnitude;
+        float playerSquareDistance = (player.transform.position - Field.Ball.transform.position).sqrMagnitude;
 
         if (MinSquareDistance < playerSquareDistance - 1f)
         {

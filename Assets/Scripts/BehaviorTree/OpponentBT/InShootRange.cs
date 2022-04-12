@@ -4,18 +4,18 @@ using UnityEngine;
 public class InShootRange : Node
 {
     float range = 0f;
-    Team opponent;
+    Team ennemies;
 
-    public InShootRange(float range, Team opponent)
+    public InShootRange(float range, Team ennemies)
     {
         this.range = range;
-        this.opponent = opponent; //opponent is the script attach to opponent goal
+        this.ennemies = ennemies; //ennemies is the script attach to opponent goal
     }
 
     public override NodeState Evaluate()
     {
-        Transform playerTransform = (Transform)GetData("playerTransform");
-        Vector3 direction = opponent.transform.position - playerTransform.position;
+        Player player = (Player)GetData("player");
+        Vector3 direction = ennemies.transform.position - player.transform.position;
         float squareDistance = direction.sqrMagnitude;
 
         if(squareDistance < range * range)

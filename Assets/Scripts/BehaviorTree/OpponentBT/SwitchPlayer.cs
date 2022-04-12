@@ -13,7 +13,7 @@ public class SwitchPlayer : Node
             state = NodeState.Succes;
             Node root = GetRootNode();
             root.ClearData("playerToSwitch");
-            root.SetData("playerTransform", target.transform);
+            root.SetData("player", target);
             PlayerAction action = PlayerAction.ChangePlayer(target);
             root.SetData("action", action);
             return state;

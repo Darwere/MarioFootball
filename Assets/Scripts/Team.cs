@@ -92,10 +92,9 @@ public class Team : MonoBehaviour
         {
             if(player.transform.position != startPos)
             {
-                Debug.Log(player.transform.position + " Angle : " + Vector3.Angle(player.transform.position - startPos, dir));
                 newAngle = Vector3.Angle(player.transform.position - startPos, dir);
 
-                if (minAngle > newAngle)
+                if (newAngle < minAngle)
                 { 
                     minAngle = newAngle;
                     targetPlayer = player;

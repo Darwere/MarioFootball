@@ -11,8 +11,8 @@ public class MoveToGoal : Node
 
     public override NodeState Evaluate()
     {
-        Transform playerTransform = (Transform)GetData("playerTransform");
-        Vector3 direction = opponent.transform.position - playerTransform.position; 
+        Player player = (Player)GetData("player");
+        Vector3 direction = opponent.transform.position - player.transform.position; 
         PlayerAction action = PlayerAction.Move(direction.normalized);
         Node root = GetRootNode();
         root.SetData("action", action);
