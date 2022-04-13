@@ -37,7 +37,16 @@ public class Team : MonoBehaviour
 
     private void Awake()
     {
-        Brain = GetComponent<InputBrain>();
+        Brain = GetComponent<PlayerBrain>();
+
+        if (PilotedBrainType != Brain.GetType()) //désactiver les actions si ce n'est pas une personne qui contrôle le joueur
+                                                 //event unity necessite que inputBrain soit un component par défaut
+        {
+            Destroy(GetComponent<PlayerBrain>());
+            gameObject.AddComponent(PilotedBrainType);
+            Brain = GetComponent<OpponentTree>();
+        }
+
         indicatorOffSet = new Vector3(pilotedIndicatorPrefab.transform.position.x, pilotedIndicatorPrefab.transform.position.y, pilotedIndicatorPrefab.transform.position.z);
     }
 
@@ -180,15 +189,22 @@ public class Team : MonoBehaviour
         Goal.StartPlaying();
     }
 
+    private IEnumerator NewKickOff()
+    {
+        yield return new WaitForSeconds(2f);
+        Field.Ball.Restart();
+        Field.SetTeamPosition(this);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         Ball ball = collision.gameObject.GetComponent<Ball>();
         if (ball != null)
         {
             ++ConcededGoals;
-            ball.Restart();
-            Field.SetTeamPosition(this);
             UIManager.ActualiseScore();
+            StartCoroutine(NewKickOff());
         }
     }
+
 }
