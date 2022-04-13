@@ -11,29 +11,13 @@ public class ApproachBall : Node
     public override NodeState Evaluate()
     {
         Player player = (Player)GetData("player");
-        if (waiting)
-        {
-            waitCounter += Time.deltaTime;
 
-            if (waitCounter >= waitTime)
-                waiting = false;
-        }
-        else
-        {
-            Vector3 direction = Field.Ball.transform.position - player.transform.position;
-            if (direction.magnitude < 1f)
-            {
-                waitCounter = 0f;
-                waiting = true;
-            }
-            else
-            {
-                PlayerAction action = PlayerAction.Move(direction.normalized);
-                Node root = GetRootNode();
-                root.SetData("action", action);
-            }
-                
-        }
+        Vector3 direction = Field.Ball.transform.position - player.transform.position;
+        direction.y = 0f;
+        PlayerAction action = PlayerAction.Move(direction.normalized);
+        Node root = GetRootNode();
+        root.SetData("action", action);                
+
         state = NodeState.Running;
         return state;
     }

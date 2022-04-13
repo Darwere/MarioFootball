@@ -8,10 +8,12 @@ public class Tackle : Node
         Node root = GetRootNode();
         Player player = (Player)root.GetData("player");
         Vector3 direction = Field.Ball.transform.position - player.transform.position;
+        direction.y = 0;
+
         PlayerAction action = PlayerAction.Tackle(direction.normalized);
         root.SetData("action", action);
-        state = NodeState.Succes;
 
+        state = NodeState.Succes;
         return state;
     }
 }
