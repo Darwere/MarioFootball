@@ -9,7 +9,7 @@ public class RedTurtleShell : Item
         
     }
 
-    protected override void OnTriggerEnter(Collider other)
+    protected override void OnCollisionEnter(Collision collision)
     {
         
     }

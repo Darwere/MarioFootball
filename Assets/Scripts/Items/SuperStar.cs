@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SuperStar : MonoBehaviour
+public class SuperStar : Item
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void Move()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    protected override void OnCollisionEnter(Collision collision)
     {
-        
+        Player player = collision.gameObject.GetComponent<Player>();
+        if (player != null)
+        {
+            Debug.Log("etoile");
+            Destroy(this.gameObject);
+        }
     }
 }
