@@ -12,6 +12,11 @@ public abstract class PlayerBrain : MonoBehaviour
     protected PlayerAction action;
     protected Dictionary<PlayerAction.ActionType, Action> actionMethods = new Dictionary<PlayerAction.ActionType, Action>();
 
+    public virtual void Init()
+    {
+        return;
+    }
+
     protected virtual void Awake()
     {
         Player = GetComponent<Player>();

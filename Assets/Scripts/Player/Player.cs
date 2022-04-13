@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
         Moving,
         Tackling,
         Headbutting,
+        Passing,
         Shooting,
         Falling,
         Shocked,
@@ -94,7 +95,6 @@ public class Player : MonoBehaviour
             if (IsPiloted)
             {
                 lastAction = Team.Brain.Act();
-
                 actionMethods[lastAction.type].DynamicInvoke(); //Team.Brain.Act() return une ActionType
             }
                 
@@ -134,9 +134,10 @@ public class Player : MonoBehaviour
 
     protected void Pass()
     {
-        savedAction = lastAction;
+        State = PlayerState.Passing;
+        transform.forward = lastAction.direction;
 
-        Debug.Log("Pass");
+        savedAction = lastAction;
 
         animator.SetTrigger("Pass");
         animator.SetBool("Moving", false);
@@ -147,12 +148,13 @@ public class Player : MonoBehaviour
     {
         IsPiloted = false; //last player piloted
 
-        Team.Brain.SetPlayer(savedAction.target);
+        Team.Brain.SetPlayer(lastAction.target);
         animator.SetBool("Moving", false);
     }
 
     protected void Shoot()
     {
+        State = PlayerState.Shooting;
         Team ennemies = Team == Field.Team1? Field.Team2 : Field.Team1;
         Field.Ball.Shoot(ennemies.ShootPoint, lastAction.shootForce, lastAction.direction, lastAction.duration);
 
@@ -222,7 +224,6 @@ public class Player : MonoBehaviour
 
     public void LaunchPass()
     {
-        transform.forward = savedAction.direction;
         Field.Ball.Move(savedAction.duration, savedAction.startPosition, savedAction.endPosition, savedAction.bezierPoint);
 
         if(savedAction.target != null)

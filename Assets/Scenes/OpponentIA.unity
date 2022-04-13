@@ -514,7 +514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
-      value: GoalBrain
+      value: PlacementAIBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: aPilotedBrainType
@@ -523,10 +523,6 @@ PrefabInstance:
     - target: {fileID: 5965256866810570014, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_Name
       value: Team 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5965256866810570014, guid: da54416042aed4249bfa8e193187db71, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570015, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_RootOrder
@@ -1809,6 +1805,63 @@ Transform:
   m_Father: {fileID: 760453652}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1527588736
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
+      propertyPath: m_Name
+      value: arrow
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5466c321ca19ff14fb55dd2fc1a94d7a, type: 3}
 --- !u!1001 &1564724427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1816,17 +1869,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 507619317}
     m_Modifications:
+    - target: {fileID: 5965256866810570012, guid: da54416042aed4249bfa8e193187db71, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: agoalBrainType
       value: GoalBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
-      value: GoalBrain
+      value: PlacementAIBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: aPilotedBrainType
-      value: InputBrain
+      value: OpponentTree
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570014, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_Name
@@ -2067,7 +2124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4125deaffafe701439bdf2e27157db74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball: {fileID: 266137186057966708, guid: 5f9a23016bc8ab94fb2a55df45b2bfa2, type: 3}
+  ball: {fileID: 1897170763986732827, guid: 5f9a23016bc8ab94fb2a55df45b2bfa2, type: 3}
 --- !u!114 &1642756266
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Shoot/Tacle",
+                    "name": "Shoot/Tackle",
                     "type": "Button",
                     "id": "8d114f3d-950e-4b60-a113-fad52796d2a5",
                     "expectedControlType": "Button",
@@ -147,7 +147,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot/Tacle",
+                    "action": "Shoot/Tackle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -158,7 +158,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot/Tacle",
+                    "action": "Shoot/Tackle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

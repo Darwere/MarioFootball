@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class Team : MonoBehaviour
 {
@@ -13,12 +14,15 @@ public class Team : MonoBehaviour
     [SerializeField] private string agoalBrainType;
     public Type GoalBrainType => Type.GetType(agoalBrainType);
 
+    [SerializeField] private string aPilotedBrainType;
+    public Type PilotedBrainType => Type.GetType(aPilotedBrainType);
+
     public Player[] Players { get; private set; }
     public PlayerBrain[] Brains { get; private set; }
     public Player Goal { get; private set; }
 
     public int ConcededGoals;
-    public InputBrain Brain { get; private set; }
+    public PlayerBrain Brain { get; private set; }
     [SerializeField]
     private Transform[] ShootPoints;
     public Transform[] ShootPoint => ShootPoints;
@@ -28,7 +32,15 @@ public class Team : MonoBehaviour
 
     private void Awake()
     {
-        Brain = GetComponent<InputBrain>();
+        Brain = GetComponent<PlayerBrain>();
+
+        if (PilotedBrainType != Brain.GetType()) //désactiver les actions si ce n'est pas une personne qui contrôle le joueur
+                                                   //event unity necessite que inputBrain soit un component par défaut
+        {
+            Destroy(GetComponent<PlayerBrain>());
+            gameObject.AddComponent(PilotedBrainType);
+            Brain = GetComponent<OpponentTree>();
+        }
     }
 
     /// <summary>
@@ -55,6 +67,7 @@ public class Team : MonoBehaviour
     /// <param name="goalKeeper">Le gardien</param>
     public void Init(Player[] players, Player goalKeeper)
     {
+        
         Players = players;
         Goal = goalKeeper;
 
@@ -62,8 +75,11 @@ public class Team : MonoBehaviour
 
         Brains = Players.Select(player => player.IABrain).ToArray();
 
+
         players[0].IsPiloted = true;
         Brain.SetPlayer(players[0]);
+
+        Brain.Init();
     }
 
     public Player GetPlayerWithDirection(Vector3 startPos, Vector3 dir, float angleThreshold)
@@ -76,10 +92,9 @@ public class Team : MonoBehaviour
         {
             if(player.transform.position != startPos)
             {
-                Debug.Log(player.transform.position + " Angle : " + Vector3.Angle(player.transform.position - startPos, dir));
                 newAngle = Vector3.Angle(player.transform.position - startPos, dir);
 
-                if (minAngle > newAngle)
+                if (newAngle < minAngle)
                 { 
                     minAngle = newAngle;
                     targetPlayer = player;

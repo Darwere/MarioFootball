@@ -8,8 +8,6 @@ public class InputBrain : PlayerBrain
 
     private Vector3 direction;
 
-    #region InputEvent
-
     public void Movement(InputAction.CallbackContext input)
     {
         if (input.started) // We want to get the cancel event to change value to (0, 0, 0)
@@ -123,6 +121,4 @@ public class InputBrain : PlayerBrain
         PlayerAction act = PlayerAction.Throw(direction);
         action = act;
     }
-
-    #endregion
 }
