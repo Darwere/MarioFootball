@@ -99,9 +99,14 @@ public class Field : MonoBehaviour
         Team defTeam = attackTeam == Team1 ? Team2 : Team1;
 
         Field.Ball.AttachToPlayer(attackTeam.Players[0]);
+        attackTeam.ChangePilotedPlayer(attackTeam.Players[0]);
+        defTeam.ChangePilotedPlayer(defTeam.Players[0]);
 
         attackTeam.WaitKickOff();
         defTeam.WaitKickOff();
+
+        Debug.LogWarning("KickOff");
+
 
         if (attackTeam == Team1)
         {
@@ -123,6 +128,7 @@ public class Field : MonoBehaviour
             attackTeam.Goal.transform.position = instance.XAxisSymmetry(attackPos[attackPos.Count - 1].position);
             defTeam.Goal.transform.position = defPos[defPos.Count - 1].position;
         }
+
     }
 
     public Vector3 XAxisSymmetry(Vector3 initial)

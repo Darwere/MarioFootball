@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
         Moving,
         Tackling,
         Headbutting,
+        Passing,
         Shooting,
         Falling,
         Shocked,
@@ -42,7 +43,9 @@ public class Player : MonoBehaviour
 
     public Vector3 Position => transform.position;
 
-    private Dictionary<PlayerAction.ActionType, Action> animationMethods = new Dictionary<PlayerAction.ActionType, Action>();
+    private Dictionary<PlayerAction.ActionType, Action> actionMethods = new Dictionary<PlayerAction.ActionType, Action>();
+    private PlayerAction lastAction = new PlayerAction();
+    private PlayerAction savedAction = new PlayerAction(); //for action that trigger with delay
 
     public static Player CreatePlayer(GameObject prefab, Team team, bool isGoalKeeper = false)
     {
@@ -74,15 +77,15 @@ public class Player : MonoBehaviour
         else
             gameObject.name += " team2";
 
-        animationMethods.Add(PlayerAction.ActionType.None, NoAction);
-        animationMethods.Add(PlayerAction.ActionType.Move, MoveAction);
-        animationMethods.Add(PlayerAction.ActionType.Pass, PassAction);
-        animationMethods.Add(PlayerAction.ActionType.Shoot, ShootAction);
-        animationMethods.Add(PlayerAction.ActionType.Tackle, TackleAction);
-        animationMethods.Add(PlayerAction.ActionType.Dribble, DribbleAction);
-        animationMethods.Add(PlayerAction.ActionType.Headbutt, HeadButtAction);
-        animationMethods.Add(PlayerAction.ActionType.ChangePlayer, NoAction);
-        animationMethods.Add(PlayerAction.ActionType.Throw, NoAction);
+        actionMethods.Add(PlayerAction.ActionType.None, Idle);
+        actionMethods.Add(PlayerAction.ActionType.Move, Move);
+        actionMethods.Add(PlayerAction.ActionType.Pass, Pass);
+        actionMethods.Add(PlayerAction.ActionType.ChangePlayer, SwitchPlayer);
+        actionMethods.Add(PlayerAction.ActionType.Shoot, Shoot);
+        actionMethods.Add(PlayerAction.ActionType.Tackle, Tackle);
+        actionMethods.Add(PlayerAction.ActionType.Dribble, Dribble);
+        actionMethods.Add(PlayerAction.ActionType.Headbutt, Headbutt);
+        actionMethods.Add(PlayerAction.ActionType.Throw, SendObject);
     }
 
     private void Update()
@@ -90,13 +93,108 @@ public class Player : MonoBehaviour
         if (CanMove || (State == PlayerState.KickOff && HasBall))
         {
             if (IsPiloted)
-                animationMethods[Team.Brain.Act()].DynamicInvoke(); //Team.Brain.Act() return une ActionType
+            {
+                lastAction = Team.Brain.Act();
+                actionMethods[lastAction.type].DynamicInvoke(); //Team.Brain.Act() return une ActionType
+            }
+                
             else
-                animationMethods[IABrain.Act()].DynamicInvoke(); //IABrain.Act() return une ActionType
+            {
+                lastAction = IABrain.Act();
+
+                actionMethods[lastAction.type].DynamicInvoke();//IABrain.Act() return une ActionType
+            }
+                 
         }
     }
 
-    public IEnumerator Tackle(Vector3 direction)
+    #region Control Player Methods
+
+    protected void Idle()
+    {
+
+    }
+
+    protected void Move()
+    {
+        Vector3 movement = lastAction.direction * Time.deltaTime * Species.speed;
+        Collider collider = GetComponent<Collider>();
+        Vector3 startPosition = transform.position + new Vector3(0, collider.bounds.extents.y, 0);
+
+        if (Physics.Raycast(startPosition, lastAction.direction, movement.magnitude * 2))
+            movement = Vector3.zero;
+
+        transform.position += movement;
+
+        if (lastAction.direction != Vector3.zero)
+            transform.forward = lastAction.direction;
+
+        animator.SetBool("Moving", true);
+    }
+
+    protected void Pass()
+    {
+        State = PlayerState.Passing;
+        transform.forward = lastAction.direction;
+
+        savedAction = lastAction;
+
+        animator.SetTrigger("Pass");
+        animator.SetBool("Moving", false);
+    }
+
+
+    protected void SwitchPlayer()
+    {
+        IsPiloted = false; //last player piloted
+
+        Team.Brain.SetPlayer(lastAction.target);
+        animator.SetBool("Moving", false);
+    }
+
+    protected void Shoot()
+    {
+        State = PlayerState.Shooting;
+        Team ennemies = Team == Field.Team1? Field.Team2 : Field.Team1;
+        Field.Ball.Shoot(ennemies.ShootPoint, lastAction.shootForce, lastAction.direction, lastAction.duration);
+
+        Field.Ball.DetachFromParent();
+
+        animator.SetTrigger("Shoot");
+        animator.SetBool("Moving", false);
+    }
+
+    protected void Tackle()
+    {
+        transform.forward = lastAction.direction;
+        StartCoroutine(Tackling(lastAction.direction));
+
+        State = PlayerState.Tackling;
+        animator.SetTrigger("Tackle");
+        animator.SetBool("Moving", false);
+    }
+
+    protected void Dribble()
+    {
+        animator.SetBool("Moving", false);
+    }
+
+    protected void Headbutt()
+    {
+        State = PlayerState.Headbutting;
+        animator.SetTrigger("HeadButting");
+        animator.SetBool("Moving", false);
+    }
+
+    protected void SendObject()
+    {
+
+        Debug.Log("SendObject");
+    }
+
+    #endregion
+
+    public IEnumerator Tackling(Vector3 direction)
     {
         yield return new WaitForEndOfFrame(); //Wait next frame to change the State
 
@@ -109,59 +207,61 @@ public class Player : MonoBehaviour
         yield return null;
     }
 
-    #region Action
-
-    private void MoveAction()
+    public IEnumerator GotHit(Vector3 direction)
     {
-        animator.SetBool("Moving", true);
-    }
+        yield return new WaitForEndOfFrame(); //Wait next frame to change the State
+        Debug.Log(State);
+        while (State == PlayerState.Falling)
+        {
+            transform.position += direction * 1.5f * Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
 
-    private void PassAction()
-    { 
-        animator.SetTrigger("Pass");
-        animator.SetBool("Moving", false);
+        yield return null;
     }
-
-    private void ShootAction()
-    {
-        animator.SetTrigger("Shoot");
-        animator.SetBool("Moving", false);
-    }
-
-    private void TackleAction()
-    {
-        State = PlayerState.Tackling;
-        animator.SetTrigger("Tackle");
-        animator.SetBool("Moving", false);
-    }
-
-    private void HeadButtAction()
-    {
-        animator.SetBool("Moving", false);
-    }
-
-    private void DribbleAction()
-    {
-        animator.SetBool("Moving", false);
-    }
-
-    private void NoAction()
-    {
-        animator.SetBool("Moving", false);
-    }
-
-    #endregion
 
     #region EventFunction
 
-    public void EndOfPass()
+    public void LaunchPass()
+    {
+        Field.Ball.Move(savedAction.duration, savedAction.startPosition, savedAction.endPosition, savedAction.bezierPoint);
+
+        if(savedAction.target != null)
+        {
+            SwitchPlayer();
+            savedAction.target.Wait();
+        }
+    }
+
+    public void StartMoving()
     {
         State = PlayerState.Moving;
     }
 
-    public void EndOfFall()
+    public void StartWaiting()
     {
-        State = PlayerState.Moving;
+        State = PlayerState.Waiting;
+    }
+
+    public void CheckPlayerHit()
+    {
+        Collider collider = GetComponent<Collider>();
+        RaycastHit hit;
+        Vector3 startPosition = transform.position + new Vector3(0, collider.bounds.extents.y, 0);
+        float distance = 4;
+        Debug.DrawRay(startPosition, transform.forward, Color.red, distance);
+        Physics.Raycast(startPosition, transform.forward, out hit, distance);
+
+        if (hit.collider != null)
+        {
+            Player player = hit.collider.gameObject.GetComponent<Player>();
+
+            if (player != null && player.State != PlayerState.Falling)
+            {
+                Vector3 direction = player.transform.position - transform.position;
+                player.GetHeadbutted(direction);
+            }
+        }
     }
 
     #endregion
@@ -192,8 +292,22 @@ public class Player : MonoBehaviour
     {
         State = PlayerState.Falling;
         animator.SetTrigger("TackleFall");
+
         if (HasBall)
             Field.Ball.DetachFromParent();
+    }
+
+    public void GetHeadbutted(Vector3 direction)
+    {
+        State = PlayerState.Falling;
+        animator.SetTrigger("Knocked");
+
+        if (HasBall)
+            Field.Ball.DetachFromParent();
+
+        transform.LookAt(direction);
+        StartCoroutine(GotHit(direction));
+
     }
 
     private void OnCollisionEnter(Collision collision)

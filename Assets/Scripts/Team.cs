@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class Team : MonoBehaviour
 {
@@ -13,12 +14,15 @@ public class Team : MonoBehaviour
     [SerializeField] private string agoalBrainType;
     public Type GoalBrainType => Type.GetType(agoalBrainType);
 
+    [SerializeField] private string aPilotedBrainType;
+    public Type PilotedBrainType => Type.GetType(aPilotedBrainType);
+
     public Player[] Players { get; private set; }
     public PlayerBrain[] Brains { get; private set; }
     public Player Goal { get; private set; }
 
     public int ConcededGoals;
-    public InputBrain Brain { get; private set; }
+    public PlayerBrain Brain { get; private set; }
     [SerializeField]
     private Transform[] ShootPoints;
     public Transform[] ShootPoint => ShootPoints;
@@ -26,13 +30,19 @@ public class Team : MonoBehaviour
     private Queue<Item> items;
     private int itemCapacity = 3;
 
+
+    [SerializeField] private GameObject pilotedIndicatorPrefab;
+    private GameObject pilotedIndicator;
+    private Vector3 indicatorOffSet;
+
     private void Awake()
     {
         Brain = GetComponent<InputBrain>();
+        indicatorOffSet = new Vector3(pilotedIndicatorPrefab.transform.position.x, pilotedIndicatorPrefab.transform.position.y, pilotedIndicatorPrefab.transform.position.z);
     }
 
     /// <summary>
-    /// Ajoute un item à la file d'items de l'équipe, dans le cas où celle-ci n'est pas pleine
+    /// Ajoute un item ï¿½ la file d'items de l'ï¿½quipe, dans le cas oï¿½ celle-ci n'est pas pleine
     /// </summary>
     public void GainItem()
     {
@@ -40,21 +50,22 @@ public class Team : MonoBehaviour
     }
 
     /// <summary>
-    /// Supprime l'item le plus ancien de la file d'items de l'équipe
+    /// Supprime l'item le plus ancien de la file d'items de l'ï¿½quipe
     /// </summary>
-    /// <returns>L'item supprimé</returns>
+    /// <returns>L'item supprimï¿½</returns>
     public Item GetItem()
     {
         return items.Dequeue();
     }
 
     /// <summary>
-    /// Initialise les joueurs et la file d'items de l'équipe
+    /// Initialise les joueurs et la file d'items de l'ï¿½quipe
     /// </summary>
     /// <param name="players">Les joueurs sans le gardien</param>
     /// <param name="goalKeeper">Le gardien</param>
     public void Init(Player[] players, Player goalKeeper)
     {
+        
         Players = players;
         Goal = goalKeeper;
 
@@ -62,23 +73,27 @@ public class Team : MonoBehaviour
 
         Brains = Players.Select(player => player.IABrain).ToArray();
 
-        players[0].IsPiloted = true;
+        pilotedIndicator = Instantiate(pilotedIndicatorPrefab, players[0].transform);
         Brain.SetPlayer(players[0]);
+
+        Brain.Init();
     }
 
-    public Player GetPlayerWithDirection(Vector3 startPos, Vector3 dir)
+    public Player GetPlayerWithDirection(Vector3 startPos, Vector3 dir, float angleThreshold)
     {
-        Player targetPlayer = new Player();
+        Player targetPlayer = null;
+        float minAngle = angleThreshold;
+        float newAngle;
 
-        float angle = float.MaxValue;
-        foreach(Player player in Players)
+        foreach (Player player in Players)
         {
             if(player.transform.position != startPos)
             {
-                //Debug.Log(player.transform.position + " Angle : " + Vector3.Angle(player.transform.position - startPos, dir));
-                if (angle > Vector3.Angle(player.transform.position - startPos, dir))
+                newAngle = Vector3.Angle(player.transform.position - startPos, dir);
+
+                if (newAngle < minAngle)
                 { 
-                    angle = Vector3.Angle(player.transform.position - startPos, dir);
+                    minAngle = newAngle;
                     targetPlayer = player;
                 }       
             }
@@ -120,7 +135,6 @@ public class Team : MonoBehaviour
         }
         else
         {
-
             foreach (Player allie in Players)
             {
                 if (allie.IsPiloted)
@@ -129,10 +143,15 @@ public class Team : MonoBehaviour
                     player.IsPiloted = true;
                 }
             }
-
         }
 
         Brain.SetPlayer(player);
+    }
+
+    public void ChangePilotedIndicator(Player player)
+    {
+        pilotedIndicator.transform.parent = player.transform;
+        pilotedIndicator.transform.localPosition = Vector3.zero + indicatorOffSet;
     }
 
     public void WaitKickOff()
@@ -155,6 +174,7 @@ public class Team : MonoBehaviour
     {
         foreach (Player player in Players)
         {
+            if(player.State != Player.PlayerState.Waiting)
             player.StartPlaying();
         }
         Goal.StartPlaying();

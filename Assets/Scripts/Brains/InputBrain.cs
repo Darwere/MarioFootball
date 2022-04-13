@@ -8,21 +8,6 @@ public class InputBrain : PlayerBrain
 
     private Vector3 direction;
 
-    /*private void FixedUpdate()
-    {
-        if (action.type == PlayerAction.ActionType.Move)
-        {
-            Player.GetComponent<Rigidbody>().MovePosition(Player.transform.position + action.direction * Time.deltaTime * Player.Species.speed);
-
-            if (action.direction != Vector3.zero)
-            {
-                //Player.transform.forward = action.direction;
-            }
-        }
-    }*/
-
-    #region InputEvent
-
     public void Movement(InputAction.CallbackContext input)
     {
         if (input.started) // We want to get the cancel event to change value to (0, 0, 0)
@@ -46,7 +31,6 @@ public class InputBrain : PlayerBrain
 
         PlayerAction act = PlayerAction.Move(moveDirection);
         action = act;
-        
     }
 
     public void Pass_SwitchPlayer(InputAction.CallbackContext input)
@@ -58,12 +42,19 @@ public class InputBrain : PlayerBrain
         act.type = PlayerAction.ActionType.None; //Reset l'action
 
         Vector3 startPos = Player.transform.position;
-        Player targetPlayer = Allies.GetPlayerWithDirection(startPos, direction);
+        Player targetPlayer;
 
         if (Player.HasBall && (Player.CanMove || Player.IsKickOff))
-            act = PlayerAction.Pass(direction, startPos, targetPlayer.transform.position, 1f, targetPlayer); //Pass
+        {
+            targetPlayer = Allies.GetPlayerWithDirection(startPos, direction, 180f);
+            act = PlayerAction.Pass(direction, Field.Ball.transform.position, targetPlayer.transform.position, 1f, targetPlayer); //Pass
+        }
         else
+        {
+            targetPlayer = Allies.GetPlayerWithDirection(startPos, direction, 180f);
             act = PlayerAction.ChangePlayer(targetPlayer);  //SwitchPlayer
+        }
+            
 
         action = act;
     }
@@ -83,8 +74,14 @@ public class InputBrain : PlayerBrain
             else
             {
                 //Tackle
-                Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position, direction);
-                Vector3 vector = targetPlayer.transform.position - Player.transform.position;
+                Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position, direction, 20f);
+                Vector3 vector;
+
+                if (targetPlayer != null)
+                    vector = targetPlayer.transform.position - Player.transform.position;
+                else
+                    vector = direction;
+
                 act = PlayerAction.Tackle(vector.normalized);
             }
         }
@@ -102,11 +99,17 @@ public class InputBrain : PlayerBrain
             act = PlayerAction.Dribble(); //Dribble
         else
         {
-            Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position,direction);
-            act = PlayerAction.HeadButt(targetPlayer); //HeadButt
+            Player targetPlayer = Enemies.GetPlayerWithDirection(Player.transform.position,direction, 20f);
+            Vector3 vector;
+
+            if (targetPlayer != null)
+                vector = targetPlayer.transform.position - Player.transform.position;
+            else
+                vector = direction;
+
+            act = PlayerAction.HeadButt(vector.normalized); //HeadButt
         }
             
-
         action = act;
     }
 
@@ -118,6 +121,4 @@ public class InputBrain : PlayerBrain
         PlayerAction act = PlayerAction.Throw(direction);
         action = act;
     }
-
-    #endregion
 }

@@ -252,7 +252,6 @@ public class PlacementAIBrain : PlayerBrain
 
         if (Data.color == Teams.Teamcolor.Red && !Data.isAI)
         {
-            Debug.Log("");
             Debug.Log(offensivePosition);
             Debug.Log(defensivePosition);
             Debug.Log(referenceToOtherGoal.magnitude);
