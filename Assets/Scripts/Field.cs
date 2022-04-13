@@ -99,6 +99,9 @@ public class Field : MonoBehaviour
         Team defTeam = attackTeam == Team1 ? Team2 : Team1;
 
         Field.Ball.AttachToPlayer(attackTeam.Players[0]);
+        attackTeam.ChangePilotedPlayer(attackTeam.Players[0]);
+        defTeam.ChangePilotedPlayer(defTeam.Players[0]);
+
         attackTeam.WaitKickOff();
         defTeam.WaitKickOff();
 

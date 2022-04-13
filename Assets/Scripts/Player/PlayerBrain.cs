@@ -31,11 +31,11 @@ public abstract class PlayerBrain : MonoBehaviour
 
     public void SetPlayer(Player player)
     {
+        Debug.Log("SetPlayer : " + player.name);
         Player = player;
         Player.IsPiloted = true;
+        Allies.ChangePilotedIndicator(player);
     }
-
-
 
     /// <summary>
     /// Calcule le déplacement que l'IA doit appliquer au joueur/que la manette détecte
