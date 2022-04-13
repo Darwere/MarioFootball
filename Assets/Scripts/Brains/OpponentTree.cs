@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using BehaviorTree;
+using UnityEngine;
 
 public class OpponentTree : MyTree
 {
@@ -10,7 +11,6 @@ public class OpponentTree : MyTree
     {
         if (root != null && (Player)root.GetData("player") != Player)
             root.SetData("player", Player);
-
         base.Update();
     }
 
@@ -32,8 +32,7 @@ public class OpponentTree : MyTree
                 })
         })
     });
-            
-            
+
         root.SetData("player", Player);
         return root;
     }
