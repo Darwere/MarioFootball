@@ -313,6 +313,8 @@ public class Player : MonoBehaviour
                     player.GetTackled();
                     if (player.HasBall)
                         Field.Ball.DetachFromParent();
+                    else
+                        player.Team.GetItem();
                 }
             }
         }
