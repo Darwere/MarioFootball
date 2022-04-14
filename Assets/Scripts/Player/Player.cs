@@ -188,8 +188,8 @@ public class Player : MonoBehaviour
 
     protected void SendObject()
     {
-
-        Debug.Log("SendObject");
+        Item item = Team.GetItem();
+        item.Create(Team.Brain);
     }
 
     #endregion
