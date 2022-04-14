@@ -1,12 +1,14 @@
 using BehaviorTree;
-using UnityEngine;
 
-public class GotBall : Node
+namespace OpponentTreeSpace
 {
-    public override NodeState Evaluate()
+    public class GotBall : Node
     {
-        Player player = (Player)GetData("player");
-        state = Field.Ball.transform.parent == player.transform? NodeState.Succes : NodeState.Failure;
-        return state;
+        public override NodeState Evaluate()
+        {
+            Player player = (Player)GetData("player");
+            state = Field.Ball.transform.parent == player.transform ? NodeState.Succes : NodeState.Failure;
+            return state;
+        }
     }
 }

@@ -1,24 +1,26 @@
 using UnityEngine;
-
 using BehaviorTree;
 
-public class ApproachBall : Node
+namespace OpponentTreeSpace
 {
-    private float waitTime = 1f;
-    private float waitCounter = 0f;
-    private bool waiting = false;
-
-    public override NodeState Evaluate()
+    public class ApproachBall : Node
     {
-        Player player = (Player)GetData("player");
+        private float waitTime = 1f;
+        private float waitCounter = 0f;
+        private bool waiting = false;
 
-        Vector3 direction = Field.Ball.transform.position - player.transform.position;
-        direction.y = 0f;
-        PlayerAction action = PlayerAction.Move(direction.normalized);
-        Node root = GetRootNode();
-        root.SetData("action", action);                
+        public override NodeState Evaluate()
+        {
+            Player player = (Player)GetData("player");
 
-        state = NodeState.Running;
-        return state;
+            Vector3 direction = Field.Ball.transform.position - player.transform.position;
+            direction.y = 0f;
+            PlayerAction action = PlayerAction.Move(direction.normalized);
+            Node root = GetRootNode();
+            root.SetData("action", action);
+
+            state = NodeState.Running;
+            return state;
+        }
     }
 }
