@@ -95,10 +95,11 @@ public class Field : MonoBehaviour
         List<Transform> attackPos = instance.attackPos;
         List<Transform> defPos = instance.defPos;
 
-
         Team defTeam = attackTeam == Team1 ? Team2 : Team1;
 
         Field.Ball.AttachToPlayer(attackTeam.Players[0]);
+        attackTeam.ChangePilotedPlayer(attackTeam.Players[0]);
+        defTeam.ChangePilotedPlayer(defTeam.Players[0]);
 
         attackTeam.WaitKickOff();
         defTeam.WaitKickOff();
@@ -123,6 +124,7 @@ public class Field : MonoBehaviour
             attackTeam.Goal.transform.position = instance.XAxisSymmetry(attackPos[attackPos.Count - 1].position);
             defTeam.Goal.transform.position = defPos[defPos.Count - 1].position;
         }
+
     }
 
     public Vector3 XAxisSymmetry(Vector3 initial)

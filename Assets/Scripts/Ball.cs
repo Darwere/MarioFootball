@@ -117,7 +117,7 @@ public class Ball : MonoBehaviour
         player = parent;
         isMovable = false;
         transform.parent = parent.transform;
-        transform.position = parent.transform.position + parent.transform.forward + Vector3.up * transform.position.y;
+        transform.position = parent.transform.position + parent.transform.forward;// + Vector3.up * transform.position.y;
         isFree = false;
         ResetVelocity();
         player.Team.ChangePilotedPlayer(player);
