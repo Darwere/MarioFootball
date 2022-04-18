@@ -68,10 +68,6 @@ public class Chomp : Item
         direction.y = 0;
         transform.LookAt(transform.position + direction);
         direction = direction.normalized;
-        //transform.Rotate(transform.rotation.x, transform.rotation.y + 90, transform.rotation.z);
-        Debug.Log(indexPlayer);
-        Debug.Log("pos joueur : "+teamEnemy.Players[indexPlayer].transform.position);
-        Debug.Log("direction : " + direction);
     }
     protected override void OnCollisionEnter(Collision collision)
     {
