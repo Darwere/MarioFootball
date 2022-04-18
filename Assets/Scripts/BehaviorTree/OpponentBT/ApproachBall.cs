@@ -5,10 +5,6 @@ namespace OpponentTreeSpace
 {
     public class ApproachBall : Node
     {
-        private float waitTime = 1f;
-        private float waitCounter = 0f;
-        private bool waiting = false;
-
         public override NodeState Evaluate()
         {
             Player player = (Player)GetData("player");
@@ -18,6 +14,7 @@ namespace OpponentTreeSpace
             PlayerAction action = PlayerAction.Move(direction.normalized);
             Node root = GetRootNode();
             root.SetData("action", action);
+            
 
             state = NodeState.Running;
             return state;

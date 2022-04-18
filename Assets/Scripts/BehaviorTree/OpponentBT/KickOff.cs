@@ -17,7 +17,6 @@ namespace OpponentTreeSpace
         public override NodeState Evaluate()
         {
             Player player = (Player)GetData("player");
-
             if (player.State == Player.PlayerState.KickOff && player.HasBall)
             {
                 if (timer < waitingTime)

@@ -3,7 +3,6 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.Collections;
-using UnityEngine.InputSystem;
 
 public class Team : MonoBehaviour
 {
@@ -34,6 +33,7 @@ public class Team : MonoBehaviour
     [SerializeField] private GameObject pilotedIndicatorPrefab;
     private GameObject pilotedIndicator;
     private Vector3 indicatorOffSet;
+    private object goalBrain;
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class Team : MonoBehaviour
         {
             Destroy(GetComponent<PlayerBrain>());
             gameObject.AddComponent(PilotedBrainType);
-            Brain = GetComponent<OpponentTree>();
+            Brain = GetComponent<BehaviorTree.MyTree>();
         }
 
         indicatorOffSet = new Vector3(pilotedIndicatorPrefab.transform.position.x, pilotedIndicatorPrefab.transform.position.y, pilotedIndicatorPrefab.transform.position.z);
@@ -84,8 +84,11 @@ public class Team : MonoBehaviour
 
         pilotedIndicator = Instantiate(pilotedIndicatorPrefab, players[0].transform);
         Brain.SetPlayer(players[0]);
-
         Brain.Init();
+
+        BehaviorTree.MyTree goalBrain = Goal.GetComponent<BehaviorTree.MyTree>();
+        goalBrain.SetPlayer(goalKeeper);
+        goalBrain.Init();
     }
 
     public Player GetPlayerWithDirection(Vector3 startPos, Vector3 dir, float angleThreshold)

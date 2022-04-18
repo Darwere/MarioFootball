@@ -248,7 +248,7 @@ public class Player : MonoBehaviour
         Collider collider = GetComponent<Collider>();
         RaycastHit hit;
         Vector3 startPosition = transform.position + new Vector3(0, collider.bounds.extents.y, 0);
-        float distance = 4;
+        float distance = Species.headButtRange;
         Debug.DrawRay(startPosition, transform.forward, Color.red, distance);
         Physics.Raycast(startPosition, transform.forward, out hit, distance);
 
