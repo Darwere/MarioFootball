@@ -30,21 +30,28 @@ public class Team : MonoBehaviour
     private Queue<Item> items;
     private int itemCapacity = 3;
 
+
+    [SerializeField] private GameObject pilotedIndicatorPrefab;
+    private GameObject pilotedIndicator;
+    private Vector3 indicatorOffSet;
+
     private void Awake()
     {
         Brain = GetComponent<PlayerBrain>();
 
-        if (PilotedBrainType != Brain.GetType()) //désactiver les actions si ce n'est pas une personne qui contrôle le joueur
-                                                   //event unity necessite que inputBrain soit un component par défaut
+        if (PilotedBrainType != Brain.GetType()) //dÃ©sactiver les actions si ce n'est pas une personne qui contrÃ´le le joueur
+                                                 //event unity necessite que inputBrain soit un component par dÃ©faut
         {
             Destroy(GetComponent<PlayerBrain>());
             gameObject.AddComponent(PilotedBrainType);
             Brain = GetComponent<OpponentTree>();
         }
+
+        indicatorOffSet = new Vector3(pilotedIndicatorPrefab.transform.position.x, pilotedIndicatorPrefab.transform.position.y, pilotedIndicatorPrefab.transform.position.z);
     }
 
     /// <summary>
-    /// Ajoute un item à la file d'items de l'équipe, dans le cas où celle-ci n'est pas pleine
+    /// Ajoute un item ï¿½ la file d'items de l'ï¿½quipe, dans le cas oï¿½ celle-ci n'est pas pleine
     /// </summary>
     public void GainItem()
     {
@@ -52,16 +59,16 @@ public class Team : MonoBehaviour
     }
 
     /// <summary>
-    /// Supprime l'item le plus ancien de la file d'items de l'équipe
+    /// Supprime l'item le plus ancien de la file d'items de l'ï¿½quipe
     /// </summary>
-    /// <returns>L'item supprimé</returns>
+    /// <returns>L'item supprimï¿½</returns>
     public Item GetItem()
     {
         return items.Dequeue();
     }
 
     /// <summary>
-    /// Initialise les joueurs et la file d'items de l'équipe
+    /// Initialise les joueurs et la file d'items de l'ï¿½quipe
     /// </summary>
     /// <param name="players">Les joueurs sans le gardien</param>
     /// <param name="goalKeeper">Le gardien</param>
@@ -75,8 +82,7 @@ public class Team : MonoBehaviour
 
         Brains = Players.Select(player => player.IABrain).ToArray();
 
-
-        players[0].IsPiloted = true;
+        pilotedIndicator = Instantiate(pilotedIndicatorPrefab, players[0].transform);
         Brain.SetPlayer(players[0]);
 
         Brain.Init();
@@ -138,7 +144,6 @@ public class Team : MonoBehaviour
         }
         else
         {
-
             foreach (Player allie in Players)
             {
                 if (allie.IsPiloted)
@@ -147,10 +152,15 @@ public class Team : MonoBehaviour
                     player.IsPiloted = true;
                 }
             }
-
         }
 
         Brain.SetPlayer(player);
+    }
+
+    public void ChangePilotedIndicator(Player player)
+    {
+        pilotedIndicator.transform.parent = player.transform;
+        pilotedIndicator.transform.localPosition = Vector3.zero + indicatorOffSet;
     }
 
     public void WaitKickOff()
@@ -179,15 +189,22 @@ public class Team : MonoBehaviour
         Goal.StartPlaying();
     }
 
+    private IEnumerator NewKickOff()
+    {
+        yield return new WaitForSeconds(2f);
+        Field.Ball.Restart();
+        Field.SetTeamPosition(this);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         Ball ball = collision.gameObject.GetComponent<Ball>();
         if (ball != null)
         {
             ++ConcededGoals;
-            ball.Restart();
-            Field.SetTeamPosition(this);
             UIManager.ActualiseScore();
+            StartCoroutine(NewKickOff());
         }
     }
+
 }

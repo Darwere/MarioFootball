@@ -279,7 +279,7 @@ public class Player : MonoBehaviour
 
     public void StartPlaying()
     {
-        State = PlayerState.Moving;
+            State = PlayerState.Moving;
     }
 
     IEnumerator PassInMovement()
