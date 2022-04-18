@@ -9,6 +9,11 @@ public class RedTurtleShell : Item
         
     }
 
+    public override void Init(Team team)
+    {
+
+    }
+
     protected override void OnCollisionEnter(Collision collision)
     {
         

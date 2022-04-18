@@ -9,6 +9,11 @@ public class Banana : Item
         
     }
 
+    public override void Init(Team team)
+    {
+
+    }
+
     protected override void OnCollisionEnter(Collision collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();

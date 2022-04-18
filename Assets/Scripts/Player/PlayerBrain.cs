@@ -31,7 +31,7 @@ public abstract class PlayerBrain : MonoBehaviour
 
     public void SetPlayer(Player player)
     {
-        Debug.Log("SetPlayer : " + player.name);
+        //Debug.Log("SetPlayer : " + player.name);
         Player = player;
         Player.IsPiloted = true;
         Allies.ChangePilotedIndicator(player);

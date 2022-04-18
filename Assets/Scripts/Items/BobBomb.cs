@@ -28,6 +28,10 @@ public class BobBomb : Item
             Destroy(this.gameObject);
         }
     }
+    public override void Init(Team team)
+    {
+
+    }
     protected override void Move()
     {
         

@@ -52,4 +52,9 @@ public class SpikeTurtle : Item
             countWallHit++;
         }
     }
+
+    public override void Init(Team team)
+    {
+
+    }
 }

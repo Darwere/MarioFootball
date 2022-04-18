@@ -18,6 +18,7 @@ public class PrefabManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        itemReference = new List<Item>();
     }
 
     private void Start()

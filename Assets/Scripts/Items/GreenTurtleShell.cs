@@ -32,6 +32,11 @@ public class GreenTurtleShell : Item
         transform.position += direction*Time.deltaTime*speed;
     }
 
+    public override void Init(Team team)
+    {
+
+    }
+
     protected override void OnCollisionEnter(Collision collision)
     {
         //Debug.Log(collision.gameObject.name);

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BlueTurtleShell : Item
 {
+    public override void Init(Team team)
+    {
+
+    }
     protected override void Move()
     {
         
