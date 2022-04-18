@@ -297,6 +297,14 @@ public class Player : MonoBehaviour
             Field.Ball.DetachFromParent();
     }
 
+    public void GetFreeze()
+    {
+        State = PlayerState.Shocked;
+
+        if (HasBall)
+            Field.Ball.DetachFromParent();
+    }
+
     public void GetHeadbutted(Vector3 direction)
     {
         State = PlayerState.Falling;
