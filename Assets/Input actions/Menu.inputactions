@@ -58,6 +58,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Selection Item Rigth",
+                    "type": "Button",
+                    "id": "f89c211a-be5b-49f6-8901-3479013a9702",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Selection Item Left",
+                    "type": "Button",
+                    "id": "b7ebf588-f57b-416a-b3eb-dcdb90c7b154",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -234,6 +252,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Next Scene Changement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83f92374-09cc-496e-9468-c3fa02029b17",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection Item Rigth",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ffdffddd-8230-47bd-8d15-9b1a074032ef",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection Item Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

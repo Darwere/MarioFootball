@@ -80,6 +80,24 @@ public partial class @Menu : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Selection Item Rigth"",
+                    ""type"": ""Button"",
+                    ""id"": ""f89c211a-be5b-49f6-8901-3479013a9702"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Selection Item Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""b7ebf588-f57b-416a-b3eb-dcdb90c7b154"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -258,6 +276,28 @@ public partial class @Menu : IInputActionCollection2, IDisposable
                     ""action"": ""Next Scene Changement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83f92374-09cc-496e-9468-c3fa02029b17"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Selection Item Rigth"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ffdffddd-8230-47bd-8d15-9b1a074032ef"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Selection Item Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -333,6 +373,8 @@ public partial class @Menu : IInputActionCollection2, IDisposable
         m_ControlMenu_SelectionItemDown = m_ControlMenu.FindAction("Selection Item Down", throwIfNotFound: true);
         m_ControlMenu_SelectionItemUp = m_ControlMenu.FindAction("Selection Item Up", throwIfNotFound: true);
         m_ControlMenu_Validate = m_ControlMenu.FindAction("Validate", throwIfNotFound: true);
+        m_ControlMenu_SelectionItemRigth = m_ControlMenu.FindAction("Selection Item Rigth", throwIfNotFound: true);
+        m_ControlMenu_SelectionItemLeft = m_ControlMenu.FindAction("Selection Item Left", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -398,6 +440,8 @@ public partial class @Menu : IInputActionCollection2, IDisposable
     private readonly InputAction m_ControlMenu_SelectionItemDown;
     private readonly InputAction m_ControlMenu_SelectionItemUp;
     private readonly InputAction m_ControlMenu_Validate;
+    private readonly InputAction m_ControlMenu_SelectionItemRigth;
+    private readonly InputAction m_ControlMenu_SelectionItemLeft;
     public struct ControlMenuActions
     {
         private @Menu m_Wrapper;
@@ -408,6 +452,8 @@ public partial class @Menu : IInputActionCollection2, IDisposable
         public InputAction @SelectionItemDown => m_Wrapper.m_ControlMenu_SelectionItemDown;
         public InputAction @SelectionItemUp => m_Wrapper.m_ControlMenu_SelectionItemUp;
         public InputAction @Validate => m_Wrapper.m_ControlMenu_Validate;
+        public InputAction @SelectionItemRigth => m_Wrapper.m_ControlMenu_SelectionItemRigth;
+        public InputAction @SelectionItemLeft => m_Wrapper.m_ControlMenu_SelectionItemLeft;
         public InputActionMap Get() { return m_Wrapper.m_ControlMenu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -435,6 +481,12 @@ public partial class @Menu : IInputActionCollection2, IDisposable
                 @Validate.started -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnValidate;
                 @Validate.performed -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnValidate;
                 @Validate.canceled -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnValidate;
+                @SelectionItemRigth.started -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnSelectionItemRigth;
+                @SelectionItemRigth.performed -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnSelectionItemRigth;
+                @SelectionItemRigth.canceled -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnSelectionItemRigth;
+                @SelectionItemLeft.started -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnSelectionItemLeft;
+                @SelectionItemLeft.performed -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnSelectionItemLeft;
+                @SelectionItemLeft.canceled -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnSelectionItemLeft;
             }
             m_Wrapper.m_ControlMenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -457,6 +509,12 @@ public partial class @Menu : IInputActionCollection2, IDisposable
                 @Validate.started += instance.OnValidate;
                 @Validate.performed += instance.OnValidate;
                 @Validate.canceled += instance.OnValidate;
+                @SelectionItemRigth.started += instance.OnSelectionItemRigth;
+                @SelectionItemRigth.performed += instance.OnSelectionItemRigth;
+                @SelectionItemRigth.canceled += instance.OnSelectionItemRigth;
+                @SelectionItemLeft.started += instance.OnSelectionItemLeft;
+                @SelectionItemLeft.performed += instance.OnSelectionItemLeft;
+                @SelectionItemLeft.canceled += instance.OnSelectionItemLeft;
             }
         }
     }
@@ -514,5 +572,7 @@ public partial class @Menu : IInputActionCollection2, IDisposable
         void OnSelectionItemDown(InputAction.CallbackContext context);
         void OnSelectionItemUp(InputAction.CallbackContext context);
         void OnValidate(InputAction.CallbackContext context);
+        void OnSelectionItemRigth(InputAction.CallbackContext context);
+        void OnSelectionItemLeft(InputAction.CallbackContext context);
     }
 }

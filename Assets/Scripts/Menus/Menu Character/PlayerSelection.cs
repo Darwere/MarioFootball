@@ -68,10 +68,7 @@ public class PlayerSelection : MonoBehaviour
 
     void SelectionCharacterUI(GameObject characterSelected)
     {
-       
             characterSelected.GetComponent<Image>().color = colorSelection;
-
-        
     }
 
 
