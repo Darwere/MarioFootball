@@ -10,12 +10,18 @@ public class SelectionSystem1 : MonoBehaviour
     public List<GameObject> ListItems = new List<GameObject>();
     public List<GameObject> ListCanvasItems = new List<GameObject>();
     public GameObject ActualCanvas;
-    public AudioSource audioSelection;
+    public AudioSource SelectionAudio;
+    public AudioSource ValidateAudio;
 
-    
-    int counterItem = 0; //Variable qui parcourt la liste
-    GameObject itemSelected;
+    private Menu menuAction;
+    private int counterItem = 0; //Variable qui parcourt la liste
+    private GameObject itemSelected;
+    private bool firstSelection=true;
 
+    private void Awake()
+    {
+        menuAction = new Menu();
+    }
     void Start()
     {
 
@@ -29,19 +35,19 @@ public class SelectionSystem1 : MonoBehaviour
             return;
 
         Vector2 positionJoystick = context.ReadValue<Vector2>(); 
-        Debug.Log(positionJoystick);
+        //Debug.Log(positionJoystick);
         if (Math.Abs(positionJoystick.x) > 0)
         {
             if (positionJoystick.y > 0.5)
             {
                 
-                SelectionItemUp();
+                SelectionItemUp(context);
 
             }
             else if (positionJoystick.y < -0.5)
             {
                 
-                SelectionItemDown();
+                SelectionItemDown(context);
 
             }
         }
@@ -57,16 +63,22 @@ public class SelectionSystem1 : MonoBehaviour
     void SelectionItemUI(GameObject itemSelected)
     {
         itemSelected.GetComponent<Image>().color = Color.red;
+        if (!firstSelection)
+        {
+            PlayAudio(SelectionAudio);
+        }
+        else
+        {
+            firstSelection = false;
+        }
     }
     void DeselectionItemUI(GameObject itemSelected)
     {
         itemSelected.GetComponent<Image>().color = Color.black;
     }
 
-    public void SelectionItemUp()
+    public void SelectionItemUp(InputAction.CallbackContext context)
     {
-        audioSelection.Play();
-
         DeselectionItemUI(ListItems[counterItem]);
         counterItem++;
         if (counterItem < ListItems.Count)
@@ -81,9 +93,9 @@ public class SelectionSystem1 : MonoBehaviour
         }
     }
 
-    public void SelectionItemDown()
+    public void SelectionItemDown(InputAction.CallbackContext context)
     {
-        audioSelection.Play();
+        
 
         DeselectionItemUI(ListItems[counterItem]);
         counterItem--;
@@ -104,12 +116,48 @@ public class SelectionSystem1 : MonoBehaviour
 
     }
 
-    public void Validate()
+    public void Validate(InputAction.CallbackContext context)
     {
+        PlayAudio(ValidateAudio);
         GameObject nextCanvas = ListCanvasItems[counterItem];
         nextCanvas.SetActive(true);
         ActualCanvas.SetActive(false);
     }
 
+    
 
+    public void PlayAudio(AudioSource audio)
+    {
+        audio.Play();
+    }
+    public void OnEnable()
+    {
+        menuAction.ControlMenu.SelectionItemDown.Enable();
+        menuAction.ControlMenu.SelectionItemDown.performed += SelectionItemDown;
+        
+
+
+        menuAction.ControlMenu.SelectionItemUp.Enable();
+        menuAction.ControlMenu.SelectionItemUp.performed+=SelectionItemUp;
+        
+
+
+        menuAction.ControlMenu.SelectionItem.Enable();
+        menuAction.ControlMenu.SelectionItem.performed+=ListenController;
+
+        menuAction.ControlMenu.Validate.Enable();
+        menuAction.ControlMenu.Validate.performed+=Validate;
+
+    }
+    private void OnDisable()
+    {
+        menuAction.ControlMenu.SelectionItemDown.Disable();
+        menuAction.ControlMenu.SelectionItemUp.Disable();
+        menuAction.ControlMenu.SelectionItem.Disable();
+        menuAction.ControlMenu.Validate.Disable();
+
+
+
+
+    }
 }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MenuManager : MonoBehaviour
+public class NextCanvas : MonoBehaviour
 {
     public GameObject ActualCanvas;
-    public GameObject NextCanvas;
-    public GameObject PreviousCanvas;
-    public AudioSource ValidateAudio;
+    public GameObject NextCanvasObject;
+    public AudioSource NextCanvasAudio;
 
     private Menu menuAction;
 
@@ -18,38 +17,29 @@ public class MenuManager : MonoBehaviour
     }
     public void ChangeNextCanvas(InputAction.CallbackContext context)
     {
-        
-        NextCanvas.SetActive(true);
+
+        NextCanvasObject.SetActive(true);
         ActualCanvas.SetActive(false);
     }
 
-    public void ChangePreviousCanvas()
-    {
-        
-        PreviousCanvas.SetActive(true);
-        ActualCanvas.SetActive(false); 
-    }
+
     public void ValidatePlayAudio(InputAction.CallbackContext context)
     {
-        
-        ValidateAudio.Play();
+        NextCanvasAudio.Play();
     }
 
     private void OnEnable()
     {
-        
-        menuAction.ControlMenu.Validate.Enable();
-        menuAction.ControlMenu.Validate.performed += ChangeNextCanvas;
-        menuAction.ControlMenu.Validate.performed += ValidatePlayAudio;
 
-
-
+        menuAction.ControlMenu.NextSceneChangement.Enable();
+        menuAction.ControlMenu.NextSceneChangement.performed += ChangeNextCanvas;
+        menuAction.ControlMenu.NextSceneChangement.performed += ValidatePlayAudio;
 
 
     }
     private void OnDisable()
     {
         menuAction.ControlMenu.NextSceneChangement.Disable();
-    }
 
+    }
 }

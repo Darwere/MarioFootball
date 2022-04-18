@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,8 +135,8 @@ GameObject:
   - component: {fileID: 9531925}
   - component: {fileID: 9531924}
   - component: {fileID: 9531923}
-  - component: {fileID: 9531928}
   - component: {fileID: 9531927}
+  - component: {fileID: 9531928}
   m_Layer: 5
   m_Name: Canvas Menu Play
   m_TagString: Untagged
@@ -222,7 +222,7 @@ RectTransform:
   - {fileID: 1879960597}
   - {fileID: 403071242}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9531922}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -260,7 +260,7 @@ MonoBehaviour:
     m_ActionName: Control Menu/Next Scene Changement[/DualShock4GamepadHID/buttonEast,/DualShock4GamepadHID1/buttonEast,/DualShock4GamepadHID2/buttonEast,/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9531928}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: ChangePreviousCanvas
         m_Mode: 1
@@ -364,12 +364,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 9531922}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ad1c341a481be419a986ecbcecb6fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 90a384bb6220a30458426e227b4e1db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ActualCanvas: {fileID: 9531922}
-  NextCanvas: {fileID: 9531922}
-  PreviousCanvas: {fileID: 1032065937}
+  PreviousCanvasObject: {fileID: 1032065937}
+  PreviousCanvasAudio: {fileID: 1259911220}
 --- !u!1 &10731344
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,6 +689,7 @@ Transform:
   - {fileID: 301296625}
   - {fileID: 1757506882}
   - {fileID: 474268263}
+  - {fileID: 1259911219}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -716,7 +717,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 283765355}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 
@@ -785,7 +786,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &291158243
 GameObject:
@@ -1072,7 +1073,8 @@ MonoBehaviour:
   - {fileID: 1222859412}
   - {fileID: 363662876}
   ActualCanvas: {fileID: 1562446083}
-  audioSelection: {fileID: 474268265}
+  SelectionAudio: {fileID: 474268265}
+  ValidateAudio: {fileID: 1757506883}
 --- !u!224 &356178530
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1213,7 +1215,7 @@ RectTransform:
   m_Children:
   - {fileID: 907949048}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1328,9 +1330,9 @@ RectTransform:
   m_Father: {fileID: 356178530}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -55.62615}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 601.9966, y: 111.2523}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &409397853
@@ -2785,7 +2787,7 @@ RectTransform:
   - {fileID: 174720929}
   - {fileID: 1098660623}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2801,12 +2803,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1032065937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ad1c341a481be419a986ecbcecb6fa, type: 3}
+  m_Script: {fileID: 11500000, guid: db0fe17972b34be469b8af151c869c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ActualCanvas: {fileID: 1032065937}
-  NextCanvas: {fileID: 9531922}
-  PreviousCanvas: {fileID: 1032065937}
+  NextCanvasObject: {fileID: 9531922}
+  NextCanvasAudio: {fileID: 1757506883}
 --- !u!114 &1032065943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2814,7 +2816,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032065937}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -2834,7 +2836,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1032065942}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: ChangeNextCanvas
         m_Mode: 1
@@ -3321,9 +3323,9 @@ RectTransform:
   m_Father: {fileID: 356178530}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -262.84845}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 601.9966, y: 111.2523}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1190733833
@@ -3610,7 +3612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1222859413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3688,7 +3690,7 @@ RectTransform:
   - {fileID: 1190733834}
   - {fileID: 913543622}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3776,6 +3778,134 @@ MonoBehaviour:
   ActualCanvas: {fileID: 1222859412}
   NextCanvas: {fileID: 1032065937}
   PreviousCanvas: {fileID: 9531922}
+  ValidateAudio: {fileID: 0}
+--- !u!1 &1259911218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1259911219}
+  - component: {fileID: 1259911220}
+  m_Layer: 0
+  m_Name: Previous Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1259911219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259911218}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 228296043}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1259911220
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259911218}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: b43d102aac6b145468dcaa94a5cccae1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1307608319
 GameObject:
   m_ObjectHideFlags: 0
@@ -4616,15 +4746,15 @@ GameObject:
   - component: {fileID: 1562446088}
   - component: {fileID: 1562446087}
   - component: {fileID: 1562446086}
-  - component: {fileID: 1562446085}
   - component: {fileID: 1562446084}
+  - component: {fileID: 1562446085}
   m_Layer: 5
   m_Name: Canvas Menu Choice Match
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1562446084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4632,7 +4762,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562446083}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -4656,7 +4786,7 @@ MonoBehaviour:
     m_ActionName: Control Menu/Next Scene Changement[/DualShock4GamepadHID/buttonEast,/DualShock4GamepadHID1/buttonEast,/DualShock4GamepadHID2/buttonEast,/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1562446085}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: ChangePreviousCanvas
         m_Mode: 1
@@ -4760,12 +4890,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1562446083}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ad1c341a481be419a986ecbcecb6fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 90a384bb6220a30458426e227b4e1db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ActualCanvas: {fileID: 1562446083}
-  NextCanvas: {fileID: 1562446083}
-  PreviousCanvas: {fileID: 9531922}
+  PreviousCanvasObject: {fileID: 9531922}
+  PreviousCanvasAudio: {fileID: 1259911220}
 --- !u!114 &1562446086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4844,7 +4974,7 @@ RectTransform:
   - {fileID: 60581917}
   - {fileID: 1666081861}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5350,7 +5480,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1757506881
 GameObject:
@@ -5760,10 +5890,11 @@ MonoBehaviour:
   - {fileID: 485493234}
   - {fileID: 1698869261}
   ListCanvasItems:
-  - {fileID: 1222859412}
+  - {fileID: 1562446083}
   - {fileID: 363662876}
   ActualCanvas: {fileID: 9531922}
-  audioSelection: {fileID: 474268265}
+  SelectionAudio: {fileID: 474268265}
+  ValidateAudio: {fileID: 1757506883}
 --- !u!114 &2093320690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5849,7 +5980,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2129391865
 GameObject:

@@ -206,6 +206,17 @@
                 },
                 {
                     "name": "",
+                    "id": "0c25147b-5fcc-4d9a-8db0-1677002ecc23",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Previous Scene Changement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5421dcf2-c43b-43a6-b97e-3003f6fd22d7",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
