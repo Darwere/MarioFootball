@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Banana : Item
 {
+    public int force = 5;
+    public int hauteur = 5;
+    private void Start()
+    {
+        ColliderOff(0.4f);
+        Rigidbody rb = GetComponent<Rigidbody>();
+        Vector3 direction = new Vector3(transform.forward.x * force, transform.forward.y + hauteur, transform.forward.z * force);
+        rb.AddForce(direction * force);
+    }
     protected override void Move()
     {
         

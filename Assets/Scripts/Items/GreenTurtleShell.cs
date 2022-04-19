@@ -14,6 +14,7 @@ public class GreenTurtleShell : Item
 
     private void Start()
     {
+        ColliderOff(0.2f);
         direction = transform.forward;
     }
     private void Update()

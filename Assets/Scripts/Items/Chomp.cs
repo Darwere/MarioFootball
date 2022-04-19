@@ -18,6 +18,7 @@ public class Chomp : Item
 
     private void Start()
     {
+        ColliderOff(0.2f);
         ChangeTarget();
     }
     private void Update()

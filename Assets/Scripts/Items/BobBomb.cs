@@ -12,6 +12,7 @@ public class BobBomb : Item
     private float timeLeft = 2.5f;
     private void Start()
     {
+        ColliderOff(0.2f);
         Rigidbody rb = GetComponent<Rigidbody>();
         Vector3 direction = new Vector3(transform.forward.x*force, transform.forward.y + hauteur, transform.forward.z*force);
         rb.AddForce(direction*force);

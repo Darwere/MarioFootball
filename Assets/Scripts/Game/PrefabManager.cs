@@ -27,7 +27,6 @@ public class PrefabManager : MonoBehaviour
         foreach(GameObject item in prefabItemsReference)
         {
             Item script = item.GetComponent<Item>();
-            Debug.Log(script);
             prefabItems.Add(script, item);
             itemReference.Add(script);
         }
