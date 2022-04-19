@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpikeTurtle : Item
 {
     public GameObject destructionParticule;
+    public Sprite sprite;
 
     [SerializeField]
     private float speed = 10f;

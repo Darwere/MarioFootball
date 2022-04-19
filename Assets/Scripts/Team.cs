@@ -28,7 +28,7 @@ public class Team : MonoBehaviour
     public Transform[] ShootPoint => ShootPoints;
 
     private Queue<Item> items;
-    private int itemCapacity = 3;
+    private int itemCapacity = 2;
 
 
     [SerializeField] private GameObject pilotedIndicatorPrefab;

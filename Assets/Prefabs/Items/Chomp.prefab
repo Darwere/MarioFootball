@@ -132,6 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  lifeTime: 7
+  sprite: {fileID: 21300000, guid: ea2ddad7954d41c4699394ac9bbeaae1, type: 3}
 --- !u!65 &6302086645305652787
 BoxCollider:
   m_ObjectHideFlags: 0

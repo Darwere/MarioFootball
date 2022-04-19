@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69111124bc5fad74b9410318e514cdaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: e35cc813ef884984ca7ccf6389e514b3, type: 3}
   force: 24
   hauteur: 21
 --- !u!1001 &9107408765980635136

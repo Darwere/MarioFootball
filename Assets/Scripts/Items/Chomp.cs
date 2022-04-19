@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Chomp : Item
 {
@@ -15,6 +16,7 @@ public class Chomp : Item
     private int indexPlayerSave = int.MaxValue;
     private bool isInited = false;
 
+    public Sprite sprite;
 
     private void Start()
     {

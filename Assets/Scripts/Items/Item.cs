@@ -20,6 +20,6 @@ public abstract class Item : MonoBehaviour
         yield return new WaitForSeconds(delay);
         Collider collider = GetComponent<BoxCollider>();
         collider.enabled = true;
-        Debug.Log(collider);
+        //Debug.Log(collider);
     }
 }

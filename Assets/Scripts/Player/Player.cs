@@ -199,7 +199,7 @@ public class Player : MonoBehaviour
             item.Init(Team);
         }
 
-        Debug.Log("SendObject");
+        //Debug.Log("SendObject");
     }
 
     #endregion
@@ -344,7 +344,7 @@ public class Player : MonoBehaviour
                     else
                     {
                         player.Team.GainItem();
-                        Debug.Log("Gain Item");
+                        //Debug.Log("Gain Item");
                     }
                 }
             }

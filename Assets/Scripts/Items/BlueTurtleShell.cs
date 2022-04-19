@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BlueTurtleShell : Item
 {
+    public Sprite sprite;
     public GameObject iceBlock;
     public GameObject destructionParticule;
 
@@ -15,7 +17,7 @@ public class BlueTurtleShell : Item
 
     private void Start()
     {
-        ColliderOff(0.2f);
+        ColliderOff(0.3f);
         direction = transform.forward;
     }
     private void Update()

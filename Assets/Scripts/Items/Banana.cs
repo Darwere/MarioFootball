@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Banana : Item
 {
+    public Sprite sprite;
     public int force = 5;
     public int hauteur = 5;
     private void Start()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SuperStar : Item
 {
+    public Sprite sprite;
     protected override void Move()
     {
 

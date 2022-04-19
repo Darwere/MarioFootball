@@ -420,14 +420,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 387812dd211171441a324e70af0bf153, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -484,11 +484,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: agoalBrainType
-      value: InputBrain
+      value: GoalBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
-      value: InputBrain
+      value: PlacementAIBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: aPilotedBrainType
@@ -884,11 +884,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: agoalBrainType
-      value: InputBrain
+      value: GoalBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
-      value: InputBrain
+      value: PlacementAIBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: aPilotedBrainType
@@ -1112,14 +1112,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cb059f503a6181949bcb02ab43a180a9, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1311,14 +1311,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e35cc813ef884984ca7ccf6389e514b3, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1520,14 +1520,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ea2ddad7954d41c4699394ac9bbeaae1, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1860,10 +1860,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 1897170763986732827, guid: 5f9a23016bc8ab94fb2a55df45b2bfa2, type: 3}
   prefabItemsReference:
-  - {fileID: 5623886065827476684, guid: fc2c4430f6d6e724d95507f5d2d2de5d, type: 3}
   - {fileID: 9107408767414607890, guid: 7296f3f8a5c56074888d9627f5c928b2, type: 3}
+  - {fileID: 5393075624546416002, guid: c4c3f12a3ee3bb04198f8ed30258acec, type: 3}
   - {fileID: 6031591382451120485, guid: bc0873f0f53a23841adfdb953cc9501f, type: 3}
   - {fileID: 1087478617484774286, guid: 8d0b346541810bf4abcb8786f03d45ab, type: 3}
+  - {fileID: 5623886065827476684, guid: fc2c4430f6d6e724d95507f5d2d2de5d, type: 3}
+  - {fileID: 2345695945905484658, guid: ac96fc3626640f84f9aa03520c5d9c93, type: 3}
+  - {fileID: 2589877131917648721, guid: e7525993109eebd40a01f7354ea24df5, type: 3}
+  - {fileID: 6782870734963530175, guid: 4757066dd4867b04c90f3d068a9983ca, type: 3}
+  - {fileID: 4035482046549330915, guid: 5bb41b00b210fd046b9442341b111644, type: 3}
 --- !u!114 &1642756266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2141,6 +2146,10 @@ MonoBehaviour:
   Score1: {fileID: 24671392}
   Score2: {fileID: 1916494398}
   Timer: {fileID: 530772796}
+  Item1P1: {fileID: 0}
+  Item2P1: {fileID: 0}
+  Item1P2: {fileID: 0}
+  Item2P2: {fileID: 0}
 --- !u!114 &1935185408
 MonoBehaviour:
   m_ObjectHideFlags: 0
