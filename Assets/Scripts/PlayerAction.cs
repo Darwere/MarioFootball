@@ -80,11 +80,11 @@ public struct PlayerAction
         return action;
     }
 
-    public static PlayerAction HeadButt(Player target)
+    public static PlayerAction HeadButt(Vector3 direction)
     {
         PlayerAction action = new PlayerAction();
         action.type = ActionType.Headbutt;
-        action.target = target;
+        action.direction = direction;
 
         return action;
     }

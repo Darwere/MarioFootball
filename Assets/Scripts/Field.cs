@@ -90,30 +90,46 @@ public class Field : MonoBehaviour
         CameraManager.Init();
     }
 
-    public static void SetTeamPosition(Team _attackTeam)
+    public static void SetTeamPosition(Team attackTeam)
     {
-        if (_attackTeam != instance.attackTeam)
-        {
-            Team temp = instance.attackTeam;
-            instance.attackTeam = _attackTeam;
-            instance.defTeam = temp;
-        }
+        List<Transform> attackPos = instance.attackPos;
+        List<Transform> defPos = instance.defPos;
 
-        Team defTeam = instance.defTeam;
-        for (int i = 0; i < Team1.Players.Length; i++)
+        Team defTeam = attackTeam == Team1 ? Team2 : Team1;
+
+        Field.Ball.AttachToPlayer(attackTeam.Players[0]);
+        attackTeam.ChangePilotedPlayer(attackTeam.Players[0]);
+        defTeam.ChangePilotedPlayer(defTeam.Players[0]);
+
+        attackTeam.WaitKickOff();
+        defTeam.WaitKickOff();
+
+        if (attackTeam == Team1)
         {
-            _attackTeam.Players[i].transform.position = instance.attackPos[i].position;
-            defTeam.Players[i].transform.position = instance.XAxisSymmetry(instance.defPos[i].position);
+            for (int i = 0; i < attackTeam.Players.Length; i++)
+            {
+                attackTeam.Players[i].transform.position = attackPos[i].position;
+                defTeam.Players[i].transform.position = instance.XAxisSymmetry(defPos[i].position);
+            }
+            attackTeam.Goal.transform.position = attackPos[attackPos.Count - 1].position;
+            defTeam.Goal.transform.position = instance.XAxisSymmetry(defPos[defPos.Count - 1].position);
         }
-        _attackTeam.Goal.transform.position = instance.attackPos[instance.attackPos.Count-1].position;
-        defTeam.Goal.transform.position = instance.XAxisSymmetry(instance.defPos[instance.defPos.Count-1].position);
+        else
+        {
+            for (int i = 0; i < Team1.Players.Length; i++)
+            {
+                attackTeam.Players[i].transform.position = instance.XAxisSymmetry(attackPos[i].position);
+                defTeam.Players[i].transform.position = defPos[i].position;
+            }
+            attackTeam.Goal.transform.position = instance.XAxisSymmetry(attackPos[attackPos.Count - 1].position);
+            defTeam.Goal.transform.position = defPos[defPos.Count - 1].position;
+        }
 
     }
 
-
     public Vector3 XAxisSymmetry(Vector3 initial)
     {
-        return new Vector3(-initial.x,initial.y,initial.z);
+        return new Vector3(-initial.x, initial.y, initial.z);
     }
 
 }
