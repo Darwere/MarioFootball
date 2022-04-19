@@ -18,7 +18,6 @@ public class Chomp : Item
 
     private void Start()
     {
-        Init(Field.Team1);
         ChangeTarget();
     }
     private void Update()

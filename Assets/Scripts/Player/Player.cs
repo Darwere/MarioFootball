@@ -188,6 +188,16 @@ public class Player : MonoBehaviour
 
     protected void SendObject()
     {
+        Item item = Team.GetItem();
+        GameObject prefab;
+        PrefabManager.PrefabItems.TryGetValue(item, out prefab);
+
+        if(prefab != null)
+        {
+            GameObject itemSpawn = Instantiate(prefab, transform.position, Quaternion.identity);
+            item = itemSpawn.GetComponent<Item>();
+            item.Init(Team);
+        }
 
         Debug.Log("SendObject");
     }
@@ -332,7 +342,10 @@ public class Player : MonoBehaviour
                     if (player.HasBall)
                         Field.Ball.DetachFromParent();
                     else
-                        player.Team.GetItem();
+                    {
+                        player.Team.GainItem();
+                        Debug.Log("Gain Item");
+                    }
                 }
             }
         }

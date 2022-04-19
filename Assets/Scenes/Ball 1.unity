@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -409,12 +409,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: agoalBrainType
-      value: InputBrain
+      value: GoalBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
+      value: PlacementAIBrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
+      propertyPath: aPilotedBrainType
       value: InputBrain
       objectReference: {fileID: 0}
+    - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
+      propertyPath: pilotedIndicatorPrefab
+      value: 
+      objectReference: {fileID: 6411385473989397212, guid: 9c099583755665444ab5542a246fb842, type: 3}
     - target: {fileID: 5965256866810570014, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_Name
       value: Team 2
@@ -585,12 +593,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: agoalBrainType
-      value: InputBrain
+      value: GoalBrain
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
+      value: PlacementAIBrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
+      propertyPath: aPilotedBrainType
       value: InputBrain
       objectReference: {fileID: 0}
+    - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
+      propertyPath: pilotedIndicatorPrefab
+      value: 
+      objectReference: {fileID: 2639133279469294486, guid: ade86576c7be8d84198914a2f31adbf4, type: 3}
     - target: {fileID: 5965256866810570014, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_Name
       value: Team 1
@@ -1285,7 +1301,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4125deaffafe701439bdf2e27157db74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball: {fileID: 266137186057966708, guid: 5f9a23016bc8ab94fb2a55df45b2bfa2, type: 3}
+  ball: {fileID: 1897170763986732827, guid: 5f9a23016bc8ab94fb2a55df45b2bfa2, type: 3}
+  prefabItemsReference:
+  - {fileID: 9107408767414607890, guid: 7296f3f8a5c56074888d9627f5c928b2, type: 3}
+  - {fileID: 5393075624546416002, guid: c4c3f12a3ee3bb04198f8ed30258acec, type: 3}
+  - {fileID: 6031591382451120485, guid: bc0873f0f53a23841adfdb953cc9501f, type: 3}
+  - {fileID: 1087478617484774286, guid: 8d0b346541810bf4abcb8786f03d45ab, type: 3}
+  - {fileID: 5623886065827476684, guid: fc2c4430f6d6e724d95507f5d2d2de5d, type: 3}
+  - {fileID: 2345695945905484658, guid: ac96fc3626640f84f9aa03520c5d9c93, type: 3}
+  - {fileID: 2589877131917648721, guid: e7525993109eebd40a01f7354ea24df5, type: 3}
+  - {fileID: 6782870734963530175, guid: 4757066dd4867b04c90f3d068a9983ca, type: 3}
+  - {fileID: 4035482046549330915, guid: 5bb41b00b210fd046b9442341b111644, type: 3}
 --- !u!114 &1642756266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2281,7 +2307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d434d2f558bda974a9ec40e67fa9e32c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 107179892}
   width: 90
   height: 45
   team1: {fileID: 1814555249}

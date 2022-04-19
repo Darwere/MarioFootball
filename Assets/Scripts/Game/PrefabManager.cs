@@ -9,7 +9,7 @@ public class PrefabManager : MonoBehaviour
     public static GameObject Ball => instance.ball;
 
     [SerializeField] private GameObject[] prefabItemsReference;
-    private Dictionary<Item, GameObject> prefabItems = new Dictionary<Item, GameObject>();
+    private Dictionary<Item, GameObject> prefabItems;
     public static Dictionary<Item, GameObject> PrefabItems => instance.prefabItems;
 
     private List<Item> itemReference;
@@ -19,6 +19,7 @@ public class PrefabManager : MonoBehaviour
     {
         instance = this;
         itemReference = new List<Item>();
+        prefabItems = new Dictionary<Item, GameObject>();
     }
 
     private void Start()
@@ -26,6 +27,7 @@ public class PrefabManager : MonoBehaviour
         foreach(GameObject item in prefabItemsReference)
         {
             Item script = item.GetComponent<Item>();
+            Debug.Log(script);
             prefabItems.Add(script, item);
             itemReference.Add(script);
         }

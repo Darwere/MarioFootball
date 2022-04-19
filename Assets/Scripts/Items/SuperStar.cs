@@ -19,7 +19,6 @@ public class SuperStar : Item
         Player player = collision.gameObject.GetComponent<Player>();
         if (player != null)
         {
-            Debug.Log("etoile");
             Destroy(this.gameObject);
         }
     }

@@ -22,7 +22,6 @@ public class RedTurtleShell : Item
     }
     private void Start()
     {
-        Init(Field.Team1);
         ChangeTarget();
     }
     protected override void Move()
