@@ -15,6 +15,9 @@ public class PlayerSpecs : ScriptableObject
     [Range(1f, 10f)]
     public float speed = 4f;
 
+    [Range(5f, 45f)]
+    public float shootRange = 30f;
+
     [Range(0f, 5f)]
     public float tackleRange = 3f;
 

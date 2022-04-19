@@ -130,9 +130,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5965256866810570015}
   - component: {fileID: 5965256866810570008}
-  - component: {fileID: 5965256866810570013}
   - component: {fileID: 5965256866810570012}
-  - component: {fileID: 5965256866810570011}
+  - component: {fileID: 5965256866810570013}
+  - component: {fileID: -1636243769967788496}
   m_Layer: 0
   m_Name: Team
   m_TagString: Untagged
@@ -174,28 +174,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.528349, y: 4.555317, z: 5.359195}
   m_Center: {x: 3.2915726, y: 1.7776573, z: -0.09608281}
---- !u!114 &5965256866810570013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5965256866810570014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e55b22583b79c79439ddb8f7e7dcc3cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ateamBrainType: GoalBrain
-  agoalBrainType: GoalBrain
-  ConcededGoals: 0
-  ShootPoints:
-  - {fileID: 994263396262917775}
-  - {fileID: 8087862312140821225}
-  - {fileID: 3577270925762387934}
-  - {fileID: 4935699859797984370}
-  - {fileID: 7999311210972595390}
-  - {fileID: 7169757126420817520}
 --- !u!114 &5965256866810570012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +201,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5965256866810570011}
+      - m_Target: {fileID: -1636243769967788496}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
         m_MethodName: Movement
         m_Mode: 0
@@ -236,10 +214,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: ec8de6a0-b01a-49f4-8b6d-3a3b1bbc789c
-    m_ActionName: PlayerController/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
+    m_ActionName: PlayerController/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5965256866810570011}
+      - m_Target: {fileID: -1636243769967788496}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
         m_MethodName: Pass_SwitchPlayer
         m_Mode: 0
@@ -255,7 +233,7 @@ MonoBehaviour:
     m_ActionName: PlayerController/Pass/SwitchPlayer[/Keyboard/q]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5965256866810570011}
+      - m_Target: {fileID: -1636243769967788496}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
         m_MethodName: Shoot_Tackle
         m_Mode: 0
@@ -268,10 +246,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 8d114f3d-950e-4b60-a113-fad52796d2a5
-    m_ActionName: PlayerController/Shoot/Tacle[/Keyboard/e]
+    m_ActionName: PlayerController/Shoot/Tackle[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5965256866810570011}
+      - m_Target: {fileID: -1636243769967788496}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
         m_MethodName: Dribble_HeadButt
         m_Mode: 0
@@ -287,7 +265,7 @@ MonoBehaviour:
     m_ActionName: PlayerController/Dribble/HeadButt[/Keyboard/z]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5965256866810570011}
+      - m_Target: {fileID: -1636243769967788496}
         m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
         m_MethodName: SendObject
         m_Mode: 0
@@ -301,12 +279,35 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 13fc470a-04ea-439a-9746-de22df204468
     m_ActionName: PlayerController/SendObject[/Keyboard/space]
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerController
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &5965256866810570011
+--- !u!114 &5965256866810570013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5965256866810570014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e55b22583b79c79439ddb8f7e7dcc3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ateamBrainType: GoalBrain
+  agoalBrainType: GoalBrain
+  aPilotedBrainType: GoalBrain
+  ConcededGoals: 0
+  ShootPoints:
+  - {fileID: 994263396262917775}
+  - {fileID: 8087862312140821225}
+  - {fileID: 3577270925762387934}
+  - {fileID: 4935699859797984370}
+  - {fileID: 7999311210972595390}
+  - {fileID: 7169757126420817520}
+--- !u!114 &-1636243769967788496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

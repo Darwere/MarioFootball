@@ -8,13 +8,18 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Menu.unity
     guid: ec05ea5e3f60e8040b43745d8895ee35
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Prototyping.unity
     guid: 9ae01cfdc31abed46aed7a8041c1fa2c
   - enabled: 1
+<<<<<<< HEAD
     path: Assets/Scenes/Ball 1.unity
     guid: 4c6562653b694b4418f58d8796edeb97
+=======
+    path: Assets/Scenes/Ball.unity
+    guid: b29c1f97f72a9614799caa38298d4acd
+>>>>>>> main
   m_configObjects: {}
