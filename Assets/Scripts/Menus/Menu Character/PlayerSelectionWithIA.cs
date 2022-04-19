@@ -55,7 +55,7 @@ public class PlayerSelectionWithIA : MonoBehaviour
 
     void SelectionCharacterUI(GameObject characterSelected)
     {
-        characterSelected.GetComponent<Image>().color = Color.red;
+        characterSelected.GetComponent<Image>().color = colorSelection;
         PlayAudio(SelectionAudio);
     }
 

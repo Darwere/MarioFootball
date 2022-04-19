@@ -155,7 +155,19 @@ MonoBehaviour:
     m_ActionId: 7fc350d5-b0ea-443f-aeb9-a701349f37e0
     m_ActionName: Control Menu/Selection Item Up[/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID1/leftStick/up,/DualShock4GamepadHID2/leftStick/up,/DualShock4GamepadHID3/leftStick/up,/DualShock4GamepadHID4/leftStick/up]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -1204181922565031881}
+        m_TargetAssemblyTypeName: PlayerSelection, Assembly-CSharp
+        m_MethodName: ValidateChoice
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 8a079122-985a-4bd0-955a-c2a1b824cc0f
     m_ActionName: Control Menu/Validate[/DualShock4GamepadHID/buttonEast,/DualShock4GamepadHID1/buttonEast,/DualShock4GamepadHID2/buttonEast,/DualShock4GamepadHID3/buttonEast,/DualShock4GamepadHID4/buttonEast]
   - m_PersistentCalls:
@@ -207,6 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0f89ca6063e7547bf170b91a476d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionColorPlayer1: {r: 1, g: 0, b: 0.6634264, a: 0}
-  selectionColorPlayer2: {r: 0.16168213, g: 1, b: 0, a: 0}
-  colorSelection: {r: 1, g: 0.062035896, b: 0, a: 0}
+  SelectionColorPlayer1: {r: 0.9622642, g: 0.4417942, b: 0.4417942, a: 1}
+  SelectionColorPlayer2: {r: 1, g: 0.9166366, b: 0.10062885, a: 1}
+  HiderPrefab: {fileID: 1411374743796127297, guid: d0a9edf40ea13804694ed001eee4b7b0, type: 3}
+  Canvas: {fileID: 0}

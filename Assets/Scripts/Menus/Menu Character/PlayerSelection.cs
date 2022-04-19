@@ -8,15 +8,19 @@ using UnityEngine.UI;
 
 public class PlayerSelection : MonoBehaviour
 {
-    public Color selectionColorPlayer1;
-    public Color selectionColorPlayer2;
+    public Color SelectionColorPlayer1;
+    public Color SelectionColorPlayer2;
+    public GameObject HiderPrefab;
 
-
-    public Color colorSelection;
-
-    private int indexPlayer;
+    private bool canChose = true;
     private bool player0;
+
+    private AudioSource validateAudio;
+    private AudioSource selectionAudio;
     private GameObject characterSelected;
+    private Color colorOtherPlayer;
+    private Color colorSelection;
+    private int indexPlayer;
     private int counterCharacter = 0;
 
     //public void playerJoined(PlayerInput playerInput)
@@ -38,23 +42,25 @@ public class PlayerSelection : MonoBehaviour
     //    }
     //    SelectionCharacter();
     //}
-
+    
     public void Start()
     {
         indexPlayer = GetComponent<PlayerInput>().playerIndex;
-
+        selectionAudio = CanvasCharacter.instance.SelectionAudio;
+        validateAudio = CanvasCharacter.instance.ValidateChoiceAudio;
         if (indexPlayer == 0)
         {
             player0 = true;
-            //colorSelection = selectionColorPlayer1;
-            colorSelection = Color.red;
+            colorSelection = SelectionColorPlayer1;
+            colorOtherPlayer = SelectionColorPlayer2;
+            //colorSelection = Color.red;
 
         }
         else
         {
-
-            colorSelection = Color.green;
-            //colorSelection = selectionColorPlayer2;
+            //colorSelection = Color.green;
+            colorSelection = SelectionColorPlayer2;
+            colorOtherPlayer = SelectionColorPlayer1;
         }
         SelectionCharacter();
     }
@@ -63,32 +69,36 @@ public class PlayerSelection : MonoBehaviour
     {
         if (!context.performed)
             return;
-        Vector2 positionJoystick = context.ReadValue<Vector2>();
-        //Debug.Log(positionJoystick);
-        if (Math.Abs(positionJoystick.y) > 0)
+        if (canChose)
         {
-            if (positionJoystick.x > 0.5)
+            Vector2 positionJoystick = context.ReadValue<Vector2>();
+            //Debug.Log(positionJoystick);
+            if (Math.Abs(positionJoystick.y) > 0)
             {
-                SelectionCharacterRight(context);
-            }
-            else if (positionJoystick.x < -0.5)
-            {
-                SelectionCharacterLeft(context);
+                if (positionJoystick.x > 0.5)
+                {
+                    SelectionCharacterRight(context);
+                }
+                else if (positionJoystick.x < -0.5)
+                {
+                    SelectionCharacterLeft(context);
+                }
             }
         }
+
+
 
     }
 
     public void SelectionCharacter()
     {
-
         characterSelected = CharacterGrid.instance.listCharacters[counterCharacter];
-
         SelectionCharacterUI(characterSelected);
     }
 
     void SelectionCharacterUI(GameObject characterSelected)
     {
+        selectionAudio.Play();
         characterSelected.GetComponent<Image>().color = colorSelection;
     }
 
@@ -102,19 +112,31 @@ public class PlayerSelection : MonoBehaviour
     {
         if (!context.performed)
             return;
-        DeselectionCharacterUI(CharacterGrid.instance.listCharacters[counterCharacter]);
-
-        counterCharacter++;
-        if (counterCharacter < CharacterGrid.instance.listCharacters.Count)
+        if (canChose)
         {
+            DeselectionCharacterUI(CharacterGrid.instance.listCharacters[counterCharacter]);
 
-            SelectionCharacter();
+            counterCharacter++;
+
+            if (counterCharacter >= CharacterGrid.instance.listCharacters.Count)
+            {
+                counterCharacter = 0;
+                if (CharacterGrid.instance.listCharacters[counterCharacter].GetComponent<Image>().color == colorOtherPlayer)
+                {
+                    counterCharacter++;
+                }
+                SelectionCharacter();
+            }
+            else
+            {
+                if (CharacterGrid.instance.listCharacters[counterCharacter].GetComponent<Image>().color == colorOtherPlayer)
+                {
+                    counterCharacter++;
+                }
+                SelectionCharacter();
+            }
         }
-        else
-        {
-            counterCharacter = 0;
-            SelectionCharacter();
-        }
+
     }
 
 
@@ -123,35 +145,53 @@ public class PlayerSelection : MonoBehaviour
     {
         if (!context.performed)
             return;
-        DeselectionCharacterUI(CharacterGrid.instance.listCharacters[counterCharacter]);
 
-        counterCharacter--;
-        if (counterCharacter >= 0)
+        if (canChose)
         {
-            SelectionCharacter();
+            DeselectionCharacterUI(CharacterGrid.instance.listCharacters[counterCharacter]);
+
+            counterCharacter--;
+
+            if (counterCharacter >= 0)
+            {
+                if (CharacterGrid.instance.listCharacters[counterCharacter].GetComponent<Image>().color == colorOtherPlayer)
+                {
+                    counterCharacter--;
+                }
+                SelectionCharacter();
+            }
+            else
+            {
+                counterCharacter = CharacterGrid.instance.listCharacters.Count - 1;
+                if (CharacterGrid.instance.listCharacters[counterCharacter].GetComponent<Image>().color == colorOtherPlayer)
+                {
+                    counterCharacter--;
+                }
+                SelectionCharacter();
+            }
+        }
+
+    }
+
+    public void ValidateChoice()
+    {
+        if (player0)
+        {
+            validateAudio.Play();
+            canChose = false;
+            GameObject hider = Instantiate(HiderPrefab, characterSelected.transform.position, Quaternion.identity);
+            hider.transform.SetParent(CanvasCharacter.instance.Canvas.transform, true);
+            Match.instance.captain1 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
+            ChoiceCharacterManager.instance.player0Chose = true;
         }
         else
         {
-            counterCharacter = CharacterGrid.instance.listCharacters.Count - 1;
-            SelectionCharacter();
+            validateAudio.Play();
+            canChose = false;
+            GameObject hider = Instantiate(HiderPrefab, characterSelected.transform.position, Quaternion.identity);
+            hider.transform.SetParent(CanvasCharacter.instance.Canvas.transform, true);
+            Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
+            ChoiceCharacterManager.instance.player1Chose = true;
         }
     }
-
-
-
-
-    //public void ValidateChoice()
-    //{
-    //    if (player0)
-    //    {
-    //        Match.instance.captain1 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
-    //        ChoiceCharacterManager.instance.player0Chose = true;
-    //    }
-    //    else
-    //    {
-    //        Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
-    //        ChoiceCharacterManager.instance.player1Chose = true;
-    //    }
-    //    //SceneManager.LoadScene("Ball 1");
-    //}
 }

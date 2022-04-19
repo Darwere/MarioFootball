@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class SelectionSystem1 : MonoBehaviour
 {
+    public Color colorSelection;
     public List<GameObject> ListItems = new List<GameObject>();
     public List<GameObject> ListCanvasItems = new List<GameObject>();
     public GameObject ActualCanvas;
@@ -60,7 +61,7 @@ public class SelectionSystem1 : MonoBehaviour
 
     void SelectionItemUI(GameObject itemSelected)
     {
-        itemSelected.GetComponent<Image>().color = Color.red;
+        itemSelected.GetComponent<Image>().color = colorSelection;
         if (!firstSelection)
         {
             PlayAudio(SelectionAudio);
