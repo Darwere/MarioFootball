@@ -18,8 +18,6 @@ namespace BehaviorTree
                 root.Evaluate();
                 action = (PlayerAction)root.GetData("action");
                 root.ClearData("action");
-                if(action.type == PlayerAction.ActionType.ChangePlayer)
-                    Debug.Log(action.target);
             }    
         }
 
