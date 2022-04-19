@@ -10,7 +10,7 @@ public class PlayerSpecs : ScriptableObject
     [Range(0f, 1f)]
     public float accuracy = 0.7f;
 
-    [Range(1f, 10f)]
+    [Range(1f, 20f)]
     public float speed = 4f;
 
     [Range(5f, 45f)]

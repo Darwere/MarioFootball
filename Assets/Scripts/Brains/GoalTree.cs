@@ -8,6 +8,9 @@ public class GoalTree : MyTree
     float goalRadius = 12f;
     float rangeDetection = 4f;
 
+    float saveRange = 1f;
+    float mightSaveRange = 2f;
+
     protected override Node SetUpTree()
     {
         return new Sequence(new List<Node>
@@ -39,7 +42,11 @@ public class GoalTree : MyTree
         return new Sequence(new List<Node>
         {
             new BallGotShooted(),
-            new MoveToStopGoal(Player)
+            new Selector(new List<Node>
+            {
+                //new CanSaveGoal(Player, saveRange, mightSaveRange),
+                new MoveToStopGoal(Player)
+            })
         });
     }
 
