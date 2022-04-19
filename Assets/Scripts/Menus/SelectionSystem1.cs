@@ -40,13 +40,11 @@ public class SelectionSystem1 : MonoBehaviour
         {
             if (positionJoystick.y > 0.5)
             {
-                
                 SelectionItemUp(context);
 
             }
             else if (positionJoystick.y < -0.5)
             {
-                
                 SelectionItemDown(context);
 
             }
@@ -79,11 +77,11 @@ public class SelectionSystem1 : MonoBehaviour
 
     public void SelectionItemUp(InputAction.CallbackContext context)
     {
+
         DeselectionItemUI(ListItems[counterItem]);
         counterItem++;
         if (counterItem < ListItems.Count)
         {
-
             SelectItem();
         }
         else
@@ -95,8 +93,6 @@ public class SelectionSystem1 : MonoBehaviour
 
     public void SelectionItemDown(InputAction.CallbackContext context)
     {
-        
-
         DeselectionItemUI(ListItems[counterItem]);
         counterItem--;
 
@@ -111,9 +107,6 @@ public class SelectionSystem1 : MonoBehaviour
 
         }
 
-
-
-
     }
 
     public void Validate(InputAction.CallbackContext context)
@@ -123,8 +116,6 @@ public class SelectionSystem1 : MonoBehaviour
         nextCanvas.SetActive(true);
         ActualCanvas.SetActive(false);
     }
-
-    
 
     public void PlayAudio(AudioSource audio)
     {
@@ -155,9 +146,6 @@ public class SelectionSystem1 : MonoBehaviour
         menuAction.ControlMenu.SelectionItemUp.Disable();
         menuAction.ControlMenu.SelectionItem.Disable();
         menuAction.ControlMenu.Validate.Disable();
-
-
-
 
     }
 }

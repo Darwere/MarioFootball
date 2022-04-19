@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -47,7 +48,7 @@ public class PlayerSelectionWithIA : MonoBehaviour
 
     public void SelectionCharacter()
     {
-        Debug.Log(counterCharacter);
+        
         characterSelected = CharacterGrid.instance.listCharacters[counterCharacter];
         SelectionCharacterUI(characterSelected);
     }
@@ -105,6 +106,7 @@ public class PlayerSelectionWithIA : MonoBehaviour
         PlayAudio(ValidateAudio);
         Match.instance.captain1 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
 
+
         int randomCharacter = UnityEngine.Random.Range(0, 3);
         if (randomCharacter == counterCharacter)
         {
@@ -113,6 +115,8 @@ public class PlayerSelectionWithIA : MonoBehaviour
         }
         counterCharacter = randomCharacter;
         Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
+
+        SceneManager.LoadScene("Prototyping");
     }
 
     public void PlayAudio(AudioSource audio)

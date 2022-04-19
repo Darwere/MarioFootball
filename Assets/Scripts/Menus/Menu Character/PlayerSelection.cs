@@ -14,20 +14,41 @@ public class PlayerSelection : MonoBehaviour
 
     public Color colorSelection;
 
+    private int indexPlayer;
     private bool player0;
     private GameObject characterSelected;
     private int counterCharacter = 0;
 
-    public void playerJoined(PlayerInput playerInput)
+    //public void playerJoined(PlayerInput playerInput)
+    //{
+    //    Debug.Log(playerInput.playerIndex);
+    //    Debug.Log("playerJoin");
+    //    if (playerInput.playerIndex == 0)
+    //    {
+    //        player0 = true;
+    //        //colorSelection = selectionColorPlayer1;
+    //        colorSelection = Color.red;
+
+    //    }
+    //    else
+    //    {
+
+    //        colorSelection = Color.green;
+    //        //colorSelection = selectionColorPlayer2;
+    //    }
+    //    SelectionCharacter();
+    //}
+
+    public void Start()
     {
-        Debug.Log(playerInput.playerIndex);
-        Debug.Log("playerJoin");
-        if (playerInput.playerIndex == 0)
+        indexPlayer = GetComponent<PlayerInput>().playerIndex;
+
+        if (indexPlayer == 0)
         {
             player0 = true;
             //colorSelection = selectionColorPlayer1;
             colorSelection = Color.red;
-            
+
         }
         else
         {
@@ -37,7 +58,7 @@ public class PlayerSelection : MonoBehaviour
         }
         SelectionCharacter();
     }
-    
+
     public void ListenController(InputAction.CallbackContext context)
     {
         if (!context.performed)
@@ -48,16 +69,16 @@ public class PlayerSelection : MonoBehaviour
         {
             if (positionJoystick.x > 0.5)
             {
-                SelectionCharacterRight();
+                SelectionCharacterRight(context);
             }
             else if (positionJoystick.x < -0.5)
             {
-                SelectionCharacterLeft();
+                SelectionCharacterLeft(context);
             }
         }
 
     }
-    
+
     public void SelectionCharacter()
     {
 
@@ -68,7 +89,7 @@ public class PlayerSelection : MonoBehaviour
 
     void SelectionCharacterUI(GameObject characterSelected)
     {
-            characterSelected.GetComponent<Image>().color = colorSelection;
+        characterSelected.GetComponent<Image>().color = colorSelection;
     }
 
 
@@ -77,90 +98,60 @@ public class PlayerSelection : MonoBehaviour
         characterSelected.GetComponent<Image>().color = Color.black;
     }
 
-    public void SelectionCharacterRight()
+    public void SelectionCharacterRight(InputAction.CallbackContext context)
     {
-
+        if (!context.performed)
+            return;
         DeselectionCharacterUI(CharacterGrid.instance.listCharacters[counterCharacter]);
+
         counterCharacter++;
-
-        if (CharacterGrid.instance.listCharacters[counterCharacter].GetComponent<Image>().color != Color.black)
+        if (counterCharacter < CharacterGrid.instance.listCharacters.Count)
         {
-            counterCharacter++;
-            if (counterCharacter < CharacterGrid.instance.listCharacters.Count)
-            {
 
-                SelectionCharacter();
-            }
-            else
-            {
-                counterCharacter = 0;
-                SelectionCharacter();
-            }
+            SelectionCharacter();
         }
-
         else
         {
-            if (counterCharacter < CharacterGrid.instance.listCharacters.Count)
-            {
-
-                SelectionCharacter();
-            }
-            else
-            {
-                counterCharacter = 0;
-                SelectionCharacter();
-            }
+            counterCharacter = 0;
+            SelectionCharacter();
         }
-
-        
     }
 
 
-    public void SelectionCharacterLeft()
+
+    public void SelectionCharacterLeft(InputAction.CallbackContext context)
     {
+        if (!context.performed)
+            return;
         DeselectionCharacterUI(CharacterGrid.instance.listCharacters[counterCharacter]);
+
         counterCharacter--;
-
-        if (CharacterGrid.instance.listCharacters[counterCharacter].GetComponent<Image>().color != Color.black)
+        if (counterCharacter >= 0)
         {
-            counterCharacter--;
-            if (counterCharacter >= 0)
-            {
-                SelectionCharacter();
-            }
-            else
-            {
-                counterCharacter = CharacterGrid.instance.listCharacters.Count - 1;
-                SelectionCharacter();
-            }
-        }
-
-        else
-        {
-            if (counterCharacter >= 0)
-            {
-                SelectionCharacter();
-            }
-            else
-            {
-                counterCharacter = CharacterGrid.instance.listCharacters.Count - 1;
-                SelectionCharacter();
-            }
-        }
-    }
-
-    public void ValidateChoice()
-    {
-        if (player0)
-        {
-            Match.instance.captain1 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
-            ChoiceCharacterManager.instance.player0Chose = true;
+            SelectionCharacter();
         }
         else
         {
-            Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
-            ChoiceCharacterManager.instance.player1Chose = true;
+            counterCharacter = CharacterGrid.instance.listCharacters.Count - 1;
+            SelectionCharacter();
         }
-        //SceneManager.LoadScene("Ball 1");
     }
+
+
+
+
+    //public void ValidateChoice()
+    //{
+    //    if (player0)
+    //    {
+    //        Match.instance.captain1 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
+    //        ChoiceCharacterManager.instance.player0Chose = true;
+    //    }
+    //    else
+    //    {
+    //        Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
+    //        ChoiceCharacterManager.instance.player1Chose = true;
+    //    }
+    //    //SceneManager.LoadScene("Ball 1");
+    //}
 }

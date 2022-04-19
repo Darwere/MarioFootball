@@ -158,6 +158,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8a079122-985a-4bd0-955a-c2a1b824cc0f
     m_ActionName: Control Menu/Validate[/DualShock4GamepadHID/buttonEast,/DualShock4GamepadHID1/buttonEast,/DualShock4GamepadHID2/buttonEast,/DualShock4GamepadHID3/buttonEast,/DualShock4GamepadHID4/buttonEast]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -1204181922565031881}
+        m_TargetAssemblyTypeName: PlayerSelection, Assembly-CSharp
+        m_MethodName: SelectionCharacterRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f89c211a-be5b-49f6-8901-3479013a9702
+    m_ActionName: Control Menu/Selection Item Rigth[/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -1204181922565031881}
+        m_TargetAssemblyTypeName: PlayerSelection, Assembly-CSharp
+        m_MethodName: SelectionCharacterLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b7ebf588-f57b-416a-b3eb-dcdb90c7b154
+    m_ActionName: Control Menu/Selection Item Left[/Keyboard/a]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Control Menu
