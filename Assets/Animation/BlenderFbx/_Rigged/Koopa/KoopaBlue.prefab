@@ -1436,6 +1436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7569116660958230223}
   - component: {fileID: 4605717132902804661}
+  - component: {fileID: 5878453020304540728}
   m_Layer: 0
   m_Name: KoopaBlue
   m_TagString: Untagged
@@ -1478,6 +1479,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5878453020304540728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7080000753826770037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a967e8d9e01fe4e4ebab4ff82b5f2d6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: {fileID: 2765806997055686277, guid: 3888b540f50aaa3418008676484c6b5a, type: 3}
+  tackled: {fileID: 3986768147571861237, guid: c526498f636d80a47af308596c7ca021, type: 3}
+  groundDrag: {fileID: 2963781214892642030, guid: 9880928264be48046bad030484f694ec, type: 3}
 --- !u!1 &7827111595879945058
 GameObject:
   m_ObjectHideFlags: 0
