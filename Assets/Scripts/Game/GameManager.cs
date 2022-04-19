@@ -88,9 +88,14 @@ public class GameManager : MonoBehaviour
             --timer;
             if (timer == 0)
             {
-                //timeOut();
+                timeOut();
             }
             UIManager.ActualiseTimer(timer);
         }
+    }
+
+    private void timeOut()
+    {
+        //Field.Team1.ConcededGoals;
     }
 }
