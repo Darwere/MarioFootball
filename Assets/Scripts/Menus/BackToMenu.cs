@@ -12,7 +12,7 @@ public class BackToMenu : MonoBehaviour
     {
         inputActions = new Menu();
     }
-    void LoadSceneMenu(InputAction.CallbackContext context)
+    public static void LoadSceneMenu(InputAction.CallbackContext context)
     {
         SceneManager.LoadScene("Menu");
     }

@@ -14,10 +14,11 @@ public class UIManager : MonoBehaviour
     public GameObject image;
     public GameObject Camera;
     public GameObject CanvasEndGame;
+    public GameObject CanvasPause;
     public AudioSource MusicEnd;
     public List<AudioSource> AudiosGame = new List<AudioSource>();
-    
-    private static UIManager instance;
+    public static UIManager instance;
+
     private Vector3 camPosition;
 
     private void Awake()
@@ -59,5 +60,26 @@ public class UIManager : MonoBehaviour
         }
         instance.Score1End.text = Field.Team2.ConcededGoals.ToString();
         instance.Score2End.text = Field.Team1.ConcededGoals.ToString();
+    }
+
+    public void ActiveMenuPause()
+    {
+        Time.timeScale = 0;
+        CanvasPause.SetActive(true);
+        foreach (AudioSource audio in instance.AudiosGame)
+        {
+            audio.Pause();
+        }
+    }
+
+    public static void BackToGame()
+    {
+        instance.CanvasPause.SetActive(false);
+        Time.timeScale = 1f;
+        foreach (AudioSource audio in instance.AudiosGame)
+        {
+            audio.UnPause();
+        }
+
     }
 }

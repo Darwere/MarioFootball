@@ -98,6 +98,15 @@ public partial class @Menu : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""85cb6bf8-5d82-4c91-bad4-2f976c8a1c4c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -276,6 +285,28 @@ public partial class @Menu : IInputActionCollection2, IDisposable
                     ""action"": ""Selection Item Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ee3d5c3-ae00-4809-bfb7-4546b255e36d"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e15c7e26-741f-46a9-bdf1-7a255ed5a2f8"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -353,6 +384,7 @@ public partial class @Menu : IInputActionCollection2, IDisposable
         m_ControlMenu_Validate = m_ControlMenu.FindAction("Validate", throwIfNotFound: true);
         m_ControlMenu_SelectionItemRigth = m_ControlMenu.FindAction("Selection Item Rigth", throwIfNotFound: true);
         m_ControlMenu_SelectionItemLeft = m_ControlMenu.FindAction("Selection Item Left", throwIfNotFound: true);
+        m_ControlMenu_Pause = m_ControlMenu.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -420,6 +452,7 @@ public partial class @Menu : IInputActionCollection2, IDisposable
     private readonly InputAction m_ControlMenu_Validate;
     private readonly InputAction m_ControlMenu_SelectionItemRigth;
     private readonly InputAction m_ControlMenu_SelectionItemLeft;
+    private readonly InputAction m_ControlMenu_Pause;
     public struct ControlMenuActions
     {
         private @Menu m_Wrapper;
@@ -432,6 +465,7 @@ public partial class @Menu : IInputActionCollection2, IDisposable
         public InputAction @Validate => m_Wrapper.m_ControlMenu_Validate;
         public InputAction @SelectionItemRigth => m_Wrapper.m_ControlMenu_SelectionItemRigth;
         public InputAction @SelectionItemLeft => m_Wrapper.m_ControlMenu_SelectionItemLeft;
+        public InputAction @Pause => m_Wrapper.m_ControlMenu_Pause;
         public InputActionMap Get() { return m_Wrapper.m_ControlMenu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -465,6 +499,9 @@ public partial class @Menu : IInputActionCollection2, IDisposable
                 @SelectionItemLeft.started -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnSelectionItemLeft;
                 @SelectionItemLeft.performed -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnSelectionItemLeft;
                 @SelectionItemLeft.canceled -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnSelectionItemLeft;
+                @Pause.started -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_ControlMenuActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_ControlMenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -493,6 +530,9 @@ public partial class @Menu : IInputActionCollection2, IDisposable
                 @SelectionItemLeft.started += instance.OnSelectionItemLeft;
                 @SelectionItemLeft.performed += instance.OnSelectionItemLeft;
                 @SelectionItemLeft.canceled += instance.OnSelectionItemLeft;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -552,5 +592,6 @@ public partial class @Menu : IInputActionCollection2, IDisposable
         void OnValidate(InputAction.CallbackContext context);
         void OnSelectionItemRigth(InputAction.CallbackContext context);
         void OnSelectionItemLeft(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
