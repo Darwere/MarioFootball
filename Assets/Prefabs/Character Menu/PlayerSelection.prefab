@@ -202,6 +202,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b7ebf588-f57b-416a-b3eb-dcdb90c7b154
     m_ActionName: Control Menu/Selection Item Left[/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 85cb6bf8-5d82-4c91-bad4-2f976c8a1c4c
+    m_ActionName: Control Menu/Pause[/DualShock4GamepadHID/start,/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Control Menu
@@ -222,4 +226,5 @@ MonoBehaviour:
   SelectionColorPlayer1: {r: 0.9622642, g: 0.4417942, b: 0.4417942, a: 1}
   SelectionColorPlayer2: {r: 1, g: 0.9166366, b: 0.10062885, a: 1}
   HiderPrefab: {fileID: 1411374743796127297, guid: d0a9edf40ea13804694ed001eee4b7b0, type: 3}
-  Canvas: {fileID: 0}
+  PositionVisualizationP1: {fileID: 6492904490198497922, guid: 230f9d93fdc09d549b1d4efd89b586ac, type: 3}
+  PositionVisualizationP2: {fileID: 213178510498828340, guid: 23dd763455990e943a84687855a17945, type: 3}

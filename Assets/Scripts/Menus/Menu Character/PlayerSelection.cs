@@ -11,12 +11,16 @@ public class PlayerSelection : MonoBehaviour
     public Color SelectionColorPlayer1;
     public Color SelectionColorPlayer2;
     public GameObject HiderPrefab;
+    public GameObject PositionVisualizationP1;
+    public GameObject PositionVisualizationP2;
 
     private bool canChose = true;
     private bool player0;
-
+    private Vector3 positionVisualization;
+    private Quaternion rotationVisualization;
     private AudioSource validateAudio;
     private AudioSource selectionAudio;
+    private GameObject prefabCharacterSelected;
     private GameObject characterSelected;
     private Color colorOtherPlayer;
     private Color colorSelection;
@@ -48,11 +52,13 @@ public class PlayerSelection : MonoBehaviour
         indexPlayer = GetComponent<PlayerInput>().playerIndex;
         selectionAudio = CanvasCharacter.instance.SelectionAudio;
         validateAudio = CanvasCharacter.instance.ValidateChoiceAudio;
+        rotationVisualization = Quaternion.identity;
         if (indexPlayer == 0)
         {
             player0 = true;
             colorSelection = SelectionColorPlayer1;
             colorOtherPlayer = SelectionColorPlayer2;
+            positionVisualization = PositionVisualizationP1.transform.position;
             //colorSelection = Color.red;
 
         }
@@ -61,6 +67,7 @@ public class PlayerSelection : MonoBehaviour
             //colorSelection = Color.green;
             colorSelection = SelectionColorPlayer2;
             colorOtherPlayer = SelectionColorPlayer1;
+            positionVisualization = PositionVisualizationP2.transform.position;
         }
         SelectionCharacter();
     }
@@ -85,9 +92,6 @@ public class PlayerSelection : MonoBehaviour
                 }
             }
         }
-
-
-
     }
 
     public void SelectionCharacter()
@@ -100,12 +104,16 @@ public class PlayerSelection : MonoBehaviour
     {
         selectionAudio.Play();
         characterSelected.GetComponent<Image>().color = colorSelection;
+        prefabCharacterSelected=Instantiate(characterSelected.GetComponent<PlayerSpecChoice>().PrefabVisualization, positionVisualization, rotationVisualization);
     }
 
 
     void DeselectionCharacterUI(GameObject characterSelected)
     {
         characterSelected.GetComponent<Image>().color = Color.black;
+        rotationVisualization = characterSelected.transform.rotation;
+        Debug.Log(rotationVisualization);
+        Destroy(prefabCharacterSelected);
     }
 
     public void SelectionCharacterRight(InputAction.CallbackContext context)
