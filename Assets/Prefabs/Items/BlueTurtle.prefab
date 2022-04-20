@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 3e86698cae912244fab522dbcf1e6ebe, type: 3}
   iceBlock: {fileID: 4866930747196593789, guid: 5915074af9419184595d3190ce881edf, type: 3}
-  destructionParticule: {fileID: 4743871302515942032, guid: a30ae26cde0fce84d89580c788269231, type: 3}
+  destructionParticule: {fileID: 1146002667376461396, guid: 875f0a2d05c930748b089484f8f9eeff, type: 3}
   speed: 10
 --- !u!65 &5393075624546416001
 BoxCollider:

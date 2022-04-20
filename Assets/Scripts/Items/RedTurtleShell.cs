@@ -7,6 +7,8 @@ public class RedTurtleShell : Item
 {
     [SerializeField]
     private float speed = 2f;
+    [SerializeField]
+    private GameObject destructionParticule;
 
     private Vector3 direction;
     private Team teamEnemy;
@@ -78,6 +80,8 @@ public class RedTurtleShell : Item
         if (player != null)
         {
             player.GetTackled();
+            GameObject particule = Instantiate(destructionParticule, transform.position, Quaternion.identity);
+            Destroy(particule, 0.3f);
             Destroy(this.gameObject);
         }
     }

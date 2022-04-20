@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 387812dd211171441a324e70af0bf153, type: 3}
   speed: 12
+  destructionParticule: {fileID: 2533737882289638117, guid: fe8b87a7a7990b941bf2e0809e1f9930, type: 3}
 --- !u!54 &233711868472353277
 Rigidbody:
   m_ObjectHideFlags: 0
