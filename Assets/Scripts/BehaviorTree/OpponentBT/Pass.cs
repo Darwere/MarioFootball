@@ -1,22 +1,25 @@
 using BehaviorTree;
 using UnityEngine;
 
-public class Pass : Node
+namespace OpponentTreeSpace
 {
-    public override NodeState Evaluate()
+    public class Pass : Node
     {
-        Player player = (Player)GetData("player");
-        Player target = (Player)GetData("targetPass");   
-        PlayerAction action;
-        
-        Vector3 direction = (target.transform.position - player.transform.position).normalized;
-        action = PlayerAction.Pass(direction, player.transform.position, target.transform.position, 2f, target);
+        public override NodeState Evaluate()
+        {
+            Player player = (Player)GetData("player");
+            Player target = (Player)GetData("targetPass");
+            PlayerAction action;
 
-        Node root = GetRootNode();
-        root.SetData("action", action);
-        root.ClearData("targetPass");
+            Vector3 direction = (target.transform.position - player.transform.position).normalized;
+            action = PlayerAction.Pass(direction, player.transform.position, target.transform.position, 2f, target);
 
-        state = NodeState.Succes;
-        return state;
+            Node root = GetRootNode();
+            root.SetData("action", action);
+            root.ClearData("targetPass");
+
+            state = NodeState.Succes;
+            return state;
+        }
     }
 }

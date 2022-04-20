@@ -1,24 +1,27 @@
 using BehaviorTree;
 using UnityEngine;
 
-public class MoveToGoal : Node
+namespace OpponentTreeSpace
 {
-    Team opponent;
-    public MoveToGoal(Team opponent)
+    public class MoveToGoal : Node
     {
-        this.opponent = opponent; //opponent is the script attach to opponent goal
-    }
+        Team opponent;
+        public MoveToGoal(Team opponent)
+        {
+            this.opponent = opponent; //opponent is the script attach to opponent goal
+        }
 
-    public override NodeState Evaluate()
-    {
-        Player player = (Player)GetData("player");
-        Vector3 direction = opponent.transform.position - player.transform.position;
-        direction.y = 0;
-        PlayerAction action = PlayerAction.Move(direction.normalized);
-        Node root = GetRootNode();
-        root.SetData("action", action);
+        public override NodeState Evaluate()
+        {
+            Player player = (Player)GetData("player");
+            Vector3 direction = opponent.transform.position - player.transform.position;
+            direction.y = 0;
+            PlayerAction action = PlayerAction.Move(direction.normalized);
+            Node root = GetRootNode();
+            root.SetData("action", action);
 
-        state = NodeState.Running;
-        return state;
+            state = NodeState.Running;
+            return state;
+        }
     }
 }

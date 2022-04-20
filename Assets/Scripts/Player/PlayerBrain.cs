@@ -38,10 +38,10 @@ public abstract class PlayerBrain : MonoBehaviour
     }
 
     /// <summary>
-    /// Calcule le déplacement que l'IA doit appliquer au joueur/que la manette détecte
+    /// Calcule le dï¿½placement que l'IA doit appliquer au joueur/que la manette dï¿½tecte
     /// </summary>
-    /// <param name="team">L'équipe du joueur</param>
-    /// <returns>Le vecteur de déplacement.</returns>
+    /// <param name="team">L'ï¿½quipe du joueur</param>
+    /// <returns>Le vecteur de dï¿½placement.</returns>
 
     //public abstract PlayerAction.ActionType Act();
 

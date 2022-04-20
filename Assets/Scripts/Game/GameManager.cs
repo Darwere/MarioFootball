@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    
     [SerializeField] private Match debugMatch;
     [SerializeField] private float debugMatchDuration = 60f;
 
@@ -13,7 +14,7 @@ public class GameManager : MonoBehaviour
     private Queue<Match> matches;
     private Queue<MatchResult> results;
     private MatchResult currentResult;
-    private uint timer = 180;
+    private uint timer = 60;
 
     private void Awake()
     {
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
         for (int i = 1; i < 4; ++i)
             teammates[i] = Player.CreatePlayer(match.mate1.prefab, team1);
 
-        Player goal1 = Player.CreatePlayer(match.goalKeeper.prefab, team1, true);
+        Player goal1 = Player.CreatePlayer(match.goalKeeper1.prefab, team1, true);
 
         team1.Init(teammates, goal1);
 
@@ -61,7 +62,7 @@ public class GameManager : MonoBehaviour
         for (int i = 1; i < 4; ++i)
             teammates[i] = Player.CreatePlayer(match.mate2.prefab, team2);
 
-        Player goal2 = Player.CreatePlayer(match.goalKeeper.prefab, team2, true);
+        Player goal2 = Player.CreatePlayer(match.goalKeeper2.prefab, team2, true);
 
         team2.Init(teammates, goal2);
 
@@ -88,9 +89,11 @@ public class GameManager : MonoBehaviour
             --timer;
             if (timer == 0)
             {
-                //timeOut();
+                UIManager.TimeOut();
             }
             UIManager.ActualiseTimer(timer);
         }
     }
+
+    
 }

@@ -510,7 +510,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: agoalBrainType
-      value: GoalBrain
+      value: GoalTree
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
@@ -533,6 +533,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570015, guid: da54416042aed4249bfa8e193187db71, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965256866810570015, guid: da54416042aed4249bfa8e193187db71, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965256866810570015, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -542,7 +550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570015, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45
+      value: 45.00001
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570015, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_LocalRotation.w
@@ -550,7 +558,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570015, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570015, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_LocalRotation.y
@@ -558,7 +566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570015, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570015, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1822,7 +1830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: agoalBrainType
-      value: GoalBrain
+      value: GoalTree
       objectReference: {fileID: 0}
     - target: {fileID: 5965256866810570013, guid: da54416042aed4249bfa8e193187db71, type: 3}
       propertyPath: ateamBrainType
@@ -2058,11 +2066,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09eb34fcacb82354f823900c48510f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  captain1: {fileID: 11400000, guid: d79e8634fc168a0468277a285746380d, type: 2}
-  captain2: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
-  mate1: {fileID: 11400000, guid: d79e8634fc168a0468277a285746380d, type: 2}
-  mate2: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
-  goalKeeper: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
+  captain1: {fileID: 11400000, guid: 3f390e2ca4a58454bb4511bfc7eb9db7, type: 2}
+  captain2: {fileID: 11400000, guid: 752fedc63527819409272ca41cde2c43, type: 2}
+  mate1: {fileID: 11400000, guid: 21fb9bf007e7c1c40b4de79458c35b1a, type: 2}
+  mate2: {fileID: 11400000, guid: a56452e4a843d9a48b2982983a30ad31, type: 2}
+  goalKeeper1: {fileID: 11400000, guid: e3e002b85a1ab3a4e8908ea9a8909ff4, type: 2}
+  goalKeeper2: {fileID: 11400000, guid: 6f1ed8b967cb90f4da1de197d5b861aa, type: 2}
 --- !u!114 &1642756265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2075,7 +2084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4125deaffafe701439bdf2e27157db74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball: {fileID: 1897170763986732827, guid: 5f9a23016bc8ab94fb2a55df45b2bfa2, type: 3}
+  ball: {fileID: 1283181898224286938, guid: 5f9a23016bc8ab94fb2a55df45b2bfa2, type: 3}
 --- !u!114 &1642756266
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,6 +17,17 @@ public class UIManager : MonoBehaviour
     public Image Item2P2;
 
     private static UIManager instance;
+    public Text Score1End;
+    public Text Score2End;
+    public GameObject image;
+    public GameObject Camera;
+    public GameObject CanvasEndGame;
+    public GameObject CanvasPause;
+    public AudioSource MusicEnd;
+    public List<AudioSource> AudiosGame = new List<AudioSource>();
+    public static UIManager instance;
+
+    private Vector3 camPosition;
 
     private void Awake()
     {
@@ -24,6 +35,7 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {
+        camPosition = Camera.transform.position;
         Score1.text = Field.Team2.ConcededGoals.ToString();
         Score2.text = Field.Team1.ConcededGoals.ToString();
     }
@@ -114,5 +126,43 @@ public class UIManager : MonoBehaviour
                 instance.changeColorTo0(instance.Item2P2);
             }
         }
+    }
+
+    public static void TimeOut()
+    {
+        instance.Camera.transform.position = instance.camPosition;
+        instance.CanvasEndGame.SetActive(true);
+        instance.image.gameObject.SetActive(false);
+        instance.Timer.gameObject.SetActive(false);
+        instance.Score1.gameObject.SetActive(false);
+        instance.Score2.gameObject.SetActive(false);
+
+        foreach (AudioSource audio in instance.AudiosGame)
+        {
+            audio.Stop();
+        }
+        instance.Score1End.text = Field.Team2.ConcededGoals.ToString();
+        instance.Score2End.text = Field.Team1.ConcededGoals.ToString();
+    }
+
+    public void ActiveMenuPause()
+    {
+        Time.timeScale = 0;
+        CanvasPause.SetActive(true);
+        foreach (AudioSource audio in instance.AudiosGame)
+        {
+            audio.Pause();
+        }
+    }
+
+    public static void BackToGame()
+    {
+        instance.CanvasPause.SetActive(false);
+        Time.timeScale = 1f;
+        foreach (AudioSource audio in instance.AudiosGame)
+        {
+            audio.UnPause();
+        }
+
     }
 }

@@ -47,30 +47,22 @@ public class CameraManager : MonoBehaviour
 
                 Vector3 newCamPosition = new Vector3(transform.position.x, yValues, transform.position.z);
                 transform.position = newCamPosition;
+
             }
             else if (Field.Ball.transform.position.x < RightBorder || Field.Ball.transform.position.x > LeftBorder)
             {
                 
                 Vector3 newCamPosition = new Vector3(transform.position.x, yValues, Field.Ball.transform.position.z);
                 transform.position = newCamPosition;
+
             }
             else if (Field.Ball.transform.position.z > TopBorder || Field.Ball.transform.position.z < BottomBorder)
             {
                 
                 Vector3 newCamPosition = new Vector3(Field.Ball.transform.position.x, yValues, transform.position.z);
                 transform.position = newCamPosition;
+
             }
-            
-
-
-
-
-
-
-
-
-
         }
-
     }
 }
