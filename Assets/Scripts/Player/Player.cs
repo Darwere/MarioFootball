@@ -196,7 +196,7 @@ public class Player : MonoBehaviour
         {
             GameObject itemSpawn = Instantiate(prefab, transform.position, Quaternion.identity);
             item = itemSpawn.GetComponent<Item>();
-            item.Init(Team);
+            item.Init(this);
         }
 
         //Debug.Log("SendObject");

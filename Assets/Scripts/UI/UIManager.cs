@@ -41,33 +41,33 @@ public class UIManager : MonoBehaviour
         instance.Score2.text = Field.Team1.ConcededGoals.ToString();
     }
 
-    public void PlaceItem(Team team, Sprite sprite)
+    public static void PlaceItem(Team team, Sprite sprite)
     {
         if (team == Field.Team1)
         {
-            if (Item1P1.sprite == null)
+            if (instance.Item1P1.sprite == null)
             {
-                Item1P1.sprite = sprite;
-                changeColorTo255(Item1P1);
+                instance.Item1P1.sprite = sprite;
+                instance.changeColorTo255(instance.Item1P1);
             }
             else 
             {
-                Item2P1.sprite = sprite;
-                changeColorTo255(Item2P1);
+                instance.Item2P1.sprite = sprite;
+                instance.changeColorTo255(instance.Item2P1);
             }
 
         }
         else
         {
-            if (Item1P2.sprite == null)
+            if (instance.Item1P2.sprite == null)
             {
-                Item1P1.sprite = sprite;
-                changeColorTo255(Item1P2);
+                instance.Item1P1.sprite = sprite;
+                instance.changeColorTo255(instance.Item1P2);
             }
             else
             {
-                Item2P2.sprite = sprite;
-                changeColorTo255(Item2P2);
+                instance.Item2P2.sprite = sprite;
+                instance.changeColorTo255(instance.Item2P2);
             }
         }
     }
@@ -84,28 +84,34 @@ public class UIManager : MonoBehaviour
         color.a = 0;
         image.color = color;
     }
-    public void RemoveItem(Team team)
+    public static void RemoveItem(Team team)
     {
         if (team == Field.Team1)
         {
-            Item1P1.sprite = null;
-            changeColorTo0(Item1P1);
-            if (Item2P1 != null)
+            instance.Item1P1.sprite = null;
+            instance.changeColorTo0(instance.Item1P1);
+            if (instance.Item2P1.sprite != null)
             {
-                Item1P1.sprite = Item2P1.sprite;
-                Item2P1 = null;
-                changeColorTo0(Item2P1);
+                instance.Item1P1.sprite = instance.Item2P1.sprite;
+                instance.changeColorTo255(instance.Item1P1);
+                instance.Item2P1.sprite = null;
+                instance.changeColorTo0(instance.Item2P1);
+            }
+            else
+            {
+
             }
         }
         else
         {
-            Item1P2.sprite = null;
-            changeColorTo0(Item1P2);
-            if (Item2P2 != null)
+            instance.Item1P2.sprite = null;
+            instance.changeColorTo0(instance.Item1P2);
+            if (instance.Item2P2.sprite != null)
             {
-                Item1P2.sprite = Item2P2.sprite;
-                Item2P2 = null;
-                changeColorTo0(Item2P2);
+                instance.Item1P2.sprite = instance.Item2P2.sprite;
+                instance.changeColorTo255(instance.Item1P2);
+                instance.Item2P2.sprite = null;
+                instance.changeColorTo0(instance.Item2P2);
             }
         }
     }

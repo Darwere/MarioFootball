@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class SpikeTurtle : Item
 {
     public GameObject destructionParticule;
-    public Sprite sprite;
 
     [SerializeField]
     private float speed = 10f;
@@ -17,7 +16,6 @@ public class SpikeTurtle : Item
     private void Start()
     {
         ColliderOff(0.2f);
-        direction = transform.forward;
     }
     private void Update()
     {
@@ -56,8 +54,8 @@ public class SpikeTurtle : Item
         }
     }
 
-    public override void Init(Team team)
+    public override void Init(Player player)
     {
-
+        direction = player.transform.forward;
     }
 }

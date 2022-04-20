@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class RedTurtleShell : Item
 {
-    public Sprite sprite;
-
     [SerializeField]
     private float speed = 2f;
 
@@ -16,9 +14,9 @@ public class RedTurtleShell : Item
     private int indexPlayerSave = int.MaxValue;
     private bool isInited = false;
 
-    public override void Init(Team team)
+    public override void Init(Player player)
     {
-        this.team = team;
+        team = player.Team;
         teamEnemy = Field.Team1 == team ? Field.Team2 : Field.Team1;
         isInited = true;
     }

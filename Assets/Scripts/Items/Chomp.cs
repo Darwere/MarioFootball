@@ -16,8 +16,6 @@ public class Chomp : Item
     private int indexPlayerSave = int.MaxValue;
     private bool isInited = false;
 
-    public Sprite sprite;
-
     private void Start()
     {
         ColliderOff(0.2f);
@@ -40,9 +38,9 @@ public class Chomp : Item
         transform.position += direction * Time.deltaTime * speed;
     }
 
-    public override void Init(Team team)
+    public override void Init(Player player)
     {
-        this.team = team;
+        team = player.Team;
         teamEnemy = Field.Team1 == team ? Field.Team2 : Field.Team1;
         isInited = true;
     }

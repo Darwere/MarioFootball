@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class Banana : Item
 {
-    public Sprite sprite;
     public int force = 5;
     public int hauteur = 5;
+    private Vector3 direction;
     private void Start()
     {
         ColliderOff(0.4f);
         Rigidbody rb = GetComponent<Rigidbody>();
-        Vector3 direction = new Vector3(transform.forward.x * force, transform.forward.y + hauteur, transform.forward.z * force);
         rb.AddForce(direction * force);
     }
     protected override void Move()
@@ -20,9 +19,9 @@ public class Banana : Item
         
     }
 
-    public override void Init(Team team)
+    public override void Init(Player player)
     {
-
+        direction = new Vector3(player.transform.forward.x * force, player.transform.forward.y + hauteur, player.transform.forward.z * force);
     }
 
     protected override void OnCollisionEnter(Collision collision)

@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class Mushroom : Item
 {
-    public Sprite sprite;
     protected override void Move()
     {
     
     }
 
-    public override void Init(Team team)
+    public override void Init(Player Player)
     {
 
     }

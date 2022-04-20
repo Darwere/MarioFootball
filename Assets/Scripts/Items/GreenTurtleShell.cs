@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class GreenTurtleShell : Item
 {
     public GameObject destructionParticule;
-    public Sprite sprite;
 
     [SerializeField]
     private float speed = 10f;
@@ -17,7 +16,6 @@ public class GreenTurtleShell : Item
     private void Start()
     {
         ColliderOff(0.2f);
-        direction = transform.forward;
     }
     private void Update()
     {
@@ -35,9 +33,9 @@ public class GreenTurtleShell : Item
         transform.position += direction*Time.deltaTime*speed;
     }
 
-    public override void Init(Team team)
+    public override void Init(Player player)
     {
-
+        direction = player.transform.forward;
     }
 
     protected override void OnCollisionEnter(Collision collision)

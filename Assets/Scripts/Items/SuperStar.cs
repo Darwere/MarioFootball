@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class SuperStar : Item
 {
-    public Sprite sprite;
     protected override void Move()
     {
 
     }
 
-    public override void Init(Team team)
+    public override void Init(Player player)
     {
 
     }

@@ -4,7 +4,9 @@ using UnityEngine;
 public abstract class Item : MonoBehaviour
 {
     protected Team team;
-    public abstract void Init(Team team);
+
+    public Sprite sprite;
+    public abstract void Init(Player player);
     protected abstract void OnCollisionEnter(Collision collision);
     protected abstract void Move();
 

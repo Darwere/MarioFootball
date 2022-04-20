@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class BlueTurtleShell : Item
 {
-    public Sprite sprite;
     public GameObject iceBlock;
     public GameObject destructionParticule;
 
@@ -18,7 +17,6 @@ public class BlueTurtleShell : Item
     private void Start()
     {
         ColliderOff(0.3f);
-        direction = transform.forward;
     }
     private void Update()
     {
@@ -36,9 +34,9 @@ public class BlueTurtleShell : Item
         transform.position += direction * Time.deltaTime * speed;
     }
 
-    public override void Init(Team team)
+    public override void Init(Player player)
     {
-
+        direction = player.transform.forward;
     }
 
     protected override void OnCollisionEnter(Collision collision)

@@ -2146,10 +2146,10 @@ MonoBehaviour:
   Score1: {fileID: 24671392}
   Score2: {fileID: 1916494398}
   Timer: {fileID: 530772796}
-  Item1P1: {fileID: 0}
-  Item2P1: {fileID: 0}
-  Item1P2: {fileID: 0}
-  Item2P2: {fileID: 0}
+  Item1P1: {fileID: 811411010}
+  Item2P1: {fileID: 1025832042}
+  Item1P2: {fileID: 1213911852}
+  Item2P2: {fileID: 139850796}
 --- !u!114 &1935185408
 MonoBehaviour:
   m_ObjectHideFlags: 0

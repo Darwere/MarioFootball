@@ -58,7 +58,17 @@ public class Team : MonoBehaviour
         if(items.Count < itemCapacity)
         {
             int index = UnityEngine.Random.Range(0, PrefabManager.Item.Count);
-            items.Enqueue(PrefabManager.Item[index]);
+            Item script = PrefabManager.Item[index];
+            items.Enqueue(script);
+            GameObject item;
+            PrefabManager.PrefabItems.TryGetValue(script, out item);
+
+            if(item != null)
+            {
+                script = item.GetComponent<Item>();
+                UIManager.PlaceItem(this, script.sprite);
+            }
+            
         }
     }
 
@@ -68,6 +78,7 @@ public class Team : MonoBehaviour
     /// <returns>L'item supprim�</returns>
     public Item GetItem()
     {
+        UIManager.RemoveItem(this);
         return items.Dequeue();
     }
 
