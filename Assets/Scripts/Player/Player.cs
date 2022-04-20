@@ -138,7 +138,7 @@ public class Player : MonoBehaviour
         transform.forward = lastAction.direction;
 
         savedAction = lastAction;
-
+        Debug.Log("Animator : " + animator.parameterCount);
         animator.SetTrigger("Pass");
         animator.SetBool("Moving", false);
     }
@@ -188,8 +188,8 @@ public class Player : MonoBehaviour
 
     protected void SendObject()
     {
-
-        Debug.Log("SendObject");
+        Item item = Team.GetItem();
+        //item.Create(Team.Brain);
     }
 
     #endregion
@@ -224,6 +224,7 @@ public class Player : MonoBehaviour
 
     public void LaunchPass()
     {
+        Debug.Log("LaunchPass");
         Field.Ball.Move(savedAction.duration, savedAction.startPosition, savedAction.endPosition, savedAction.bezierPoint);
 
         if(savedAction.target != null)
@@ -248,7 +249,7 @@ public class Player : MonoBehaviour
         Collider collider = GetComponent<Collider>();
         RaycastHit hit;
         Vector3 startPosition = transform.position + new Vector3(0, collider.bounds.extents.y, 0);
-        float distance = 4;
+        float distance = Species.headButtRange;
         Debug.DrawRay(startPosition, transform.forward, Color.red, distance);
         Physics.Raycast(startPosition, transform.forward, out hit, distance);
 

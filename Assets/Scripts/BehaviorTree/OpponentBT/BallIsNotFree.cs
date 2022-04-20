@@ -1,10 +1,13 @@
 using BehaviorTree;
 
-public class BallIsNotFree : Node
+namespace OpponentTreeSpace
 {
-    public override NodeState Evaluate()
+    public class BallIsNotFree : Node
     {
-        state = Field.Ball.transform.parent == null ? NodeState.Failure : NodeState.Succes;
-        return state;
+        public override NodeState Evaluate()
+        {
+            state = Field.Ball.transform.parent == null ? NodeState.Failure : NodeState.Succes;
+            return state;
+        }
     }
 }

@@ -2,60 +2,63 @@ using BehaviorTree;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AllieFree : Node
+namespace OpponentTreeSpace
 {
-    Team allies;
-    Team ennemies;
-    float angleDetection;
-
-    public AllieFree(Team allies, Team ennemies, float angleDetection)
+    public class AllieFree : Node
     {
-        this.allies = allies;
-        this.ennemies = ennemies;
-        this.angleDetection = angleDetection;
-    }
+        Team allies;
+        Team ennemies;
+        float angleDetection;
 
-    public override NodeState Evaluate()
-    {
-        Player player = (Player)GetData("player");
-        List<Player> alliesFree = new List<Player>();
-        Vector3 direction;
-
-        foreach (Player allie in allies.Players)
+        public AllieFree(Team allies, Team ennemies, float angleDetection)
         {
-            if (allie.transform != player.transform)
-            {
-                direction = allie.transform.position - player.transform.position;
-
-                if (ennemies.GetPlayerWithDirection(player.transform.position, direction, angleDetection) == null)
-                    alliesFree.Add(allie);
-            }
+            this.allies = allies;
+            this.ennemies = ennemies;
+            this.angleDetection = angleDetection;
         }
 
-        if(alliesFree.Count > 0)
+        public override NodeState Evaluate()
         {
-            float lowestRange = float.MaxValue;
-            float squareRangeToGoal;
-            Player target = new Player();
-            
-            foreach (Player allie in alliesFree)
-            {
-                squareRangeToGoal = (allie.transform.position - ennemies.transform.position).sqrMagnitude;
+            Player player = (Player)GetData("player");
+            List<Player> alliesFree = new List<Player>();
+            Vector3 direction;
 
-                if(squareRangeToGoal < lowestRange)
+            foreach (Player allie in allies.Players)
+            {
+                if (allie.transform != player.transform)
                 {
-                    lowestRange = squareRangeToGoal;
-                    target = allie;
+                    direction = allie.transform.position - player.transform.position;
+
+                    if (ennemies.GetPlayerWithDirection(player.transform.position, direction, angleDetection) == null)
+                        alliesFree.Add(allie);
                 }
             }
 
-            Node root = GetRootNode();
-            root.SetData("targetPass", target);
+            if (alliesFree.Count > 0)
+            {
+                float lowestRange = float.MaxValue;
+                float squareRangeToGoal;
+                Player target = new Player();
+
+                foreach (Player allie in alliesFree)
+                {
+                    squareRangeToGoal = (allie.transform.position - ennemies.transform.position).sqrMagnitude;
+
+                    if (squareRangeToGoal < lowestRange)
+                    {
+                        lowestRange = squareRangeToGoal;
+                        target = allie;
+                    }
+                }
+
+                Node root = GetRootNode();
+                root.SetData("targetPass", target);
+                state = NodeState.Succes;
+                return state;
+            }
+
             state = NodeState.Succes;
             return state;
         }
-
-        state = NodeState.Succes;
-        return state;
     }
 }
