@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private Queue<Match> matches;
     private Queue<MatchResult> results;
     private MatchResult currentResult;
-    private uint timer = 60;
+    private uint timer = 10;
 
     private void Awake()
     {

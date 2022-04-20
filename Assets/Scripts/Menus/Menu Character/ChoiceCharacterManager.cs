@@ -21,7 +21,7 @@ public class ChoiceCharacterManager : MonoBehaviour
     {
         if(player0Chose && player1Chose)
         {
-            SceneManager.LoadScene("Ball 1");
+            SceneManager.LoadScene("Ball");
 
         }
     }

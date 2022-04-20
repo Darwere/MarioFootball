@@ -279,6 +279,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 13fc470a-04ea-439a-9746-de22df204468
     m_ActionName: PlayerController/SendObject[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -1636243769967788496}
+        m_TargetAssemblyTypeName: InputBrain, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 231a3e3f-5871-4f59-bf9c-e0ab779604cf
+    m_ActionName: PlayerController/Pause[/DualShock4GamepadHID/start,/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerController
@@ -296,9 +312,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55b22583b79c79439ddb8f7e7dcc3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ateamBrainType: GoalBrain
-  agoalBrainType: GoalBrain
-  aPilotedBrainType: GoalBrain
+  ateamBrainType: GoalTree
+  agoalBrainType: GoalTree
+  aPilotedBrainType: GoalTree
   ConcededGoals: 0
   ShootPoints:
   - {fileID: 994263396262917775}
@@ -307,6 +323,7 @@ MonoBehaviour:
   - {fileID: 4935699859797984370}
   - {fileID: 7999311210972595390}
   - {fileID: 7169757126420817520}
+  pilotedIndicatorPrefab: {fileID: 0}
 --- !u!114 &-1636243769967788496
 MonoBehaviour:
   m_ObjectHideFlags: 0

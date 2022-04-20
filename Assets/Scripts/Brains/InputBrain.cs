@@ -121,4 +121,12 @@ public class InputBrain : PlayerBrain
         PlayerAction act = PlayerAction.Throw(direction);
         action = act;
     }
+
+    public void Pause(InputAction.CallbackContext input)
+    {
+        if (!input.performed)
+            return;
+
+        UIManager.ActiveMenuPause();
+    }
 }

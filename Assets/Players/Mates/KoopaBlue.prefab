@@ -1473,7 +1473,7 @@ Animator:
   m_GameObject: {fileID: 7080000753826770037}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f3654795611af294081a40a2506a1b6d, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 72362966179f1414089e0b794393a039, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1540,7 +1540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   specs: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
-  animator: {fileID: -5268571838765261870, guid: 180868767417ef44b893538cdb0e67e2, type: 3}
+  animator: {fileID: 4605717132902804661}
   tackleAnimation: {fileID: 7400000, guid: 095f97a249c2cfe408af5e5b9f2c9da9, type: 2}
   IABrain: {fileID: 0}
 --- !u!1 &7827111595879945058

@@ -25,7 +25,6 @@ public class UIManager : MonoBehaviour
     public GameObject CanvasPause;
     public AudioSource MusicEnd;
     public List<AudioSource> AudiosGame = new List<AudioSource>();
-    public static UIManager instance;
 
     private Vector3 camPosition;
 
@@ -145,10 +144,10 @@ public class UIManager : MonoBehaviour
         instance.Score2End.text = Field.Team1.ConcededGoals.ToString();
     }
 
-    public void ActiveMenuPause()
+    public static void ActiveMenuPause()
     {
         Time.timeScale = 0;
-        CanvasPause.SetActive(true);
+        instance.CanvasPause.SetActive(true);
         foreach (AudioSource audio in instance.AudiosGame)
         {
             audio.Pause();
