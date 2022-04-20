@@ -906,6 +906,9 @@ GameObject:
   - component: {fileID: 6119385565146664584}
   - component: {fileID: 147563717767566578}
   - component: {fileID: -2950770171952630731}
+  - component: {fileID: 5232364281143279845}
+  - component: {fileID: 5870193372323897156}
+  - component: {fileID: 3320046870149597835}
   m_Layer: 0
   m_Name: Mario
   m_TagString: Untagged
@@ -921,8 +924,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6892684546593526834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.367411, y: 0, z: -10.525754}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children:
   - {fileID: 4581523154591657318}
   - {fileID: 1782368217750449692}
@@ -963,6 +966,52 @@ MonoBehaviour:
   step: {fileID: 2765806997055686277, guid: 3888b540f50aaa3418008676484c6b5a, type: 3}
   tackled: {fileID: 3986768147571861237, guid: c526498f636d80a47af308596c7ca021, type: 3}
   groundDrag: {fileID: 2963781214892642030, guid: 9880928264be48046bad030484f694ec, type: 3}
+--- !u!136 &5232364281143279845
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6892684546593526834}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.3944497
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.69722486, z: 0}
+--- !u!54 &5870193372323897156
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6892684546593526834}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 80
+  m_CollisionDetection: 3
+--- !u!114 &3320046870149597835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6892684546593526834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e97a61de2da7449b048b89ee980f48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specs: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
+  animator: {fileID: -5268571838765261870, guid: 180868767417ef44b893538cdb0e67e2, type: 3}
+  tackleAnimation: {fileID: 7400000, guid: 095f97a249c2cfe408af5e5b9f2c9da9, type: 2}
+  IABrain: {fileID: 0}
 --- !u!1 &7011829938846014314
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,8 +16,13 @@ namespace BehaviorTree
             if (root != null)
             {
                 root.Evaluate();
-                action = (PlayerAction)root.GetData("action");
-                root.ClearData("action");
+                object obj = root.GetData("action");
+                
+                if(obj != null)
+                {
+                    action = (PlayerAction)obj;
+                    root.ClearData("action");
+                }
             }    
         }
 
