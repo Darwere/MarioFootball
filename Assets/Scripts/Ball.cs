@@ -46,6 +46,7 @@ public class Ball : MonoBehaviour
         this.startingPoint = startingPoint + offset;
         this.destination = destination+ offset;
         this.bezierPoint = bezierPoint;
+        SongManager.ShootSong();
         DetachFromParent();
     }
 

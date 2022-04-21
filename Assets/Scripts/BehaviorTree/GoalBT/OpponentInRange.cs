@@ -24,7 +24,7 @@ namespace GoalTreeSpace
 
                 if (squareDistance < rangeDetection * rangeDetection)
                 {
-                    Debug.Log("OpponentInRange");
+                    //Debug.Log("OpponentInRange");
                     Vector3 direction = player.transform.position - goal.transform .position;
 
                     Node root = GetRootNode();

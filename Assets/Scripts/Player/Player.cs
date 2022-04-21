@@ -302,6 +302,8 @@ public class Player : MonoBehaviour
         State = PlayerState.Falling;
         animator.SetTrigger("TackleFall");
 
+        SongManager.HitSong();
+
         if (HasBall)
             Field.Ball.DetachFromParent();
     }
@@ -318,6 +320,8 @@ public class Player : MonoBehaviour
     {
         State = PlayerState.Falling;
         animator.SetTrigger("Knocked");
+
+        SongManager.HitSong();
 
         if (HasBall)
             Field.Ball.DetachFromParent();

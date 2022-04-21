@@ -72,7 +72,7 @@ public class UIManager : MonoBehaviour
         {
             if (instance.Item1P2.sprite == null)
             {
-                instance.Item1P1.sprite = sprite;
+                instance.Item1P2.sprite = sprite;
                 instance.changeColorTo255(instance.Item1P2);
             }
             else

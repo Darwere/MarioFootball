@@ -8,13 +8,11 @@ public class GameManager : MonoBehaviour
 {
     
     [SerializeField] private Match debugMatch;
-    [SerializeField] private float debugMatchDuration = 60f;
 
     private static GameManager instance;
     private Queue<Match> matches;
-    private Queue<MatchResult> results;
     private MatchResult currentResult;
-    private uint timer = 10;
+    [SerializeField] private uint timer = 60;
 
     private void Awake()
     {
@@ -67,18 +65,6 @@ public class GameManager : MonoBehaviour
         team2.Init(teammates, goal2);
 
         Field.Init(Instantiate(PrefabManager.Ball).GetComponent<Ball>());
-    }
-
-    private IEnumerator Match()
-    {
-        yield return new WaitForSeconds(instance.debugMatchDuration);
-
-        instance.currentResult.duration = instance.debugMatchDuration;
-
-        instance.currentResult.scoreTeam1 = Field.Team2.ConcededGoals;
-        instance.currentResult.scoreTeam2 = Field.Team1.ConcededGoals;
-
-        instance.results.Enqueue(instance.currentResult);
     }
 
     private IEnumerator DecreaseTimer()
