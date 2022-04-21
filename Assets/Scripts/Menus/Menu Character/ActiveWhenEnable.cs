@@ -10,4 +10,8 @@ public class ActiveWhenEnable : MonoBehaviour
     {
         ObjectToActive.SetActive(true);
     }
+    private void OnDisable()
+    {
+        ObjectToActive.SetActive(false);
+    }
 }
