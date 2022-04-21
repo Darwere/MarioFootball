@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Mushroom : Item
 {
     protected override void Move()
     {
     
+    }
+
+    public override void Init(Player Player)
+    {
+
     }
 
     protected override void OnCollisionEnter(Collision collision)

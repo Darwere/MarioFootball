@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    
     [SerializeField] private Match debugMatch;
     [SerializeField] private float debugMatchDuration = 60f;
 
@@ -13,7 +14,7 @@ public class GameManager : MonoBehaviour
     private Queue<Match> matches;
     private Queue<MatchResult> results;
     private MatchResult currentResult;
-    private uint timer = 180;
+    private uint timer = 10;
 
     private void Awake()
     {
@@ -88,9 +89,11 @@ public class GameManager : MonoBehaviour
             --timer;
             if (timer == 0)
             {
-                //timeOut();
+                UIManager.TimeOut();
             }
             UIManager.ActualiseTimer(timer);
         }
     }
+
+    
 }

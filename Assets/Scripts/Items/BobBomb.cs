@@ -10,10 +10,11 @@ public class BobBomb : Item
     public GameObject explosionArea;
 
     private float timeLeft = 2.5f;
+    private Vector3 direction;
     private void Start()
     {
+        ColliderOff(0.2f);
         Rigidbody rb = GetComponent<Rigidbody>();
-        Vector3 direction = new Vector3(transform.forward.x*force, transform.forward.y + hauteur, transform.forward.z*force);
         rb.AddForce(direction*force);
     }
 
@@ -27,6 +28,10 @@ public class BobBomb : Item
             Destroy(particule, 1.5f);
             Destroy(this.gameObject);
         }
+    }
+    public override void Init(Player player)
+    {
+        direction = new Vector3(player.transform.forward.x * force, player.transform.forward.y + hauteur, player.transform.forward.z * force);
     }
     protected override void Move()
     {

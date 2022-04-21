@@ -188,7 +188,17 @@ public class Player : MonoBehaviour
     protected void SendObject()
     {
         Item item = Team.GetItem();
-        //item.Create(Team.Brain);
+        GameObject prefab;
+        PrefabManager.PrefabItems.TryGetValue(item, out prefab);
+
+        if(prefab != null)
+        {
+            GameObject itemSpawn = Instantiate(prefab, transform.position, Quaternion.identity);
+            item = itemSpawn.GetComponent<Item>();
+            item.Init(this);
+        }
+
+        //Debug.Log("SendObject");
     }
 
     #endregion
@@ -296,6 +306,14 @@ public class Player : MonoBehaviour
             Field.Ball.DetachFromParent();
     }
 
+    public void GetFreeze()
+    {
+        State = PlayerState.Shocked;
+
+        if (HasBall)
+            Field.Ball.DetachFromParent();
+    }
+
     public void GetHeadbutted(Vector3 direction)
     {
         State = PlayerState.Falling;
@@ -322,6 +340,11 @@ public class Player : MonoBehaviour
                     player.GetTackled();
                     if (player.HasBall)
                         Field.Ball.DetachFromParent();
+                    else
+                    {
+                        player.Team.GainItem();
+                        //Debug.Log("Gain Item");
+                    }
                 }
             }
         }

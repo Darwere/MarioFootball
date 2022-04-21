@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+
 
 [CreateAssetMenu(fileName = "Specs", menuName = "MarioFootball/PlayerSpecs")]
 public class PlayerSpecs : ScriptableObject

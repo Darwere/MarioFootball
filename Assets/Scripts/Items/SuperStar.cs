@@ -9,13 +9,16 @@ public class SuperStar : Item
 
     }
 
+    public override void Init(Player player)
+    {
+
+    }
 
     protected override void OnCollisionEnter(Collision collision)
     {
         Player player = collision.gameObject.GetComponent<Player>();
         if (player != null)
         {
-            Debug.Log("etoile");
             Destroy(this.gameObject);
         }
     }
