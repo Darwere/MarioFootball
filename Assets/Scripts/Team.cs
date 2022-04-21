@@ -222,6 +222,7 @@ public class Team : MonoBehaviour
         if (ball != null)
         {
             ++ConcededGoals;
+            SongManager.GoalSong();
             GameObject particule = Instantiate(goalEffect, transform.position, Quaternion.identity);
             Destroy(particule, 0.3f);
             UIManager.ActualiseScore();

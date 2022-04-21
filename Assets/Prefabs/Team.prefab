@@ -315,7 +315,7 @@ MonoBehaviour:
   ateamBrainType: GoalTree
   agoalBrainType: GoalTree
   aPilotedBrainType: GoalTree
-  goalEffect: {fileID: 0}
+  goalEffect: {fileID: 3605656874263151482, guid: 4ce1e005750c8014dafde05e1097ce27, type: 3}
   ConcededGoals: 0
   ShootPoints:
   - {fileID: 994263396262917775}

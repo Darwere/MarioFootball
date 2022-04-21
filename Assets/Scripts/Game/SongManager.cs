@@ -8,6 +8,8 @@ public class SongManager : MonoBehaviour
     private AudioSource hitSong;
     [SerializeField]
     private AudioSource shootSong;
+    [SerializeField]
+    private AudioSource goalSong;
 
     private static SongManager instance;
 
@@ -23,5 +25,10 @@ public class SongManager : MonoBehaviour
     public static void ShootSong()
     {
         instance.shootSong.Play();
+    }
+
+    public static void GoalSong()
+    {
+        instance.goalSong.Play();
     }
 }
