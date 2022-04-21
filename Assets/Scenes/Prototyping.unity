@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1109798517}
-  m_IndirectSpecularColor: {r: 0.60204977, g: 1.2050719, b: 1.27734, a: 1}
+  m_IndirectSpecularColor: {r: 0.6015607, g: 1.2040995, b: 1.2763661, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -188,63 +188,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a967e8d9e01fe4e4ebab4ff82b5f2d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  step: {fileID: 2765806997055686277, guid: 3888b540f50aaa3418008676484c6b5a, type: 3}
-  tackled: {fileID: 3986768147571861237, guid: c526498f636d80a47af308596c7ca021, type: 3}
-  groundDrag: {fileID: 2963781214892642030, guid: 9880928264be48046bad030484f694ec, type: 3}
---- !u!1 &17070474
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 17070476}
-  - component: {fileID: 17070475}
-  - component: {fileID: 17070477}
-  m_Layer: 0
-  m_Name: Mario
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!95 &17070475
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 17070474}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 5a3a7f869c6a3ee4e8085b7c0d3578ab, type: 3}
-  m_Controller: {fileID: 22100000, guid: 72362966179f1414089e0b794393a039, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!4 &17070476
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 17070474}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -9.5, y: 0.99, z: 2.6}
-  m_LocalScale: {x: 0.027, y: 0.027, z: 0.027}
-  m_Children:
-  - {fileID: 243693724}
-  - {fileID: 585342624}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &17070477
+  Score1: {fileID: 1904148880}
+  Score2: {fileID: 1011975203}
+  Timer: {fileID: 1609452269}
+  Score1End: {fileID: 0}
+  Score2End: {fileID: 0}
+  image: {fileID: 0}
+  Camera: {fileID: 0}
+  CanvasEndGame: {fileID: 0}
+  CanvasPause: {fileID: 0}
+  MusicEnd: {fileID: 0}
+  AudiosGame: []
+--- !u!114 &70903255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -473,17 +428,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 65401731}
-  m_LocalRotation: {x: 0.67609364, y: -0.47386122, z: 0.35042953, w: 0.44221276}
-  m_LocalPosition: {x: -10.085311, y: 19.049498, z: -0.001459439}
+  m_GameObject: {fileID: 107179892}
+  m_LocalRotation: {x: 0, y: -0.71154165, z: 0, w: 0.70264393}
+  m_LocalPosition: {x: 26.3, y: 6.9, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1415758827}
   m_Father: {fileID: 379315435}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &66229925
-GameObject:
+  m_LocalEulerAnglesHint: {x: 0, y: -90.721, z: 0}
+--- !u!114 &107179895
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}

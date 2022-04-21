@@ -12,8 +12,10 @@ public class PlayerSelectionWithIA : MonoBehaviour
     public Color colorSelection;
     public AudioSource SelectionAudio;
     public AudioSource ValidateAudio;
+    public GameObject PositionVisualization;
 
     private Menu menuAction;
+    private GameObject prefabCharacterSelected;
     private GameObject characterSelected;
     private int counterCharacter = 0;
 
@@ -57,12 +59,14 @@ public class PlayerSelectionWithIA : MonoBehaviour
     {
         characterSelected.GetComponent<Image>().color = colorSelection;
         PlayAudio(SelectionAudio);
+        prefabCharacterSelected = Instantiate(characterSelected.GetComponent<PlayerSpecChoice>().PrefabVisualization, PositionVisualization.transform.position, Quaternion.identity);
     }
 
 
     void DeselectionCharacterUI(GameObject characterSelected)
     {
         characterSelected.GetComponent<Image>().color = Color.black;
+        Destroy(prefabCharacterSelected);
     }
 
     public void SelectionCharacterRight(InputAction.CallbackContext context)

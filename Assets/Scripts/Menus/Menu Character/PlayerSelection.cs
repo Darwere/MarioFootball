@@ -11,12 +11,17 @@ public class PlayerSelection : MonoBehaviour
     public Color SelectionColorPlayer1;
     public Color SelectionColorPlayer2;
     public GameObject HiderPrefab;
+    public GameObject PositionVisualizationP1;
+    public GameObject PositionVisualizationP2;
 
+    private bool hasValidated = false;
     private bool canChose = true;
     private bool player0;
-
+    private Vector3 positionVisualization;
+    private Quaternion rotationVisualization;
     private AudioSource validateAudio;
     private AudioSource selectionAudio;
+    private GameObject prefabCharacterSelected;
     private GameObject characterSelected;
     private Color colorOtherPlayer;
     private Color colorSelection;
@@ -48,11 +53,13 @@ public class PlayerSelection : MonoBehaviour
         indexPlayer = GetComponent<PlayerInput>().playerIndex;
         selectionAudio = CanvasCharacter.instance.SelectionAudio;
         validateAudio = CanvasCharacter.instance.ValidateChoiceAudio;
+        rotationVisualization = Quaternion.identity;
         if (indexPlayer == 0)
         {
             player0 = true;
             colorSelection = SelectionColorPlayer1;
             colorOtherPlayer = SelectionColorPlayer2;
+            positionVisualization = PositionVisualizationP1.transform.position;
             //colorSelection = Color.red;
 
         }
@@ -61,6 +68,7 @@ public class PlayerSelection : MonoBehaviour
             //colorSelection = Color.green;
             colorSelection = SelectionColorPlayer2;
             colorOtherPlayer = SelectionColorPlayer1;
+            positionVisualization = PositionVisualizationP2.transform.position;
         }
         SelectionCharacter();
     }
@@ -85,13 +93,14 @@ public class PlayerSelection : MonoBehaviour
                 }
             }
         }
-
-
-
     }
 
     public void SelectionCharacter()
     {
+        if (CharacterGrid.instance.listCharacters[counterCharacter].GetComponent<Image>().color == colorOtherPlayer)
+        {
+            counterCharacter++;
+        }
         characterSelected = CharacterGrid.instance.listCharacters[counterCharacter];
         SelectionCharacterUI(characterSelected);
     }
@@ -100,12 +109,16 @@ public class PlayerSelection : MonoBehaviour
     {
         selectionAudio.Play();
         characterSelected.GetComponent<Image>().color = colorSelection;
+        prefabCharacterSelected=Instantiate(characterSelected.GetComponent<PlayerSpecChoice>().PrefabVisualization, positionVisualization, rotationVisualization);
     }
 
 
     void DeselectionCharacterUI(GameObject characterSelected)
     {
         characterSelected.GetComponent<Image>().color = Color.black;
+        rotationVisualization = characterSelected.transform.rotation;
+        Debug.Log(rotationVisualization);
+        Destroy(prefabCharacterSelected);
     }
 
     public void SelectionCharacterRight(InputAction.CallbackContext context)
@@ -175,23 +188,28 @@ public class PlayerSelection : MonoBehaviour
 
     public void ValidateChoice()
     {
-        if (player0)
+        if (!hasValidated)
         {
-            validateAudio.Play();
-            canChose = false;
-            GameObject hider = Instantiate(HiderPrefab, characterSelected.transform.position, Quaternion.identity);
-            hider.transform.SetParent(CanvasCharacter.instance.Canvas.transform, true);
-            Match.instance.captain1 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
-            ChoiceCharacterManager.instance.player0Chose = true;
+            if (player0)
+            {
+                validateAudio.Play();
+                canChose = false;
+                GameObject hider = Instantiate(HiderPrefab, characterSelected.transform.position, Quaternion.identity);
+                hider.transform.SetParent(CanvasCharacter.instance.Canvas.transform, true);
+                Match.instance.captain1 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
+                ChoiceCharacterManager.instance.player0Chose = true;
+            }
+            else
+            {
+                validateAudio.Play();
+                canChose = false;
+                GameObject hider = Instantiate(HiderPrefab, characterSelected.transform.position, Quaternion.identity);
+                hider.transform.SetParent(CanvasCharacter.instance.Canvas.transform, true);
+                Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
+                ChoiceCharacterManager.instance.player1Chose = true;
+            }
+            hasValidated = true;
         }
-        else
-        {
-            validateAudio.Play();
-            canChose = false;
-            GameObject hider = Instantiate(HiderPrefab, characterSelected.transform.position, Quaternion.identity);
-            hider.transform.SetParent(CanvasCharacter.instance.Canvas.transform, true);
-            Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
-            ChoiceCharacterManager.instance.player1Chose = true;
-        }
+        
     }
 }

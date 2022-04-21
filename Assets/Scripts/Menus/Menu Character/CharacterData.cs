@@ -12,4 +12,5 @@ public class CharacterData
     public Vector2 Offset;
     public Vector2 Size;
     public PlayerSpecs PlayerSpecs;
+    public GameObject PrefabVisualization;
 }
