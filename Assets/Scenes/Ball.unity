@@ -3315,15 +3315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 1283181898224286938, guid: 5f9a23016bc8ab94fb2a55df45b2bfa2, type: 3}
   prefabItemsReference:
-  - {fileID: 9107408767414607890, guid: 7296f3f8a5c56074888d9627f5c928b2, type: 3}
-  - {fileID: 5393075624546416002, guid: c4c3f12a3ee3bb04198f8ed30258acec, type: 3}
   - {fileID: 6031591382451120485, guid: bc0873f0f53a23841adfdb953cc9501f, type: 3}
-  - {fileID: 1087478617484774286, guid: 8d0b346541810bf4abcb8786f03d45ab, type: 3}
-  - {fileID: 5623886065827476684, guid: fc2c4430f6d6e724d95507f5d2d2de5d, type: 3}
-  - {fileID: 2345695945905484658, guid: ac96fc3626640f84f9aa03520c5d9c93, type: 3}
-  - {fileID: 2589877131917648721, guid: e7525993109eebd40a01f7354ea24df5, type: 3}
-  - {fileID: 6782870734963530175, guid: 4757066dd4867b04c90f3d068a9983ca, type: 3}
-  - {fileID: 4035482046549330915, guid: 5bb41b00b210fd046b9442341b111644, type: 3}
 --- !u!114 &1642756266
 MonoBehaviour:
   m_ObjectHideFlags: 0

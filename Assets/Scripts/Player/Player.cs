@@ -300,6 +300,7 @@ public class Player : MonoBehaviour
     public void GetTackled()
     {
         State = PlayerState.Falling;
+        animator.SetBool("Moving", false);
         animator.SetTrigger("TackleFall");
 
         SongManager.HitSong();
