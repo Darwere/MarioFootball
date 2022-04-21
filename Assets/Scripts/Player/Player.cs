@@ -138,7 +138,6 @@ public class Player : MonoBehaviour
         transform.forward = lastAction.direction;
 
         savedAction = lastAction;
-        Debug.Log("Animator : " + animator.parameterCount);
         animator.SetTrigger("Pass");
         animator.SetBool("Moving", false);
     }
@@ -224,7 +223,6 @@ public class Player : MonoBehaviour
 
     public void LaunchPass()
     {
-        Debug.Log("LaunchPass");
         Field.Ball.Move(savedAction.duration, savedAction.startPosition, savedAction.endPosition, savedAction.bezierPoint);
 
         if(savedAction.target != null)

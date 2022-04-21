@@ -164,6 +164,7 @@ public class Team : MonoBehaviour
     {
         pilotedIndicator.transform.parent = player.transform;
         pilotedIndicator.transform.localPosition = Vector3.zero + indicatorOffSet;
+        Debug.Log("HEY");
     }
 
     public void WaitKickOff()
