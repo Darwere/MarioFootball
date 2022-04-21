@@ -14,6 +14,8 @@ public class Team : MonoBehaviour
     public Type GoalBrainType => Type.GetType(agoalBrainType);
 
     [SerializeField] private string aPilotedBrainType;
+
+    [SerializeField] private GameObject goalEffect;
     public Type PilotedBrainType => Type.GetType(aPilotedBrainType);
 
     public Player[] Players { get; private set; }
@@ -220,6 +222,8 @@ public class Team : MonoBehaviour
         if (ball != null)
         {
             ++ConcededGoals;
+            GameObject particule = Instantiate(goalEffect, transform.position, Quaternion.identity);
+            Destroy(particule, 0.3f);
             UIManager.ActualiseScore();
             StartCoroutine(NewKickOff());
         }
