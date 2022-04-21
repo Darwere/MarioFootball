@@ -18,8 +18,6 @@ namespace GoalTreeSpace
             direction.y = 0;
             direction.x = 0;
 
-            Debug.Log(direction);
-
             PlayerAction action = PlayerAction.Move(direction.normalized);
             Node root = GetRootNode();
             root.SetData("action", action);

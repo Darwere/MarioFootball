@@ -224,7 +224,19 @@ public class Team : MonoBehaviour
             GameObject particule = Instantiate(goalEffect, transform.position, Quaternion.identity);
             Destroy(particule, 0.3f);
             UIManager.ActualiseScore();
+
+            for(int i = 0; i < Players.Length; i++)
+            {
+                Field.Team1.Players[i].StartWaiting();
+                Field.Team2.Players[i].StartWaiting();
+            }
+            Field.Team1.Goal.StartWaiting();
+            Field.Team2.Goal.StartWaiting();
+
+
             StartCoroutine(NewKickOff());
+
+            Debug.Log("Goal!!");
         }
     }
 

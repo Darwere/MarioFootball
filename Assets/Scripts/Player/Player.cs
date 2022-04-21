@@ -244,12 +244,14 @@ public class Player : MonoBehaviour
 
     public void StartMoving()
     {
-        State = PlayerState.Moving;
+        if(State != PlayerState.KickOff)
+            State = PlayerState.Moving;
     }
 
     public void StartWaiting()
     {
         State = PlayerState.Waiting;
+        animator.SetBool("Moving", false);
     }
 
     public void CheckPlayerHit()
@@ -288,7 +290,7 @@ public class Player : MonoBehaviour
 
     public void StartPlaying()
     {
-            State = PlayerState.Moving;
+        State = PlayerState.Moving;
     }
 
     IEnumerator PassInMovement()
