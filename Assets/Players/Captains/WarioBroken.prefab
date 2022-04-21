@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   specs: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
-  animator: {fileID: -5268571838765261870, guid: 180868767417ef44b893538cdb0e67e2, type: 3}
+  animator: {fileID: 6186767526245914223}
   tackleAnimation: {fileID: 7400000, guid: 095f97a249c2cfe408af5e5b9f2c9da9, type: 2}
   IABrain: {fileID: 0}
 --- !u!1 &783392246903325323
