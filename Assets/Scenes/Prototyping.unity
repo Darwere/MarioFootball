@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1109798517}
-  m_IndirectSpecularColor: {r: 0.60204977, g: 1.2050719, b: 1.27734, a: 1}
+  m_IndirectSpecularColor: {r: 0.6015607, g: 1.2040995, b: 1.2763661, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -158,6 +158,14 @@ MonoBehaviour:
   Score1: {fileID: 1904148880}
   Score2: {fileID: 1011975203}
   Timer: {fileID: 1609452269}
+  Score1End: {fileID: 0}
+  Score2End: {fileID: 0}
+  image: {fileID: 0}
+  Camera: {fileID: 0}
+  CanvasEndGame: {fileID: 0}
+  CanvasPause: {fileID: 0}
+  MusicEnd: {fileID: 0}
+  AudiosGame: []
 --- !u!114 &70903255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,14 +359,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107179892}
-  m_LocalRotation: {x: 0.16190527, y: -0.6923938, z: 0.16395515, w: 0.68373704}
-  m_LocalPosition: {x: 37.8, y: 6.9, z: -8}
+  m_LocalRotation: {x: 0, y: -0.71154165, z: 0, w: 0.70264393}
+  m_LocalPosition: {x: 26.3, y: 6.9, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 972027131}
   m_Father: {fileID: 1417966746}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.721, z: 0}
 --- !u!114 &107179895
 MonoBehaviour:
   m_ObjectHideFlags: 0
