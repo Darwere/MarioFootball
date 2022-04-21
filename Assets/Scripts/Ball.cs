@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class Ball : MonoBehaviour
 {
+    public bool GotShooted { get; private set; }
+    public Vector3 ShootPoint { get; private set; }
+
     private Vector3 startingPoint;
     private Vector3 destination;
     private Vector3 bezierPoint;
@@ -107,9 +110,11 @@ public class Ball : MonoBehaviour
                 randomBezier = Random.Range(minBezierZ, maxBezierZ);
             }
         }
-        Vector3 vecInterpolation = new Vector3((posCage.position.x / 2 - 5), posCage.position.y + 4f, randomBezier);
+        Vector3 vecInterpolation = new Vector3((posCage.position.x), posCage.position.y + 4f, randomBezier);
         Move(1, transform.position, posCage.position, vecInterpolation);
         DetachFromParent();
+        ShootPoint = posCage.position;
+        GotShooted = true;
     }
 
     public void AttachToPlayer(Player parent)
@@ -119,6 +124,7 @@ public class Ball : MonoBehaviour
         transform.parent = parent.transform;
         transform.position = parent.transform.position + parent.transform.forward;// + Vector3.up * transform.position.y;
         isFree = false;
+        GotShooted = false;
         ResetVelocity();
         player.Team.ChangePilotedPlayer(player);
 

@@ -7,5 +7,6 @@ public class Match : MonoBehaviour
     public PlayerSpecs mate1;
     public PlayerSpecs mate2;
 
-    public PlayerSpecs goalKeeper;
+    public PlayerSpecs goalKeeper1;
+    public PlayerSpecs goalKeeper2;
 }

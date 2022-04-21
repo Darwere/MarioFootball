@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22b18ff61a2fb884a906898fb289f729, type: 3}
+  m_Name: PeachSpecs
+  m_EditorClassIdentifier: 
+  name: Peach
+  weight: 60
+  accuracy: 0.7
+  speed: 12
+  shootRange: 30
+  tackleRange: 5
+  headButtRange: 4
+  stunTime: 1
+  prefab: {fileID: 4200866182417591238, guid: 63b96d0ea7b09d844850a7f770c67d76, type: 3}

@@ -138,7 +138,6 @@ public class Player : MonoBehaviour
         transform.forward = lastAction.direction;
 
         savedAction = lastAction;
-
         animator.SetTrigger("Pass");
         animator.SetBool("Moving", false);
     }
@@ -188,8 +187,8 @@ public class Player : MonoBehaviour
 
     protected void SendObject()
     {
-
-        Debug.Log("SendObject");
+        Item item = Team.GetItem();
+        //item.Create(Team.Brain);
     }
 
     #endregion
@@ -248,7 +247,7 @@ public class Player : MonoBehaviour
         Collider collider = GetComponent<Collider>();
         RaycastHit hit;
         Vector3 startPosition = transform.position + new Vector3(0, collider.bounds.extents.y, 0);
-        float distance = 4;
+        float distance = Species.headButtRange;
         Debug.DrawRay(startPosition, transform.forward, Color.red, distance);
         Physics.Raycast(startPosition, transform.forward, out hit, distance);
 
@@ -279,7 +278,7 @@ public class Player : MonoBehaviour
 
     public void StartPlaying()
     {
-        State = PlayerState.Moving;
+            State = PlayerState.Moving;
     }
 
     IEnumerator PassInMovement()
