@@ -27,13 +27,12 @@ public class Team : MonoBehaviour
     public Transform[] ShootPoint => ShootPoints;
 
     private Queue<Item> items;
-    private int itemCapacity = 3;
-
+    private int itemCapacity = 2;
+    public float ItemCount => items.Count;
 
     [SerializeField] private GameObject pilotedIndicatorPrefab;
     private GameObject pilotedIndicator;
     private Vector3 indicatorOffSet;
-    private object goalBrain;
 
     private void Awake()
     {

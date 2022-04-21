@@ -57,7 +57,7 @@ namespace OpponentTreeSpace
                 return state;
             }
 
-            state = NodeState.Succes;
+            state = NodeState.Failure;
             return state;
         }
     }
