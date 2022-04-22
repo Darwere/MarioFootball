@@ -217,6 +217,10 @@ public class Team : MonoBehaviour
         Field.SetTeamPosition(this);
     }
 
+    public void SetIABrain()
+    {
+        aPilotedBrainType = "OpponentTree";
+    }
     private void OnCollisionEnter(Collision collision)
     {
         Ball ball = collision.gameObject.GetComponent<Ball>();

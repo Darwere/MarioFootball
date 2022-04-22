@@ -129,7 +129,7 @@ public class PlayerSelectionWithIA : MonoBehaviour
         Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
         Match.instance.mate2 = Mate2PlayerSpec;
         Match.instance.goalKeeper2 = Goal2PlayerSpec;
-        ChoiceMode.modeIA = true;
+        Field.Team2.SetIABrain();
         SceneManager.LoadScene("Prototyping");
     }
 

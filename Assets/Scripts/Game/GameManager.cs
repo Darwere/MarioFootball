@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     private Queue<Match> matches;
     private MatchResult currentResult;
     [SerializeField] private uint timer = 60;
-    private GameObject charaManager;
+    private GameObject characterManager;
 
     public static bool isPlayable = false;
     private bool validTime = true;
@@ -23,8 +23,10 @@ public class GameManager : MonoBehaviour
         instance = this;
         matches = new Queue<Match>();
         matches.Enqueue(debugMatch);
-        charaManager = GameObject.Find("CharacterManager");
-        ChangeMatch(charaManager.GetComponent<Match>());
+        characterManager = GameObject.Find("CharacterManager");
+        ChangeMatch(characterManager.GetComponent<Match>());
+
+
     }
 
     private void Start()
