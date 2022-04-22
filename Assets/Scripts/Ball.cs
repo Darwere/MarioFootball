@@ -23,27 +23,61 @@ public class Ball : MonoBehaviour
     private Vector3 offset = new Vector3 (0,0.5f,0);
     private Player player = new Player();
 
+    public bool isLofted = true;
+    public float angle = 80f;
+
     private void Awake()
     {
         rbBall = GetComponent<Rigidbody>();
     }
     private void Update()
     {
-        if (isMovable)
-        {
-            transform.position = Bezier(startingPoint, destination, bezierPoint, duration);
-        }
+        //if (isMovable)
+        //{
+        //    transform.position = Bezier(startingPoint, destination, bezierPoint, duration);
+        //}
     }
 
+    //public void Move(float duration, Vector3 startingPoint, Vector3 destination, Vector3 bezierPoint)
+    //{
+    //    isMovable = true;
+    //    bezierPercent = 0;
+    //    this.duration = duration;
+    //    this.startingPoint = startingPoint + offset;
+    //    this.destination = destination+ offset;
+    //    this.bezierPoint = bezierPoint;
+    //    DetachFromParent();
+    //}
     public void Move(float duration, Vector3 startingPoint, Vector3 destination, Vector3 bezierPoint)
     {
-        isMovable = true;
-        bezierPercent = 0;
-        this.duration = duration;
-        this.startingPoint = startingPoint + offset;
-        this.destination = destination+ offset;
-        this.bezierPoint = bezierPoint;
+
+        //Vector3 acceleration = isLofted ? Physics.gravity : Vector3.zero;
+        //destination = ((destination - startingPoint) / 2) + Vector3.up * 2;
+        ////destination = destination + Vector3.up *3;
+        //duration = 0.5f;
+        //Debug.Log("" + duration + destination + startingPoint);
         DetachFromParent();
+        //Vector3 force = ((destination - startingPoint - (acceleration * Mathf.Pow(duration,2))) / duration) ;
+        
+        //Debug.DrawRay(transform.position,force,Color.red,2f);
+        //rbBall.AddForce(force, ForceMode.Impulse);
+
+        var velocity = BallisticVelocity(destination, angle);
+        rbBall.velocity = velocity;
+    }
+    private Vector3 BallisticVelocity(Vector3 destination, float angle)
+    {
+        Vector3 dir = destination - transform.position; // get Target Direction
+        float height = dir.y; // get height difference
+        dir.y = 0; // retain only the horizontal difference
+        float dist = dir.magnitude; // get horizontal direction
+        float a = angle * Mathf.Deg2Rad; // Convert angle to radians
+        dir.y = dist * Mathf.Tan(a); // set dir to the elevation angle.
+        dist += height / Mathf.Tan(a); // Correction for small height differences
+
+        // Calculate the velocity magnitude
+        float velocity = Mathf.Sqrt(dist * Physics.gravity.magnitude / Mathf.Sin(2 * a));
+        return velocity * dir.normalized; // Return a normalized vector.
     }
 
     public Vector3 Bezier(Vector3 startingPoint, Vector3 destination, Vector3 bezierPoint, float duration)

@@ -48,6 +48,7 @@ public class InputBrain : PlayerBrain
         {
             targetPlayer = Allies.GetPlayerWithDirection(startPos, direction, 180f);
             act = PlayerAction.Pass(direction, Field.Ball.transform.position, targetPlayer.transform.position, 1f, targetPlayer); //Pass
+            Debug.Log(targetPlayer);
         }
         else
         {
