@@ -6,13 +6,13 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-
-    [SerializeField] private Match debugMatch;
+    public Match debugMatch;
 
     private static GameManager instance;
     private Queue<Match> matches;
     private MatchResult currentResult;
     [SerializeField] private uint timer = 60;
+    private GameObject charaManager;
 
     public static bool isPlayable = false;
     private bool validTime = true;
@@ -26,8 +26,14 @@ public class GameManager : MonoBehaviour
         matches.Enqueue(debugMatch);
     }
 
+    private void Start(){
+        charaManager=GameObject.Find("CharacterManager");
+        ChangeMatch(charaManager.GetComponent<Match>());
+    }
+
     private void Update()
     {
+
         if (isPlayable == true && validTime == true)
         {
             DecreaseTimer();
@@ -42,10 +48,10 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Fournit les coéquipiers à chaque équipe, les place, et instancie le ballon
+    /// Fournit les coï¿½quipiers ï¿½ chaque ï¿½quipe, les place, et instancie le ballon
     /// </summary>
-    /// <param name="team1">Spermatozoïde n°1</param>
-    /// <param name="team2">Spermatozoïde n°2</param>
+    /// <param name="team1">Spermatozoï¿½de nï¿½1</param>
+    /// <param name="team2">Spermatozoï¿½de nï¿½2</param>
     /// <returns>RIENG</returns>
     public static void BreedMePlease(Team team1, Team team2)
     {
@@ -95,5 +101,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    public static void ChangeMatch(Match match)
+    {
+        instance.debugMatch = match;
+        instance.matches.Dequeue();
+        instance.matches.Enqueue(match);
+    }
 }

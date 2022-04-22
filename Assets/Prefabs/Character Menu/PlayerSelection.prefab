@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6724853674874117767}
   - component: {fileID: -4423801168087620026}
   - component: {fileID: -1204181922565031881}
+  - component: {fileID: 6235341090284824733}
   m_Layer: 0
   m_Name: PlayerSelection
   m_TagString: Untagged
@@ -228,3 +229,19 @@ MonoBehaviour:
   HiderPrefab: {fileID: 1411374743796127297, guid: d0a9edf40ea13804694ed001eee4b7b0, type: 3}
   PositionVisualizationP1: {fileID: 6492904490198497922, guid: 230f9d93fdc09d549b1d4efd89b586ac, type: 3}
   PositionVisualizationP2: {fileID: 213178510498828340, guid: 23dd763455990e943a84687855a17945, type: 3}
+  Mate1PlayerSpec: {fileID: 11400000, guid: 21fb9bf007e7c1c40b4de79458c35b1a, type: 2}
+  Mate2PlayerSpec: {fileID: 11400000, guid: a56452e4a843d9a48b2982983a30ad31, type: 2}
+  Goal1PlayerSpec: {fileID: 11400000, guid: e3e002b85a1ab3a4e8908ea9a8909ff4, type: 2}
+  Goal2PlayerSpec: {fileID: 11400000, guid: 6f1ed8b967cb90f4da1de197d5b861aa, type: 2}
+--- !u!114 &6235341090284824733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509172843661933800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5905a701e59f8a4c8047b784f27c894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Match : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class Match : MonoBehaviour
 
     private void Awake()
     {
-        instance = this; 
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
+
 }
