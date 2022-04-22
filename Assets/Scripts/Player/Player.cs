@@ -138,7 +138,6 @@ public class Player : MonoBehaviour
         transform.forward = lastAction.direction;
 
         savedAction = lastAction;
-
         animator.SetTrigger("Pass");
         animator.SetBool("Moving", false);
     }
@@ -188,8 +187,8 @@ public class Player : MonoBehaviour
 
     protected void SendObject()
     {
-
-        Debug.Log("SendObject");
+        Item item = Team.GetItem();
+        //item.Create(Team.Brain);
     }
 
     #endregion

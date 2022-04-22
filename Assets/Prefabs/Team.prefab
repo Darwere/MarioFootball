@@ -296,9 +296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55b22583b79c79439ddb8f7e7dcc3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ateamBrainType: GoalBrain
-  agoalBrainType: GoalBrain
-  aPilotedBrainType: GoalBrain
+  ateamBrainType: GoalTree
+  agoalBrainType: GoalTree
+  aPilotedBrainType: GoalTree
   ConcededGoals: 0
   ShootPoints:
   - {fileID: 994263396262917775}
@@ -307,6 +307,7 @@ MonoBehaviour:
   - {fileID: 4935699859797984370}
   - {fileID: 7999311210972595390}
   - {fileID: 7169757126420817520}
+  pilotedIndicatorPrefab: {fileID: 0}
 --- !u!114 &-1636243769967788496
 MonoBehaviour:
   m_ObjectHideFlags: 0
