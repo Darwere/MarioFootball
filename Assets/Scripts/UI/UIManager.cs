@@ -146,7 +146,7 @@ public class UIManager : MonoBehaviour
 
     public static void ActiveMenuPause()
     {
-        Time.timeScale = 0;
+        GameManager.isPlayable = false;
         instance.CanvasPause.SetActive(true);
         foreach (AudioSource audio in instance.AudiosGame)
         {
@@ -156,8 +156,9 @@ public class UIManager : MonoBehaviour
 
     public static void BackToGame()
     {
+        Debug.Log("ok");
+        GameManager.isPlayable = true;
         instance.CanvasPause.SetActive(false);
-        Time.timeScale = 1f;
         foreach (AudioSource audio in instance.AudiosGame)
         {
             audio.UnPause();

@@ -6,13 +6,17 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    
+
     [SerializeField] private Match debugMatch;
 
     private static GameManager instance;
     private Queue<Match> matches;
     private MatchResult currentResult;
     [SerializeField] private uint timer = 60;
+
+    public static bool isPlayable = false;
+    private bool validTime = true;
+    private float timeLeft = 1f;
 
     private void Awake()
     {
@@ -22,9 +26,19 @@ public class GameManager : MonoBehaviour
         matches.Enqueue(debugMatch);
     }
 
-    private void Start()
+    private void Update()
     {
-        StartCoroutine(DecreaseTimer());
+        if (isPlayable == true && validTime == true)
+        {
+            DecreaseTimer();
+        }
+
+        timeLeft -= Time.deltaTime;
+        if (timeLeft < 0)
+        {
+            validTime = true;
+            timeLeft = 1f;
+        }
     }
 
     /// <summary>
@@ -67,19 +81,19 @@ public class GameManager : MonoBehaviour
         Field.Init(Instantiate(PrefabManager.Ball).GetComponent<Ball>());
     }
 
-    private IEnumerator DecreaseTimer()
+    private void DecreaseTimer()
     {
-        while (timer > 0)
+        if (isPlayable == true)
         {
-            yield return new WaitForSeconds(1);
             --timer;
+            UIManager.ActualiseTimer(timer);
             if (timer == 0)
             {
                 UIManager.TimeOut();
             }
-            UIManager.ActualiseTimer(timer);
+            validTime = false;
         }
     }
 
-    
+
 }

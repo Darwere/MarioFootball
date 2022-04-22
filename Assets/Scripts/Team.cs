@@ -207,6 +207,8 @@ public class Team : MonoBehaviour
             player.StartPlaying();
         }
         Goal.StartPlaying();
+        GameManager.isPlayable = true;
+        Debug.Log(GameManager.isPlayable);
     }
 
     private IEnumerator NewKickOff()
