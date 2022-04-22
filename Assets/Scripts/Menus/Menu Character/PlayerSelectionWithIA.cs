@@ -13,6 +13,11 @@ public class PlayerSelectionWithIA : MonoBehaviour
     public AudioSource SelectionAudio;
     public AudioSource ValidateAudio;
     public GameObject PositionVisualization;
+    public PlayerSpecs Mate1PlayerSpec;
+    public PlayerSpecs Mate2PlayerSpec;
+    public PlayerSpecs Goal1PlayerSpec;
+    public PlayerSpecs Goal2PlayerSpec;
+
 
     private Menu menuAction;
     private GameObject prefabCharacterSelected;
@@ -110,7 +115,8 @@ public class PlayerSelectionWithIA : MonoBehaviour
     {
         PlayAudio(ValidateAudio);
         Match.instance.captain1 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
-
+        Match.instance.mate1 = Mate1PlayerSpec;
+        Match.instance.goalKeeper1 = Goal1PlayerSpec;
 
         int randomCharacter = UnityEngine.Random.Range(0, 3);
         if (randomCharacter == counterCharacter)
@@ -119,8 +125,11 @@ public class PlayerSelectionWithIA : MonoBehaviour
 
         }
         counterCharacter = randomCharacter;
+        characterSelected = CharacterGrid.instance.listCharacters[counterCharacter];
         Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
-
+        Match.instance.mate2 = Mate2PlayerSpec;
+        Match.instance.goalKeeper2 = Goal2PlayerSpec;
+        ChoiceMode.modeIA = true;
         SceneManager.LoadScene("Prototyping");
     }
 

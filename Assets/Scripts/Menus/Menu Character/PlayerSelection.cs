@@ -218,6 +218,6 @@ public class PlayerSelection : MonoBehaviour
             }
             hasValidated = true;
         }
-        
+        ChoiceMode.modeIA = false;
     }
 }

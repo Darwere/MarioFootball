@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2232,6 +2232,10 @@ MonoBehaviour:
   SelectionAudio: {fileID: 474268265}
   ValidateAudio: {fileID: 1757506883}
   PositionVisualization: {fileID: 6546321873711495954, guid: bf602673836af664a8fe5d225bfdb570, type: 3}
+  Mate1PlayerSpec: {fileID: 11400000, guid: 21fb9bf007e7c1c40b4de79458c35b1a, type: 2}
+  Mate2PlayerSpec: {fileID: 11400000, guid: a56452e4a843d9a48b2982983a30ad31, type: 2}
+  Goal1PlayerSpec: {fileID: 11400000, guid: e3e002b85a1ab3a4e8908ea9a8909ff4, type: 2}
+  Goal2PlayerSpec: {fileID: 11400000, guid: 6f1ed8b967cb90f4da1de197d5b861aa, type: 2}
 --- !u!114 &456745061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2337,7 +2341,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &456745064
 Canvas:
   m_ObjectHideFlags: 0
@@ -4292,7 +4296,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &901343632
 Transform:
   m_ObjectHideFlags: 0
@@ -5490,7 +5494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1047300743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10738,6 +10742,7 @@ GameObject:
   - component: {fileID: 2106724187}
   - component: {fileID: 2106724186}
   - component: {fileID: 2106724185}
+  - component: {fileID: 2106724188}
   m_Layer: 0
   m_Name: CharacterManager
   m_TagString: Untagged
@@ -10789,6 +10794,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2106724188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106724184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135690311c6d6d140adddd9deecf7a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2117785622
 GameObject:
   m_ObjectHideFlags: 0
