@@ -20,7 +20,11 @@ public class AudienceMember : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();        
+        anim = GetComponent<Animator>();
+        Vector3 centerPoint = AudienceManager.instance.CenterPoint.position;
+
+        transform.LookAt(new Vector3(centerPoint.x, transform.position.y, centerPoint.y));
+        transform.SetParent(AudienceManager.instance.AudienceParent, true);
     }
 
     // Update is called once per frame
@@ -56,5 +60,11 @@ public class AudienceMember : MonoBehaviour
             }
         }
         
+
+        if(transform.position.y < -800)
+        {
+            AudienceManager.instance.Audience.Remove(this.gameObject);
+            Destroy(this.gameObject);
+        }
     }
 }
