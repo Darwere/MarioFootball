@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     
-    [SerializeField] private Match debugMatch;
+    public Match debugMatch;
     [SerializeField] private float debugMatchDuration = 60f;
 
     private static GameManager instance;
@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private Queue<MatchResult> results;
     private MatchResult currentResult;
     private uint timer = 60;
+    private GameObject charaManager;
 
     private void Awake()
     {
@@ -27,6 +28,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(DecreaseTimer());
+        charaManager=GameObject.Find("CharacterManager");
+        ChangeMatch(charaManager.GetComponent<Match>());
+        Debug.Log(charaManager.transform.position);
     }
 
     /// <summary>
@@ -95,5 +99,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+    public static void ChangeMatch(Match match)
+    {
+        instance.debugMatch = match;
+        instance.matches.Dequeue();
+        instance.matches.Enqueue(match);
+    }
 }

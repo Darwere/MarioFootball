@@ -13,6 +13,10 @@ public class PlayerSelection : MonoBehaviour
     public GameObject HiderPrefab;
     public GameObject PositionVisualizationP1;
     public GameObject PositionVisualizationP2;
+    public PlayerSpecs Mate1PlayerSpec;
+    public PlayerSpecs Mate2PlayerSpec;
+    public PlayerSpecs Goal1PlayerSpec;
+    public PlayerSpecs Goal2PlayerSpec;
 
     private bool hasValidated = false;
     private bool canChose = true;
@@ -197,6 +201,8 @@ public class PlayerSelection : MonoBehaviour
                 GameObject hider = Instantiate(HiderPrefab, characterSelected.transform.position, Quaternion.identity);
                 hider.transform.SetParent(CanvasCharacter.instance.Canvas.transform, true);
                 Match.instance.captain1 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
+                Match.instance.mate1 = Mate1PlayerSpec;
+                Match.instance.goalKeeper1 = Goal1PlayerSpec;
                 ChoiceCharacterManager.instance.player0Chose = true;
             }
             else
@@ -206,6 +212,8 @@ public class PlayerSelection : MonoBehaviour
                 GameObject hider = Instantiate(HiderPrefab, characterSelected.transform.position, Quaternion.identity);
                 hider.transform.SetParent(CanvasCharacter.instance.Canvas.transform, true);
                 Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
+                Match.instance.mate2 = Mate2PlayerSpec;
+                Match.instance.goalKeeper2 = Goal2PlayerSpec;
                 ChoiceCharacterManager.instance.player1Chose = true;
             }
             hasValidated = true;

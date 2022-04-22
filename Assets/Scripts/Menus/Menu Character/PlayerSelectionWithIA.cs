@@ -25,6 +25,7 @@ public class PlayerSelectionWithIA : MonoBehaviour
     }
     private void Start()
     {
+
         SelectionCharacter();
     }
 

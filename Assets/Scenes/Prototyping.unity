@@ -165,6 +165,7 @@ MonoBehaviour:
   CanvasEndGame: {fileID: 0}
   CanvasPause: {fileID: 0}
   MusicEnd: {fileID: 0}
+  MusicPause: {fileID: 0}
   AudiosGame: []
 --- !u!114 &70903255
 MonoBehaviour:
@@ -1584,7 +1585,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff4baedbbf009f459e8492fba7370d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugMatch: {fileID: 1642756264}
   debugMatchDuration: 60
 --- !u!4 &1642756263
 Transform:

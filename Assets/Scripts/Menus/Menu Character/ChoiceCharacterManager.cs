@@ -13,6 +13,7 @@ public class ChoiceCharacterManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        
     }
     
 
@@ -21,8 +22,9 @@ public class ChoiceCharacterManager : MonoBehaviour
     {
         if(player0Chose && player1Chose)
         {
-            SceneManager.LoadScene("Ball 1");
+            SceneManager.LoadScene("Prototyping",LoadSceneMode.Single);
 
         }
     }
+    
 }
