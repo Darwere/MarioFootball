@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public GameObject CanvasEndGame;
     public GameObject CanvasPause;
     public AudioSource MusicEnd;
+    public AudioSource MusicPause;
     public List<AudioSource> AudiosGame = new List<AudioSource>();
     public static UIManager instance;
 
@@ -66,14 +67,17 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 0;
         CanvasPause.SetActive(true);
+        MusicPause.Play();
         foreach (AudioSource audio in instance.AudiosGame)
         {
             audio.Pause();
         }
+
     }
 
     public static void BackToGame()
     {
+        instance.MusicPause.Stop();
         instance.CanvasPause.SetActive(false);
         Time.timeScale = 1f;
         foreach (AudioSource audio in instance.AudiosGame)
