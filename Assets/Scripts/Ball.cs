@@ -23,7 +23,6 @@ public class Ball : MonoBehaviour
     private Vector3 offset = new Vector3 (0,0.5f,0);
     private Player player = new Player();
 
-    public bool isLofted = true;
     public float angle = 80f;
 
     private void Awake()
@@ -32,39 +31,23 @@ public class Ball : MonoBehaviour
     }
     private void Update()
     {
-        //if (isMovable)
-        //{
-        //    transform.position = Bezier(startingPoint, destination, bezierPoint, duration);
-        //}
+        if (isMovable)
+        {
+            transform.position = Bezier(startingPoint, destination, bezierPoint, duration);
+        }
     }
 
-    //public void Move(float duration, Vector3 startingPoint, Vector3 destination, Vector3 bezierPoint)
-    //{
-    //    isMovable = true;
-    //    bezierPercent = 0;
-    //    this.duration = duration;
-    //    this.startingPoint = startingPoint + offset;
-    //    this.destination = destination+ offset;
-    //    this.bezierPoint = bezierPoint;
-    //    DetachFromParent();
-    //}
     public void Move(float duration, Vector3 startingPoint, Vector3 destination, Vector3 bezierPoint)
     {
-
-        //Vector3 acceleration = isLofted ? Physics.gravity : Vector3.zero;
-        //destination = ((destination - startingPoint) / 2) + Vector3.up * 2;
-        ////destination = destination + Vector3.up *3;
-        //duration = 0.5f;
-        //Debug.Log("" + duration + destination + startingPoint);
+        isMovable = true;
+        bezierPercent = 0;
+        this.duration = duration;
+        this.startingPoint = startingPoint + offset;
+        this.destination = destination + offset;
+        this.bezierPoint = bezierPoint;
         DetachFromParent();
-        //Vector3 force = ((destination - startingPoint - (acceleration * Mathf.Pow(duration,2))) / duration) ;
-        
-        //Debug.DrawRay(transform.position,force,Color.red,2f);
-        //rbBall.AddForce(force, ForceMode.Impulse);
-
-        var velocity = BallisticVelocity(destination, angle);
-        rbBall.velocity = velocity;
     }
+
     private Vector3 BallisticVelocity(Vector3 destination, float angle)
     {
         Vector3 dir = destination - transform.position; // get Target Direction
@@ -95,6 +78,7 @@ public class Ball : MonoBehaviour
     private void ResetVelocity()
     {
         rbBall.velocity = Vector3.zero;
+
     }
 
     /// <summary>
@@ -144,6 +128,16 @@ public class Ball : MonoBehaviour
         Vector3 vecInterpolation = new Vector3((posCage.position.x), posCage.position.y + 4f, randomBezier);
         Move(1, transform.position, posCage.position, vecInterpolation);
         DetachFromParent();
+    }
+
+    public void BadShoot(Transform[] shootPos, Vector3  direction)
+    {
+        int posCageIndex = Random.Range(0, (shootPos.Length));
+        Transform posCage = shootPos[posCageIndex];
+        direction = posCage.position - transform.position;
+        DetachFromParent();
+        var velocity = BallisticVelocity(direction, angle)/2;
+        rbBall.velocity = velocity;
     }
 
     public void AttachToPlayer(Player parent)

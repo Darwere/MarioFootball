@@ -97,14 +97,14 @@ public class Player : MonoBehaviour
                 lastAction = Team.Brain.Act();
                 actionMethods[lastAction.type].DynamicInvoke(); //Team.Brain.Act() return une ActionType
             }
-                
+
             else
             {
                 lastAction = IABrain.Act();
 
                 actionMethods[lastAction.type].DynamicInvoke();//IABrain.Act() return une ActionType
             }
-                 
+
         }
     }
 
@@ -154,10 +154,17 @@ public class Player : MonoBehaviour
 
     protected void Shoot()
     {
+        transform.forward = lastAction.direction;
         State = PlayerState.Shooting;
-        Team ennemies = Team == Field.Team1? Field.Team2 : Field.Team1;
-        Field.Ball.Shoot(ennemies.ShootPoint, lastAction.shootForce, lastAction.direction, lastAction.duration);
-
+        Team ennemies = Team == Field.Team1 ? Field.Team2 : Field.Team1;
+        if ((ennemies == Field.Team1 && transform.position.x < 0) || (ennemies == Field.Team2 && transform.position.x > 0))
+        {
+            Field.Ball.Shoot(ennemies.ShootPoint, lastAction.shootForce, lastAction.direction, lastAction.duration);
+        }
+        else
+        {
+            Field.Ball.BadShoot(ennemies.ShootPoint,lastAction.direction);
+        }
         Field.Ball.DetachFromParent();
 
         animator.SetTrigger("Shoot");
@@ -226,7 +233,7 @@ public class Player : MonoBehaviour
     {
         Field.Ball.Move(savedAction.duration, savedAction.startPosition, savedAction.endPosition, savedAction.bezierPoint);
 
-        if(savedAction.target != null)
+        if (savedAction.target != null)
         {
             SwitchPlayer();
             savedAction.target.Wait();
@@ -279,7 +286,7 @@ public class Player : MonoBehaviour
 
     public void StartPlaying()
     {
-            State = PlayerState.Moving;
+        State = PlayerState.Moving;
     }
 
     IEnumerator PassInMovement()
@@ -311,12 +318,12 @@ public class Player : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision)
-    {  
+    {
         Player player = collision.gameObject.GetComponent<Player>();
 
         if (player != null)
         {
-            if(Team != player.Team)
+            if (Team != player.Team)
             {
                 if (State == PlayerState.Tackling)
                 {
