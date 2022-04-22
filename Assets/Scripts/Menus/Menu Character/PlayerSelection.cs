@@ -121,7 +121,7 @@ public class PlayerSelection : MonoBehaviour
     {
         characterSelected.GetComponent<Image>().color = Color.black;
         rotationVisualization = characterSelected.transform.rotation;
-        Debug.Log(rotationVisualization);
+        //Debug.Log(rotationVisualization);
         Destroy(prefabCharacterSelected);
     }
 

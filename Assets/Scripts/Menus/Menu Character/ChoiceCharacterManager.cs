@@ -22,7 +22,8 @@ public class ChoiceCharacterManager : MonoBehaviour
     {
         if(player0Chose && player1Chose)
         {
-            SceneManager.LoadScene("Prototyping",LoadSceneMode.Single);
+            SceneManager.LoadScene("Ball",LoadSceneMode.Single);
+            Debug.Log("Changement de Scene");
 
         }
     }

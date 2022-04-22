@@ -21,14 +21,15 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
         matches = new Queue<Match>();
         matches.Enqueue(debugMatch);
+        charaManager = GameObject.Find("CharacterManager");
+        ChangeMatch(charaManager.GetComponent<Match>());
     }
 
-    private void Start(){
-        charaManager=GameObject.Find("CharacterManager");
-        ChangeMatch(charaManager.GetComponent<Match>());
+    private void Start()
+    {
+
     }
 
     private void Update()
