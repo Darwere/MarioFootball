@@ -19,6 +19,8 @@ public class PlayerSelectionWithIA : MonoBehaviour
     public PlayerSpecs Goal2PlayerSpec;
 
 
+
+    private Quaternion rotationVisualization = Quaternion.identity;
     private Menu menuAction;
     private GameObject prefabCharacterSelected;
     private GameObject characterSelected;
@@ -65,13 +67,15 @@ public class PlayerSelectionWithIA : MonoBehaviour
     {
         characterSelected.GetComponent<Image>().color = colorSelection;
         PlayAudio(SelectionAudio);
-        prefabCharacterSelected = Instantiate(characterSelected.GetComponent<PlayerSpecChoice>().PrefabVisualization, PositionVisualization.transform.position, Quaternion.identity);
+        prefabCharacterSelected = Instantiate(characterSelected.GetComponent<PlayerSpecChoice>().PrefabVisualization, PositionVisualization.transform.position, rotationVisualization);
     }
 
 
     void DeselectionCharacterUI(GameObject characterSelected)
     {
         characterSelected.GetComponent<Image>().color = Color.black;
+        prefabCharacterSelected.transform.Rotate(new Vector3(0f, -15*prefabCharacterSelected.GetComponent<TurnObject>().speed, 0f));
+        rotationVisualization = prefabCharacterSelected.transform.rotation;
         Destroy(prefabCharacterSelected);
     }
 
@@ -129,7 +133,10 @@ public class PlayerSelectionWithIA : MonoBehaviour
         Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
         Match.instance.mate2 = Mate2PlayerSpec;
         Match.instance.goalKeeper2 = Goal2PlayerSpec;
+<<<<<<< Updated upstream
         Field.Team2.SetIABrain();
+=======
+>>>>>>> Stashed changes
         SceneManager.LoadScene("Prototyping");
     }
 
