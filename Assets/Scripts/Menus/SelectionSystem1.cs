@@ -14,6 +14,8 @@ public class SelectionSystem1 : MonoBehaviour
     public AudioSource SelectionAudio;
     public AudioSource ValidateAudio;
 
+    public static SelectionSystem1 instance;
+
     private Menu menuAction;
     private int counterItem = 0; //Variable qui parcourt la liste
     private GameObject itemSelected;
@@ -22,6 +24,7 @@ public class SelectionSystem1 : MonoBehaviour
     private void Awake()
     {
         menuAction = new Menu();
+        instance = this;
     }
     void Start()
     {
@@ -117,6 +120,7 @@ public class SelectionSystem1 : MonoBehaviour
         nextCanvas.SetActive(true);
         ActualCanvas.SetActive(false);
     }
+
 
     public void PlayAudio(AudioSource audio)
     {

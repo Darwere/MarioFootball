@@ -22,18 +22,15 @@ public class PauseMenu : MonoBehaviour
         BackToMenu.LoadSceneMenu(context);
     }
 
+
     private void OnEnable()
     {
         menuActions.ControlMenu.PreviousSceneChangement.Enable();
         menuActions.ControlMenu.PreviousSceneChangement.performed += backToGame;
-
-        menuActions.ControlMenu.Validate.Enable();
-        menuActions.ControlMenu.Validate.performed += replay;
     }
 
     private void OnDisable()
     {
         menuActions.ControlMenu.PreviousSceneChangement.Disable();
-        menuActions.ControlMenu.Validate.Disable();
     }
 }

@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     public GameObject CanvasEndGame;
     public GameObject CanvasPause;
     public AudioSource MusicEnd;
+    public AudioSource MusicPause;
     public List<AudioSource> AudiosGame = new List<AudioSource>();
 
     private Vector3 camPosition;
@@ -146,18 +147,20 @@ public class UIManager : MonoBehaviour
 
     public static void ActiveMenuPause()
     {
+        MusicPause.Play();
         GameManager.isPlayable = false;
         instance.CanvasPause.SetActive(true);
         foreach (AudioSource audio in instance.AudiosGame)
         {
             audio.Pause();
         }
+
     }
 
     public static void BackToGame()
     {
-        Debug.Log("ok");
         GameManager.isPlayable = true;
+        instance.MusicPause.Stop();
         instance.CanvasPause.SetActive(false);
         foreach (AudioSource audio in instance.AudiosGame)
         {
