@@ -147,7 +147,7 @@ public class UIManager : MonoBehaviour
 
     public static void ActiveMenuPause()
     {
-        MusicPause.Play();
+        instance.MusicPause.Play();
         GameManager.isPlayable = false;
         instance.CanvasPause.SetActive(true);
         foreach (AudioSource audio in instance.AudiosGame)
