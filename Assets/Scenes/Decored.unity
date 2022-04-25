@@ -45159,7 +45159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMatch: {fileID: 1642756264}
-  debugMatchDuration: 60
+  timer: 60
 --- !u!4 &1642756263
 Transform:
   m_ObjectHideFlags: 0
@@ -45190,7 +45190,8 @@ MonoBehaviour:
   captain2: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
   mate1: {fileID: 11400000, guid: d79e8634fc168a0468277a285746380d, type: 2}
   mate2: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
-  goalKeeper: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
+  goalKeeper1: {fileID: 0}
+  goalKeeper2: {fileID: 0}
 --- !u!114 &1642756265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45204,6 +45205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 266137186057966708, guid: 5f9a23016bc8ab94fb2a55df45b2bfa2, type: 3}
+  prefabItemsReference: []
 --- !u!114 &1642756266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59497,6 +59499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: 0
   property: 5
+  speed: 0.5
 --- !u!4 &2674595199903868320
 Transform:
   m_ObjectHideFlags: 0
