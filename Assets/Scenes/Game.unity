@@ -3539,7 +3539,7 @@ PrefabInstance:
       objectReference: {fileID: 3605656874263151482, guid: 4ce1e005750c8014dafde05e1097ce27, type: 3}
     - target: {fileID: 3850693420465936801, guid: bdea2d0427f826846b3857687e12beba, type: 3}
       propertyPath: aPilotedBrainType
-      value: OpponentTree
+      value: InputBrain
       objectReference: {fileID: 0}
     - target: {fileID: 7902527911529327121, guid: bdea2d0427f826846b3857687e12beba, type: 3}
       propertyPath: m_RootOrder

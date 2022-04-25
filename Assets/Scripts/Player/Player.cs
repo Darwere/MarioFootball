@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] private AnimationClip tackleAnimation;
+    [SerializeField] private AnimationClip knockedAnimation;
+    [SerializeField] private AnimationClip gettingUpAnimation;
 
     private Rigidbody rgbd;
 
@@ -243,12 +245,27 @@ public class Player : MonoBehaviour
 
     public IEnumerator GotHit(Vector3 direction)
     {
-        yield return new WaitForEndOfFrame(); //Wait next frame to change the State
-        while (State == PlayerState.Falling)
+        float timer = 0;
+        Debug.Log(knockedAnimation.length);
+        while (timer < knockedAnimation.length)
         {
             transform.position += direction * 1.5f * Time.deltaTime;
+            timer += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
+
+        StartWaiting();
+
+        timer = 0;
+
+        while(timer < gettingUpAnimation.length)
+        {
+            Debug.Log("gettingUpAnimation");
+            timer += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        StartPlaying();
 
         yield return null;
     }
@@ -274,7 +291,7 @@ public class Player : MonoBehaviour
 
     public void StartWaiting()
     {
-        animator.SetBool("Moving", false);
+        Debug.Log("Player Name : " + name);
         State = PlayerState.Waiting;
         animator.SetBool("Moving", false);
     }

@@ -239,10 +239,7 @@ public class Team : MonoBehaviour
             Field.Team1.Goal.StartWaiting();
             Field.Team2.Goal.StartWaiting();
 
-
             StartCoroutine(NewKickOff());
-
-            Debug.Log("Goal!!");
         }
     }
 

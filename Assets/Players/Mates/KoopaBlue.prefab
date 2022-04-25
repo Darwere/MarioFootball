@@ -1542,6 +1542,8 @@ MonoBehaviour:
   specs: {fileID: 11400000, guid: 21fb9bf007e7c1c40b4de79458c35b1a, type: 2}
   animator: {fileID: 4605717132902804661}
   tackleAnimation: {fileID: 7400000, guid: 095f97a249c2cfe408af5e5b9f2c9da9, type: 2}
+  knockedAnimation: {fileID: 7400000, guid: 035948c798b72714c9910805ca086244, type: 2}
+  gettingUpAnimation: {fileID: 7400000, guid: d3f2324e553dbb644882e950e0374738, type: 2}
   IABrain: {fileID: 0}
 --- !u!1 &7827111595879945058
 GameObject:

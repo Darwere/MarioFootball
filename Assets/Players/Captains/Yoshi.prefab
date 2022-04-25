@@ -308,7 +308,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2300727268000273130}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children:
@@ -316,7 +316,7 @@ Transform:
   - {fileID: 3964026768323528729}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4775556384013652522
 Animator:
   serializedVersion: 3
@@ -396,6 +396,8 @@ MonoBehaviour:
   specs: {fileID: 11400000, guid: 752fedc63527819409272ca41cde2c43, type: 2}
   animator: {fileID: 4775556384013652522}
   tackleAnimation: {fileID: 7400000, guid: 095f97a249c2cfe408af5e5b9f2c9da9, type: 2}
+  knockedAnimation: {fileID: 7400000, guid: 035948c798b72714c9910805ca086244, type: 2}
+  gettingUpAnimation: {fileID: 7400000, guid: d3f2324e553dbb644882e950e0374738, type: 2}
   IABrain: {fileID: 0}
 --- !u!1 &2379423959581171122
 GameObject:
