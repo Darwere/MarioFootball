@@ -274,9 +274,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9efff004ad0dfec47af893499898aad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 79b7fbe06f7407848ae975d0cdc79652, type: 3}
   force: 24
   hauteur: 21
-  explosionParticule: {fileID: 31045244631927530, guid: 33135b3b6baad3346b50c78545844827, type: 3}
+  explosionParticule: {fileID: 715074962969482872, guid: 554bc98126f7a6a4889082ce434d8b09, type: 3}
   explosionArea: {fileID: 7518784833803752287, guid: 44584af87da04f940a41051c44eb5c65, type: 3}
 --- !u!54 &6031591382451120491
 Rigidbody:

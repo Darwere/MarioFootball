@@ -6,33 +6,55 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Match debugMatch;
-    [SerializeField] private float debugMatchDuration = 60f;
+    public Match debugMatch;
 
     private static GameManager instance;
     private Queue<Match> matches;
-    private Queue<MatchResult> results;
     private MatchResult currentResult;
-    private uint timer = 180;
+    [SerializeField] private uint timer = 60;
+    private GameObject characterManager;
+
+    public static bool isPlayable = false;
+    private bool validTime = true;
+    private float timeLeft = 1f;
 
     private void Awake()
     {
         instance = this;
-
         matches = new Queue<Match>();
         matches.Enqueue(debugMatch);
+        characterManager = GameObject.Find("CharacterManager");
+        ChangeMatch(characterManager.GetComponent<Match>());
+
+
     }
 
     private void Start()
     {
-        StartCoroutine(DecreaseTimer());
+
+    }
+
+    private void Update()
+    {
+
+        if (isPlayable == true && validTime == true)
+        {
+            DecreaseTimer();
+        }
+
+        timeLeft -= Time.deltaTime;
+        if (timeLeft < 0)
+        {
+            validTime = true;
+            timeLeft = 1f;
+        }
     }
 
     /// <summary>
-    /// Fournit les coéquipiers à chaque équipe, les place, et instancie le ballon
+    /// Fournit les coï¿½quipiers ï¿½ chaque ï¿½quipe, les place, et instancie le ballon
     /// </summary>
-    /// <param name="team1">Spermatozoïde n°1</param>
-    /// <param name="team2">Spermatozoïde n°2</param>
+    /// <param name="team1">Spermatozoï¿½de nï¿½1</param>
+    /// <param name="team2">Spermatozoï¿½de nï¿½2</param>
     /// <returns>RIENG</returns>
     public static void BreedMePlease(Team team1, Team team2)
     {
@@ -68,29 +90,24 @@ public class GameManager : MonoBehaviour
         Field.Init(Instantiate(PrefabManager.Ball).GetComponent<Ball>());
     }
 
-    private IEnumerator Match()
+    private void DecreaseTimer()
     {
-        yield return new WaitForSeconds(instance.debugMatchDuration);
-
-        instance.currentResult.duration = instance.debugMatchDuration;
-
-        instance.currentResult.scoreTeam1 = Field.Team2.ConcededGoals;
-        instance.currentResult.scoreTeam2 = Field.Team1.ConcededGoals;
-
-        instance.results.Enqueue(instance.currentResult);
-    }
-
-    private IEnumerator DecreaseTimer()
-    {
-        while (timer > 0)
+        if (isPlayable == true)
         {
-            yield return new WaitForSeconds(1);
             --timer;
+            UIManager.ActualiseTimer(timer);
             if (timer == 0)
             {
-                //timeOut();
+                UIManager.TimeOut();
             }
-            UIManager.ActualiseTimer(timer);
+            validTime = false;
         }
+    }
+
+    public static void ChangeMatch(Match match)
+    {
+        instance.debugMatch = match;
+        instance.matches.Dequeue();
+        instance.matches.Enqueue(match);
     }
 }

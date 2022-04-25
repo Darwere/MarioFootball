@@ -196,7 +196,17 @@ public class Player : MonoBehaviour
     protected void SendObject()
     {
         Item item = Team.GetItem();
-        //item.Create(Team.Brain);
+        GameObject prefab;
+        PrefabManager.PrefabItems.TryGetValue(item, out prefab);
+
+        if(prefab != null)
+        {
+            GameObject itemSpawn = Instantiate(prefab, transform.position, Quaternion.identity);
+            item = itemSpawn.GetComponent<Item>();
+            item.Init(this);
+        }
+
+        //Debug.Log("SendObject");
     }
 
     protected void Dive()
@@ -309,8 +319,19 @@ public class Player : MonoBehaviour
     public void GetTackled()
     {
         State = PlayerState.Falling;
+        animator.SetBool("Moving", false);
         animator.SetTrigger("TackleFall");
         animator.SetBool("Moving", false);
+
+        SongManager.HitSong();
+
+        if (HasBall)
+            Field.Ball.DetachFromParent();
+    }
+
+    public void GetFreeze()
+    {
+        State = PlayerState.Shocked;
 
         if (HasBall)
             Field.Ball.DetachFromParent();
@@ -321,6 +342,8 @@ public class Player : MonoBehaviour
         State = PlayerState.Falling;
         animator.SetTrigger("Knocked");
         animator.SetBool("Moving", false);
+
+        SongManager.HitSong();
 
         if (HasBall)
             Field.Ball.DetachFromParent();
@@ -343,6 +366,11 @@ public class Player : MonoBehaviour
                     player.GetTackled();
                     if (player.HasBall)
                         Field.Ball.DetachFromParent();
+                    else
+                    {
+                        player.Team.GainItem();
+                        //Debug.Log("Gain Item");
+                    }
                 }
             }
         }

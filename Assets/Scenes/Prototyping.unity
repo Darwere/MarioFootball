@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1109798517}
-  m_IndirectSpecularColor: {r: 0.6015607, g: 1.2040995, b: 1.2763661, a: 1}
+  m_IndirectSpecularColor: {r: 0.053772055, g: 0, b: 0.07977288, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -158,6 +158,19 @@ MonoBehaviour:
   Score1: {fileID: 1904148880}
   Score2: {fileID: 1011975203}
   Timer: {fileID: 1609452269}
+  Item1P1: {fileID: 0}
+  Item2P1: {fileID: 0}
+  Item1P2: {fileID: 0}
+  Item2P2: {fileID: 0}
+  Score1End: {fileID: 0}
+  Score2End: {fileID: 0}
+  image: {fileID: 0}
+  Camera: {fileID: 0}
+  CanvasEndGame: {fileID: 0}
+  CanvasPause: {fileID: 0}
+  MusicEnd: {fileID: 0}
+  MusicPause: {fileID: 0}
+  AudiosGame: []
 --- !u!114 &70903255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1079,7 +1092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMatch: {fileID: 1642756264}
-  debugMatchDuration: 60
+  timer: 60
 --- !u!4 &1642756263
 Transform:
   m_ObjectHideFlags: 0
@@ -1125,6 +1138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 1283181898224286938, guid: 5f9a23016bc8ab94fb2a55df45b2bfa2, type: 3}
+  prefabItemsReference: []
 --- !u!114 &1642756266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1428,7 +1442,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1928875216}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: -0.3, y: -15.42, z: -9.81}
+  m_LocalPosition: {x: -0.3, y: -10, z: -9.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2104547215}
@@ -1564,7 +1578,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2022457960}
   m_LocalRotation: {x: 0.3864819, y: 0, z: 0, w: 0.92229706}
-  m_LocalPosition: {x: -0.3, y: 16.98334, z: -23.013355}
+  m_LocalPosition: {x: -0.3, y: 22.378643, z: -22.49655}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

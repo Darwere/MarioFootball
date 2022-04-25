@@ -14,6 +14,8 @@ public class Team : MonoBehaviour
     public Type GoalBrainType => Type.GetType(agoalBrainType);
 
     [SerializeField] private string aPilotedBrainType;
+
+    [SerializeField] private GameObject goalEffect;
     public Type PilotedBrainType => Type.GetType(aPilotedBrainType);
 
     public Player[] Players { get; private set; }
@@ -27,7 +29,7 @@ public class Team : MonoBehaviour
     public Transform[] ShootPoint => ShootPoints;
 
     private Queue<Item> items;
-    private int itemCapacity = 3;
+    private int itemCapacity = 2;
 
 
     [SerializeField] private GameObject pilotedIndicatorPrefab;
@@ -55,7 +57,21 @@ public class Team : MonoBehaviour
     /// </summary>
     public void GainItem()
     {
+        if(items.Count < itemCapacity)
+        {
+            int index = UnityEngine.Random.Range(0, PrefabManager.Item.Count);
+            Item script = PrefabManager.Item[index];
+            items.Enqueue(script);
+            GameObject item;
+            PrefabManager.PrefabItems.TryGetValue(script, out item);
 
+            if(item != null)
+            {
+                script = item.GetComponent<Item>();
+                UIManager.PlaceItem(this, script.sprite);
+            }
+            
+        }
     }
 
     /// <summary>
@@ -64,6 +80,7 @@ public class Team : MonoBehaviour
     /// <returns>L'item supprim�</returns>
     public Item GetItem()
     {
+        UIManager.RemoveItem(this);
         return items.Dequeue();
     }
 
@@ -190,6 +207,7 @@ public class Team : MonoBehaviour
             player.StartPlaying();
         }
         Goal.StartPlaying();
+        GameManager.isPlayable = true;
     }
 
     private IEnumerator NewKickOff()
@@ -199,12 +217,19 @@ public class Team : MonoBehaviour
         Field.SetTeamPosition(this);
     }
 
+    public void SetIABrain()
+    {
+        aPilotedBrainType = "OpponentTree";
+    }
     private void OnCollisionEnter(Collision collision)
     {
         Ball ball = collision.gameObject.GetComponent<Ball>();
         if (ball != null)
         {
             ++ConcededGoals;
+            SongManager.GoalSong();
+            GameObject particule = Instantiate(goalEffect, transform.position, Quaternion.identity);
+            Destroy(particule, 0.3f);
             UIManager.ActualiseScore();
             StartCoroutine(NewKickOff());
         }

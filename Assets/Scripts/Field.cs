@@ -16,7 +16,7 @@ public class Field : MonoBehaviour
     [SerializeField] private List<Transform> attackPos;
     [SerializeField] private List<Transform> defPos;
 
-
+    public static int test =2;
     public static Team Team1 => instance.team1;
     public static Team Team2 => instance.team2;
 

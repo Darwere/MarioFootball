@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpikeTurtle : Item
 {
@@ -14,7 +15,7 @@ public class SpikeTurtle : Item
 
     private void Start()
     {
-        direction = transform.forward;
+        ColliderOff(0.2f);
     }
     private void Update()
     {
@@ -51,5 +52,10 @@ public class SpikeTurtle : Item
             transform.LookAt(direction);
             countWallHit++;
         }
+    }
+
+    public override void Init(Player player)
+    {
+        direction = player.transform.forward;
     }
 }

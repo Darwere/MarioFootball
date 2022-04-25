@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GreenTurtleShell : Item
 {
@@ -14,7 +15,7 @@ public class GreenTurtleShell : Item
 
     private void Start()
     {
-        direction = transform.forward;
+        ColliderOff(0.2f);
     }
     private void Update()
     {
@@ -30,6 +31,11 @@ public class GreenTurtleShell : Item
     protected override void Move()
     {
         transform.position += direction*Time.deltaTime*speed;
+    }
+
+    public override void Init(Player player)
+    {
+        direction = player.transform.forward;
     }
 
     protected override void OnCollisionEnter(Collision collision)

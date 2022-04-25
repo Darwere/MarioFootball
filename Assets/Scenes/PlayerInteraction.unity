@@ -1874,6 +1874,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 1897170763986732827, guid: 5f9a23016bc8ab94fb2a55df45b2bfa2, type: 3}
+  prefabItemsReference:
+  - {fileID: 5623886065827476684, guid: fc2c4430f6d6e724d95507f5d2d2de5d, type: 3}
+  - {fileID: 2345695945905484658, guid: ac96fc3626640f84f9aa03520c5d9c93, type: 3}
+  - {fileID: 6782870734963530175, guid: 4757066dd4867b04c90f3d068a9983ca, type: 3}
+  - {fileID: 6031591382451120485, guid: bc0873f0f53a23841adfdb953cc9501f, type: 3}
+  - {fileID: 9107408767414607890, guid: 7296f3f8a5c56074888d9627f5c928b2, type: 3}
 --- !u!114 &1642756266
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -122,11 +122,11 @@ public class InputBrain : PlayerBrain
         action = act;
     }
 
-    public void Debugger(InputAction.CallbackContext input)
+    public void Pause(InputAction.CallbackContext input)
     {
         if (!input.performed)
             return;
 
-        Debug.Log("PlayerName : " + Player.name + " State : " + Player.State);
+        UIManager.ActiveMenuPause();
     }
 }
