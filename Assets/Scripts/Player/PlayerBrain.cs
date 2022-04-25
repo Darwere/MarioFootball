@@ -10,7 +10,6 @@ public abstract class PlayerBrain : MonoBehaviour
     protected Team Enemies => Allies == Field.Team1 ? Field.Team2 : Field.Team1;
 
     protected PlayerAction action;
-    protected Dictionary<PlayerAction.ActionType, Action> actionMethods = new Dictionary<PlayerAction.ActionType, Action>();
 
     public virtual void Init()
     {

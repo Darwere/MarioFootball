@@ -58,17 +58,14 @@ namespace GoalTreeSpace
             float arrestPenality = gap / interval;
             float arrestRoll = Random.Range(0f, 1f);
 
-            Debug.Log("intercept Position" + intersectPoint + " intercept Time"+ intersectTime + " intercept Distance " + distance);
             if (arrestRoll < 1f - arrestPenality)
             {
-                Debug.Log(goal.name + " Succes");
                 root.SetData("canSave", true);
                 root.SetData("destination", position);
                 state = NodeState.Succes;
             }
             else
             {
-                Debug.Log(goal.name + " Failure");
                 root.SetData("canSave", false);
                 state = NodeState.Failure;
             }
@@ -115,7 +112,6 @@ namespace GoalTreeSpace
             float duration = Field.Ball.Duration;
             float bezierPercent = 0;
             bool condition;
-            Debug.Log(bezierPoint);
             do
             {
                 bezierPercent += Time.deltaTime / duration;

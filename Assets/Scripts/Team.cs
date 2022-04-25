@@ -7,29 +7,28 @@ using System.Collections;
 public class Team : MonoBehaviour
 {
     [SerializeField] private string ateamBrainType;
-
     public Type TeamBrainType => Type.GetType(ateamBrainType);
 
     [SerializeField] private string agoalBrainType;
     public Type GoalBrainType => Type.GetType(agoalBrainType);
 
     [SerializeField] private string aPilotedBrainType;
+    public Type PilotedBrainType => Type.GetType(aPilotedBrainType);
 
     [SerializeField] private GameObject goalEffect;
-    public Type PilotedBrainType => Type.GetType(aPilotedBrainType);
 
     public Player[] Players { get; private set; }
     public PlayerBrain[] Brains { get; private set; }
     public Player Goal { get; private set; }
 
-    public int ConcededGoals;
+    public int ConcededGoals { get; private set; }
     public PlayerBrain Brain { get; private set; }
-    [SerializeField]
-    private Transform[] ShootPoints;
+
+    [SerializeField] private Transform[] ShootPoints;
     public Transform[] ShootPoint => ShootPoints;
 
     private Queue<Item> items;
-    private int itemCapacity = 2;
+    [SerializeField] private int itemCapacity = 2;
     public float ItemCount => items.Count;
 
     [SerializeField] private GameObject pilotedIndicatorPrefab;
@@ -52,7 +51,7 @@ public class Team : MonoBehaviour
     }
 
     /// <summary>
-    /// Ajoute un item � la file d'items de l'�quipe, dans le cas o� celle-ci n'est pas pleine
+    /// Ajoute un item � la file d'items de l'�quipe, dans le cas ou celle-ci n'est pas pleine
     /// </summary>
     public void GainItem()
     {
@@ -74,7 +73,7 @@ public class Team : MonoBehaviour
     }
 
     /// <summary>
-    /// Supprime l'item le plus ancien de la file d'items de l'�quipe
+    /// Supprime l'item le plus ancien de la file d'items de l'equipe
     /// </summary>
     /// <returns>L'item supprim�</returns>
     public Item GetItem()
@@ -182,6 +181,8 @@ public class Team : MonoBehaviour
         pilotedIndicator.transform.localPosition = Vector3.zero + indicatorOffSet;
     }
 
+    #region KickOffFunction
+
     public void WaitKickOff()
     {
         foreach(Player player in Players)
@@ -216,10 +217,13 @@ public class Team : MonoBehaviour
         Field.SetTeamPosition(this);
     }
 
+    #endregion
+
     public void SetIABrain()
     {
         aPilotedBrainType = "OpponentTree";
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         Ball ball = collision.gameObject.GetComponent<Ball>();

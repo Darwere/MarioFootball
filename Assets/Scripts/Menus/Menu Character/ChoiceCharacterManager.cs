@@ -26,7 +26,7 @@ public class ChoiceCharacterManager : MonoBehaviour
       
 
             Debug.Log("bonjour");
-            SceneManager.LoadScene("Ball",LoadSceneMode.Single);
+            SceneManager.LoadScene("Game",LoadSceneMode.Single);
 
         }
     }

@@ -11,11 +11,7 @@ public class Ball : MonoBehaviour
     public Vector3 StartingPoint { get; private set; }
     public Vector3 Destination { get; private set; }
     public Vector3 BezierPoint { get; private set; }
-    private float force;
-    private bool trail;
     private bool isFree = true;
-    private Color trailColorBegin;
-    private Color trailColorEnd;
     private Rigidbody rbBall;
 
     public float Duration { get; private set; }
@@ -105,6 +101,7 @@ public class Ball : MonoBehaviour
     {
         int posCageIndex = Random.Range(0, (shootPos.Length));
         Transform posCage = shootPos[posCageIndex];
+
         if (posCage.position.z < 0)
         {
             minBezierZ = posCage.position.z * 2;
@@ -115,7 +112,9 @@ public class Ball : MonoBehaviour
             minBezierZ = -(posCage.position.z * 2);
             maxBezierZ = posCage.position.z * 2;
         }
+
         float randomBezier = Random.Range(minBezierZ, maxBezierZ);
+
         if (posCage.position.z < 0)
         {
             while (randomBezier > posCage.position.z && randomBezier < -posCage.position.z)
@@ -130,9 +129,12 @@ public class Ball : MonoBehaviour
                 randomBezier = Random.Range(minBezierZ, maxBezierZ);
             }
         }
+
         Vector3 vecInterpolation = new Vector3((posCage.position.x), posCage.position.y + 4f, randomBezier);
         Move(2, transform.position, posCage.position, vecInterpolation);
+
         DetachFromParent();
+
         ShootPoint = posCage.position;
         GotShooted = true;
     }
