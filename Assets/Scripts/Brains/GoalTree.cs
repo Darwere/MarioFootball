@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 public class GoalTree : MyTree
 {
-    float goalRadius = 12f;
+    float goalRadius = 6f;
     float rangeDetection = 4f;
 
-    float saveRange = 1f;
-    float mightSaveRange = 2f;
+    float saveRange = 4f;
+    float mightSaveRange = 8f;
 
     protected override Node SetUpTree()
     {
@@ -44,8 +44,15 @@ public class GoalTree : MyTree
             new BallGotShooted(),
             new Selector(new List<Node>
             {
-                //new CanSaveGoal(Player, saveRange, mightSaveRange),
-                new MoveToStopGoal(Player)
+                new Sequence(new List<Node>
+                {
+                    new CanSaveGoal(Player, saveRange, mightSaveRange),
+                    new Selector(new List<Node> 
+                    {
+                        //new MoveToStopGoal(Player),
+                        new Dive(Player)
+                    })
+                })
             })
         });
     }

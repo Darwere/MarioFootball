@@ -12,7 +12,7 @@ namespace OpponentTreeSpace
             PlayerAction action;
 
             Vector3 direction = (target.transform.position - player.transform.position).normalized;
-            action = PlayerAction.Pass(direction, player.transform.position, target.transform.position, 2f, target);
+            action = PlayerAction.Pass(direction, player.transform.position, target.transform.position, target);
 
             Node root = GetRootNode();
             root.SetData("action", action);

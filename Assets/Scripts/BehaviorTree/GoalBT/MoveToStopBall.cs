@@ -14,18 +14,23 @@ namespace GoalTreeSpace
 
         public override NodeState Evaluate()
         {
-            Vector3 direction = Field.Ball.ShootPoint - goal.transform.position;
-            direction.y = 0;
-            direction.x = 0;
-
-            Debug.Log(direction);
-
-            PlayerAction action = PlayerAction.Move(direction.normalized);
+            Vector3 destination = (Vector3)GetData("destination");
+            Vector3 direction = destination - goal.transform.position;
             Node root = GetRootNode();
-            root.SetData("action", action);
+            PlayerAction action = new PlayerAction();
 
-            state = NodeState.Succes;
-            return state;
+            if (direction.sqrMagnitude < 1f)
+            {
+                state = NodeState.Failure;
+                return state;
+            }    
+            else
+            {
+                action = PlayerAction.Move(direction.normalized);
+                root.SetData("action", action);
+                state = NodeState.Succes;
+                return state;
+            }
         }
     }
 }

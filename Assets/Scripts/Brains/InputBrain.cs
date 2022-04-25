@@ -47,7 +47,7 @@ public class InputBrain : PlayerBrain
         if (Player.HasBall && (Player.CanMove || Player.IsKickOff))
         {
             targetPlayer = Allies.GetPlayerWithDirection(startPos, direction, 180f);
-            act = PlayerAction.Pass(direction, Field.Ball.transform.position, targetPlayer.transform.position, 1f, targetPlayer); //Pass
+            act = PlayerAction.Pass(direction, Field.Ball.transform.position, targetPlayer.transform.position, targetPlayer); //Pass
         }
         else
         {

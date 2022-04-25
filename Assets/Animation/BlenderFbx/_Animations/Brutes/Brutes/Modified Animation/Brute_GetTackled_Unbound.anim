@@ -86430,7 +86430,7 @@ AnimationClip:
     intParameter: 1
     messageOptions: 0
   - time: 2.3
-    functionName: 
+    functionName: StartMoving
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

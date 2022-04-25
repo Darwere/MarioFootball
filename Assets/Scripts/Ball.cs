@@ -8,9 +8,9 @@ public class Ball : MonoBehaviour
     public bool GotShooted { get; private set; }
     public Vector3 ShootPoint { get; private set; }
 
-    private Vector3 startingPoint;
-    private Vector3 destination;
-    private Vector3 bezierPoint;
+    public Vector3 StartingPoint { get; private set; }
+    public Vector3 Destination { get; private set; }
+    public Vector3 BezierPoint { get; private set; }
     private float force;
     private bool trail;
     private bool isFree = true;
@@ -18,7 +18,7 @@ public class Ball : MonoBehaviour
     private Color trailColorEnd;
     private Rigidbody rbBall;
 
-    private float duration;
+    public float Duration { get; private set; }
     private float bezierPercent;
     private bool isMovable = false;
     private float minBezierZ;
@@ -34,7 +34,7 @@ public class Ball : MonoBehaviour
     {
         if (isMovable)
         {
-            transform.position = Bezier(startingPoint, destination, bezierPoint, duration);
+            transform.position = Bezier(StartingPoint, Destination, BezierPoint, Duration);
         }
     }
 
@@ -42,10 +42,10 @@ public class Ball : MonoBehaviour
     {
         isMovable = true;
         bezierPercent = 0;
-        this.duration = duration;
-        this.startingPoint = startingPoint + offset;
-        this.destination = destination+ offset;
-        this.bezierPoint = bezierPoint;
+        this.Duration = duration;
+        this.StartingPoint = startingPoint + offset;
+        this.Destination = destination+ offset;
+        this.BezierPoint = bezierPoint;
         DetachFromParent();
     }
 
@@ -77,6 +77,7 @@ public class Ball : MonoBehaviour
     //A enleverrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr//
     public void Restart()
     {
+        GotShooted = false;
         isMovable = false;
         transform.position = new Vector3(0, 0.6f, 0);
     }
@@ -111,7 +112,7 @@ public class Ball : MonoBehaviour
             }
         }
         Vector3 vecInterpolation = new Vector3((posCage.position.x), posCage.position.y + 4f, randomBezier);
-        Move(1, transform.position, posCage.position, vecInterpolation);
+        Move(2, transform.position, posCage.position, vecInterpolation);
         DetachFromParent();
         ShootPoint = posCage.position;
         GotShooted = true;

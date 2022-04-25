@@ -1132,7 +1132,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8919147648245196701}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_Children:
@@ -1140,7 +1140,7 @@ Transform:
   - {fileID: 7255964832615946428}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!95 &8641151868374273592
 Animator:
   serializedVersion: 3
@@ -1151,7 +1151,7 @@ Animator:
   m_GameObject: {fileID: 8919147648245196701}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: cef3984e46e7be54988ae06d1154bb19, type: 3}
-  m_Controller: {fileID: 22100000, guid: 51c1dcf718f11d74184101a65c163f0e, type: 2}
+  m_Controller: {fileID: 22100000, guid: 8df9ceb2576f58642a3b8c74dc4d97eb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1218,7 +1218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   specs: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
-  animator: {fileID: -5268571838765261870, guid: 180868767417ef44b893538cdb0e67e2, type: 3}
+  animator: {fileID: 8641151868374273592}
   tackleAnimation: {fileID: 7400000, guid: 095f97a249c2cfe408af5e5b9f2c9da9, type: 2}
   IABrain: {fileID: 0}
 --- !u!1 &8970451277657390277
