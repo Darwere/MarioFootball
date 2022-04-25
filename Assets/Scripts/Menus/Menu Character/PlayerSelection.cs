@@ -120,8 +120,12 @@ public class PlayerSelection : MonoBehaviour
     void DeselectionCharacterUI(GameObject characterSelected)
     {
         characterSelected.GetComponent<Image>().color = Color.black;
-        prefabCharacterSelected.transform.Rotate(new Vector3(0f, -15 * prefabCharacterSelected.GetComponent<TurnObject>().speed, 0f));
-        rotationVisualization = prefabCharacterSelected.transform.rotation;
+        if (prefabCharacterSelected)
+        {
+            if (prefabCharacterSelected.GetComponent<TurnObject>())
+                prefabCharacterSelected.transform.Rotate(new Vector3(0f, -15 * prefabCharacterSelected.GetComponent<TurnObject>().speed, 0f));
+            rotationVisualization = prefabCharacterSelected.transform.rotation;
+        }
         //Debug.Log(rotationVisualization);
         Destroy(prefabCharacterSelected);
     }
@@ -219,9 +223,5 @@ public class PlayerSelection : MonoBehaviour
             }
             hasValidated = true;
         }
-<<<<<<< Updated upstream
-        
-=======
->>>>>>> Stashed changes
     }
 }
