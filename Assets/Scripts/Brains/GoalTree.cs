@@ -6,10 +6,9 @@ using System.Collections.Generic;
 public class GoalTree : MyTree
 {
     float goalRadius = 6f;
-    float rangeDetection = 4f;
 
     float saveRange = 4f;
-    float mightSaveRange = 8f;
+    float mightSaveRange = 10f;
 
     protected override Node SetUpTree()
     {

@@ -212,6 +212,7 @@ public class Player : MonoBehaviour
 
     private void Dive()
     {
+        Debug.Log("Dive");
         Vector3 direction = lastAction.direction;
         float angle = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
         StartWaiting();

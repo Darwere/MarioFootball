@@ -11,6 +11,8 @@ public class Ball : MonoBehaviour
     public Vector3 StartingPoint { get; private set; }
     public Vector3 Destination { get; private set; }
     public Vector3 BezierPoint { get; private set; }
+
+    public bool InGoal = false;
     private bool isFree = true;
     private Rigidbody rbBall;
 
@@ -157,6 +159,7 @@ public class Ball : MonoBehaviour
         transform.position = parent.transform.position + parent.transform.forward;// + Vector3.up * transform.position.y;
         isFree = false;
         GotShooted = false;
+        InGoal = false;
         ResetVelocity();
         player.Team.ChangePilotedPlayer(player);
 

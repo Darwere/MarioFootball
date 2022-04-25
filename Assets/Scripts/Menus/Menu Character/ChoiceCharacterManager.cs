@@ -22,12 +22,7 @@ public class ChoiceCharacterManager : MonoBehaviour
     {
         if(player0Chose && player1Chose)
         {
-
-      
-
-            Debug.Log("bonjour");
             SceneManager.LoadScene("Game",LoadSceneMode.Single);
-
         }
     }
     

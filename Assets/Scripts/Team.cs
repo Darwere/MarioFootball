@@ -227,8 +227,9 @@ public class Team : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Ball ball = collision.gameObject.GetComponent<Ball>();
-        if (ball != null)
+        if (ball != null && !ball.InGoal)
         {
+            ball.InGoal = true;
             ++ConcededGoals;
             SongManager.GoalSong();
             GameObject particule = Instantiate(goalEffect, transform.position, Quaternion.identity);
