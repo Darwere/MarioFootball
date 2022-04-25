@@ -43,6 +43,8 @@ public class OpponentTree : MyTree
 
     #region BranchCreation
 
+
+
     private Node HasBallBranch()
     {
         return new Sequence(new List<Node>
@@ -74,11 +76,26 @@ public class OpponentTree : MyTree
         return new Sequence(new List<Node>
             {
                 new OpponentInRange(rangeDetection, Enemies),
-                new Sequence(new List<Node>
+                new Selector(new List<Node>
                 {
-                    new AllieFree(Allies, Enemies, angleDetection),
-                    new Pass()
+                    ItemBranch(),
+                    new Sequence(new List<Node>
+                    {
+                        new AllieFree(Allies, Enemies, angleDetection),
+                        new Pass()
+                    })
                 })
+                
+            });
+    }
+
+    private Node ItemBranch()
+    {
+        return new Sequence(new List<Node>
+            {
+                new GotITem(),
+                new PlayerInFront(Enemies, rangeDetection, 90f),
+                new ThrowItem()
             });
     }
 
@@ -93,11 +110,14 @@ public class OpponentTree : MyTree
 
     private Node TackleBranch()
     {
-        return new Sequence(new List<Node>
-            {
-                new BallInRange(Player.Species.tackleRange * 2/3), //reduce range for a better takcle interaction
-                new BallIsNotFree(),
-                new Tackle()
+        return new Selector(new List<Node> {
+                new Sequence(new List<Node>
+                {
+                    new BallInRange(Player.Species.tackleRange * 2/3), //reduce range for a better takcle interaction
+                    new BallIsNotFree(),
+                    new Tackle()
+                }),
+                ItemBranch()
             });
     }
 

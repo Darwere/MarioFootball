@@ -30,12 +30,11 @@ public class Team : MonoBehaviour
 
     private Queue<Item> items;
     private int itemCapacity = 2;
-
+    public float ItemCount => items.Count;
 
     [SerializeField] private GameObject pilotedIndicatorPrefab;
     private GameObject pilotedIndicator;
     private Vector3 indicatorOffSet;
-    private object goalBrain;
 
     private void Awake()
     {
@@ -231,7 +230,19 @@ public class Team : MonoBehaviour
             GameObject particule = Instantiate(goalEffect, transform.position, Quaternion.identity);
             Destroy(particule, 0.3f);
             UIManager.ActualiseScore();
+
+            for(int i = 0; i < Players.Length; i++)
+            {
+                Field.Team1.Players[i].StartWaiting();
+                Field.Team2.Players[i].StartWaiting();
+            }
+            Field.Team1.Goal.StartWaiting();
+            Field.Team2.Goal.StartWaiting();
+
+
             StartCoroutine(NewKickOff());
+
+            Debug.Log("Goal!!");
         }
     }
 

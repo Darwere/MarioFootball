@@ -268,14 +268,15 @@ public class Player : MonoBehaviour
 
     public void StartMoving()
     {
-        Debug.Log("Player Name : " + name);
-        State = PlayerState.Moving;
+        if(State != PlayerState.KickOff)
+            State = PlayerState.Moving;
     }
 
     public void StartWaiting()
     {
         animator.SetBool("Moving", false);
         State = PlayerState.Waiting;
+        animator.SetBool("Moving", false);
     }
 
     public void CheckPlayerHit()
