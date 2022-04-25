@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Ball : MonoBehaviour
 {
-    public bool GotShooted { get; private set; }
+    public bool GotShooted  { get; private set; }
     public Vector3 ShootPoint { get; private set; }
 
     public Vector3 StartingPoint { get; private set; }
@@ -29,6 +29,7 @@ public class Ball : MonoBehaviour
     private void Awake()
     {
         rbBall = GetComponent<Rigidbody>();
+        GotShooted = false;
     }
     private void Update()
     {

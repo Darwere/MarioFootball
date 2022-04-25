@@ -50,7 +50,6 @@ public class Player : MonoBehaviour
     public static Player CreatePlayer(GameObject prefab, Team team, bool isGoalKeeper = false)
     {
         Player player = Instantiate(prefab).GetComponent<Player>();
-
         Component brain = player.gameObject.AddComponent(isGoalKeeper ? team.GoalBrainType : team.TeamBrainType);
 
         player.IABrain = (PlayerBrain)player.GetComponent(brain.GetType());
@@ -203,11 +202,11 @@ public class Player : MonoBehaviour
     protected void Dive()
     {
         Vector3 direction = lastAction.direction;
-        float angle = Vector3.SignedAngle(transform.forward, direction, Vector3.forward);
+        float angle = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
         Debug.Log(angle);
         StartWaiting();
         animator.SetFloat("Dive", angle);
-        animator.SetBool("Diving", true);
+        animator.SetTrigger("Diving");
     }
 
     #endregion
@@ -252,11 +251,13 @@ public class Player : MonoBehaviour
 
     public void StartMoving()
     {
+        Debug.Log("Player Name : " + name);
         State = PlayerState.Moving;
     }
 
     public void StartWaiting()
     {
+        animator.SetBool("Moving", false);
         State = PlayerState.Waiting;
     }
 

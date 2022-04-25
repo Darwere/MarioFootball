@@ -121,4 +121,12 @@ public class InputBrain : PlayerBrain
         PlayerAction act = PlayerAction.Throw(direction);
         action = act;
     }
+
+    public void Debugger(InputAction.CallbackContext input)
+    {
+        if (!input.performed)
+            return;
+
+        Debug.Log("PlayerName : " + Player.name + " State : " + Player.State);
+    }
 }

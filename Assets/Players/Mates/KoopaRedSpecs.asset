@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b18ff61a2fb884a906898fb289f729, type: 3}
   m_Name: KoopaRedSpecs
   m_EditorClassIdentifier: 
-  name: KoopaRed
+  name: Koopa
   weight: 60
   accuracy: 0.7
   speed: 12

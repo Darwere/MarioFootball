@@ -52,7 +52,8 @@ public class GoalTree : MyTree
                         //new MoveToStopGoal(Player),
                         new Dive(Player)
                     })
-                })
+                }),
+                new DontMove()
             })
         });
     }

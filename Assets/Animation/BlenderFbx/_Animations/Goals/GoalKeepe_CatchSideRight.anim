@@ -102202,7 +102202,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 3.2333333
-    functionName: 
+    functionName: StartMoving
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -393,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e97a61de2da7449b048b89ee980f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specs: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
+  specs: {fileID: 11400000, guid: 752fedc63527819409272ca41cde2c43, type: 2}
   animator: {fileID: 4775556384013652522}
   tackleAnimation: {fileID: 7400000, guid: 095f97a249c2cfe408af5e5b9f2c9da9, type: 2}
   IABrain: {fileID: 0}
