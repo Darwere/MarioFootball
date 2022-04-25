@@ -1595,7 +1595,6 @@ GameObject:
   - component: {fileID: 8165040410716349702}
   - component: {fileID: 1734260373285730232}
   - component: {fileID: 8426825532767904434}
-  - component: {fileID: 4629613979224858688}
   - component: {fileID: 6996246331793514558}
   m_Layer: 0
   m_Name: Yoshi
@@ -1684,22 +1683,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 3
---- !u!114 &4629613979224858688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8594721569831557992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60e97a61de2da7449b048b89ee980f48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  specs: {fileID: 11400000, guid: e32174f7889a0ab429aeae9b2b0b2040, type: 2}
-  animator: {fileID: -5268571838765261870, guid: 180868767417ef44b893538cdb0e67e2, type: 3}
-  tackleAnimation: {fileID: 7400000, guid: 095f97a249c2cfe408af5e5b9f2c9da9, type: 2}
-  IABrain: {fileID: 0}
 --- !u!114 &6996246331793514558
 MonoBehaviour:
   m_ObjectHideFlags: 0
