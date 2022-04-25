@@ -37,8 +37,11 @@ namespace GoalTreeSpace
                 action = PlayerAction.Move(direction);
             }
 
-            else 
-                action = PlayerAction.Move(Vector3.zero);
+            else
+            {
+                action = new PlayerAction();
+                action.type = PlayerAction.ActionType.None;
+            }
 
             Node Root = GetRootNode();
             Root.SetData("action", action);

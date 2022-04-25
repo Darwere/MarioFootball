@@ -50,7 +50,6 @@ public class Player : MonoBehaviour
     public static Player CreatePlayer(GameObject prefab, Team team, bool isGoalKeeper = false)
     {
         Player player = Instantiate(prefab).GetComponent<Player>();
-
         Component brain = player.gameObject.AddComponent(isGoalKeeper ? team.GoalBrainType : team.TeamBrainType);
 
         player.IABrain = (PlayerBrain)player.GetComponent(brain.GetType());
@@ -86,6 +85,7 @@ public class Player : MonoBehaviour
         actionMethods.Add(PlayerAction.ActionType.Dribble, Dribble);
         actionMethods.Add(PlayerAction.ActionType.Headbutt, Headbutt);
         actionMethods.Add(PlayerAction.ActionType.Throw, SendObject);
+        actionMethods.Add(PlayerAction.ActionType.BlockBall, Dive);
     }
 
     private void Update()
@@ -129,13 +129,21 @@ public class Player : MonoBehaviour
         if (lastAction.direction != Vector3.zero)
             transform.forward = lastAction.direction;
 
+        if (Team.Goal == this)
+        {
+            Vector3 dir = Field.Ball.transform.position - transform.position;
+            dir.y = transform.forward.y;
+            transform.forward = dir.normalized;
+        }
+            
+
         animator.SetBool("Moving", true);
     }
 
     protected void Pass()
     {
         State = PlayerState.Passing;
-        transform.forward = lastAction.direction;
+        transform.forward = (lastAction.target.transform.position - transform.position).normalized;
 
         savedAction = lastAction;
         animator.SetTrigger("Pass");
@@ -191,6 +199,16 @@ public class Player : MonoBehaviour
         //item.Create(Team.Brain);
     }
 
+    protected void Dive()
+    {
+        Vector3 direction = lastAction.direction;
+        float angle = Vector3.SignedAngle(transform.forward, direction, Vector3.up);
+        Debug.Log(angle);
+        StartWaiting();
+        animator.SetFloat("Dive", angle);
+        animator.SetTrigger("Diving");
+    }
+
     #endregion
 
     public IEnumerator Tackling(Vector3 direction)
@@ -209,7 +227,6 @@ public class Player : MonoBehaviour
     public IEnumerator GotHit(Vector3 direction)
     {
         yield return new WaitForEndOfFrame(); //Wait next frame to change the State
-        Debug.Log(State);
         while (State == PlayerState.Falling)
         {
             transform.position += direction * 1.5f * Time.deltaTime;
@@ -234,11 +251,13 @@ public class Player : MonoBehaviour
 
     public void StartMoving()
     {
+        Debug.Log("Player Name : " + name);
         State = PlayerState.Moving;
     }
 
     public void StartWaiting()
     {
+        animator.SetBool("Moving", false);
         State = PlayerState.Waiting;
     }
 
@@ -291,6 +310,7 @@ public class Player : MonoBehaviour
     {
         State = PlayerState.Falling;
         animator.SetTrigger("TackleFall");
+        animator.SetBool("Moving", false);
 
         if (HasBall)
             Field.Ball.DetachFromParent();
@@ -300,6 +320,7 @@ public class Player : MonoBehaviour
     {
         State = PlayerState.Falling;
         animator.SetTrigger("Knocked");
+        animator.SetBool("Moving", false);
 
         if (HasBall)
             Field.Ball.DetachFromParent();

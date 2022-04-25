@@ -14,7 +14,8 @@ public struct PlayerAction
         Headbutt,
         Dribble,
         Throw,
-        ChangePlayer
+        ChangePlayer,
+        BlockBall
     }
 
     public ActionType type;
@@ -39,7 +40,7 @@ public struct PlayerAction
         return action;
     }
 
-    public static PlayerAction Pass(Vector3 direction, Vector3 startPosition, Vector3 endPosition, float duration, Player targetPlayer)
+    public static PlayerAction Pass(Vector3 direction, Vector3 startPosition, Vector3 endPosition, Player targetPlayer)
     {
         PlayerAction action = new PlayerAction();
         action.type = ActionType.Pass;
@@ -47,15 +48,15 @@ public struct PlayerAction
         action.startPosition = startPosition;
         action.endPosition = endPosition;
         action.bezierPoint = (endPosition + startPosition) / 2;
-        action.duration = duration;
+        action.duration = Random.Range(0.5f, 1.25f);
         action.target = targetPlayer;
 
         return action;
     }
 
-    public static PlayerAction Pass(Vector3 direction, Vector3 startPosition, Vector3 endPosition, Vector3 bezeierPoint, float duration, Player targetPlayer)
+    public static PlayerAction Pass(Vector3 direction, Vector3 startPosition, Vector3 endPosition, Vector3 bezeierPoint, Player targetPlayer)
     {
-        PlayerAction action = PlayerAction.Pass(direction, startPosition, endPosition, duration, targetPlayer);
+        PlayerAction action = PlayerAction.Pass(direction, startPosition, endPosition, targetPlayer);
         action.type = ActionType.Pass;
         action.bezierPoint = bezeierPoint;
 
@@ -111,6 +112,15 @@ public struct PlayerAction
         PlayerAction action = new PlayerAction();
         action.type = ActionType.ChangePlayer;
         action.target = targetPlayer;
+
+        return action;
+    }
+
+    public static PlayerAction BlockBall(Vector3 direction)
+    {
+        PlayerAction action = new PlayerAction();
+        action.type = ActionType.BlockBall;
+        action.direction = direction;
 
         return action;
     }
