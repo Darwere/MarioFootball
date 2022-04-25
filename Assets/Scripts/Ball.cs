@@ -26,6 +26,8 @@ public class Ball : MonoBehaviour
     private Vector3 offset = new Vector3 (0,0.5f,0);
     private Player player = new Player();
 
+    private float angle = 60f;
+
     private void Awake()
     {
         rbBall = GetComponent<Rigidbody>();
@@ -50,6 +52,21 @@ public class Ball : MonoBehaviour
         DetachFromParent();
     }
 
+    private Vector3 BallisticVelocity(Vector3 destination, float angle)
+    {
+        Vector3 dir = destination - transform.position; // get Target Direction
+        float height = dir.y; // get height difference
+        dir.y = 0; // retain only the horizontal difference
+        float dist = dir.magnitude; // get horizontal direction
+        float a = angle * Mathf.Deg2Rad; // Convert angle to radians
+        dir.y = dist * Mathf.Tan(a); // set dir to the elevation angle.
+        dist += height / Mathf.Tan(a); // Correction for small height differences
+
+        // Calculate the velocity magnitude
+        float velocity = Mathf.Sqrt(dist * Physics.gravity.magnitude / Mathf.Sin(2 * a));
+        return velocity * dir.normalized; // Return a normalized vector.
+    }
+
     public Vector3 Bezier(Vector3 startingPoint, Vector3 destination, Vector3 bezierPoint, float duration)
     {
         bezierPercent += Time.deltaTime / duration;
@@ -65,6 +82,7 @@ public class Ball : MonoBehaviour
     private void ResetVelocity()
     {
         rbBall.velocity = Vector3.zero;
+
     }
 
     /// <summary>
@@ -117,6 +135,16 @@ public class Ball : MonoBehaviour
         DetachFromParent();
         ShootPoint = posCage.position;
         GotShooted = true;
+    }
+
+    public void BadShoot(Transform[] shootPos, Vector3  direction)
+    {
+        int posCageIndex = Random.Range(0, (shootPos.Length));
+        Transform posCage = shootPos[posCageIndex];
+        direction = posCage.position - transform.position;
+        DetachFromParent();
+        var velocity = BallisticVelocity(direction, angle)/2;
+        rbBall.velocity = velocity;
     }
 
     public void AttachToPlayer(Player parent)
