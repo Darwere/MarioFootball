@@ -66,7 +66,7 @@ public class InputBrain : PlayerBrain
         if (Player.CanMove)
         {
             if (Player.HasBall)
-                act = PlayerAction.Shoot(2f, direction, Player.transform.position, 2f); //Shoot
+                act = PlayerAction.Shoot(2f, direction, Player.transform.position, 1f); //Shoot
             else
             {
                 //Tackle
