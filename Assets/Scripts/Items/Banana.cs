@@ -28,6 +28,17 @@ public class Banana : Item
         {
             player.GetTackled();
             Destroy(this.gameObject);
+            return;
+        }
+        Ball ball = collision.gameObject.GetComponent<Ball>();
+        if (ball != null)
+        {
+            if (ball.transform.parent != null)
+            {
+                player = ball.transform.parent.gameObject.GetComponent<Player>();
+                player.GetTackled();
+            }
+
         }
     }
 }
