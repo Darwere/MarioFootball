@@ -24,6 +24,9 @@ public class PlayerSelection : MonoBehaviour
     private Quaternion rotationVisualization;
     private AudioSource validateAudio;
     private AudioSource selectionAudio;
+    private AudioSource previousAudio;
+    private GameObject MenuSelection;
+    private GameObject PreviousMenu;
     private GameObject prefabCharacterSelected;
     private GameObject characterSelected;
     private Color colorOtherPlayer;
@@ -39,14 +42,17 @@ public class PlayerSelection : MonoBehaviour
         selectionAudio = CanvasCharacter.instance.SelectionAudio;
         validateAudio = CanvasCharacter.instance.ValidateChoiceAudio;
         rotationVisualization = Quaternion.identity;
+        ChoiceCharacterManager CharacterChoiceManager = GameObject.Find("Character Choice Manager").GetComponent<ChoiceCharacterManager>();
+        MenuSelection =CharacterChoiceManager.MenuCharacterSelection;
+        PreviousMenu = CharacterChoiceManager.PreviousCanvasMenuSelection;
+        previousAudio = CharacterChoiceManager.PreviousCanvasAudio;
+        gameObject.transform.SetParent(MenuSelection.transform, true);
         if (indexPlayer == 0)
         {
             player0 = true;
             colorSelection = SelectionColorPlayer1;
             colorOtherPlayer = SelectionColorPlayer2;
             positionVisualization = PositionVisualizationP1.transform.position;
-
-
         }
         else
         {
@@ -95,6 +101,7 @@ public class PlayerSelection : MonoBehaviour
         selectionAudio.Play();
         characterSelected.GetComponent<Image>().color = colorSelection;
         prefabCharacterSelected = Instantiate(characterSelected.GetComponent<PlayerSpecChoice>().PrefabVisualization, positionVisualization, rotationVisualization);
+        prefabCharacterSelected.transform.SetParent(MenuSelection.transform, true);
     }
 
 
@@ -224,7 +231,10 @@ public class PlayerSelection : MonoBehaviour
 
     public void QuitMenuSelection()
     {
-        DeselectionCharacterUI(CharacterGrid.instance.listCharacters[counterCharacter]);
+        //DeselectionCharacterUI(CharacterGrid.instance.listCharacters[counterCharacter]);
         canValidate = false;
+        previousAudio.Play();
+        PreviousMenu.SetActive(true);
+        MenuSelection.SetActive(false);
     }
 }

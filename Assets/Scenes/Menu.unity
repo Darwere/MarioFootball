@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1558,7 +1558,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &283765356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3989,6 +3989,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player0Chose: 0
   player1Chose: 0
+  MenuCharacterSelection: {fileID: 901343631}
+  PreviousCanvasMenuSelection: {fileID: 1562446083}
+  PreviousCanvasAudio: {fileID: 1259911220}
 --- !u!4 &867535248
 Transform:
   m_ObjectHideFlags: 0
@@ -4222,7 +4225,6 @@ GameObject:
   m_Component:
   - component: {fileID: 901343632}
   - component: {fileID: 901343633}
-  - component: {fileID: 901343634}
   m_Layer: 0
   m_Name: Menu Character Selection 2P
   m_TagString: Untagged
@@ -4253,27 +4255,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901343631}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7c3aa9d55378994185e395c1e4df884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectToActive: {fileID: 283765355}
---- !u!114 &901343634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901343631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90a384bb6220a30458426e227b4e1db0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ActualCanvas: {fileID: 901343631}
-  PreviousCanvasObject: {fileID: 1562446083}
-  PreviousCanvasAudio: {fileID: 1259911220}
 --- !u!1 &910568378
 GameObject:
   m_ObjectHideFlags: 0

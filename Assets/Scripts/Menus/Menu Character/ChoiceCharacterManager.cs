@@ -8,6 +8,10 @@ public class ChoiceCharacterManager : MonoBehaviour
     public bool player0Chose=false;
     public bool player1Chose=false;
 
+    public GameObject MenuCharacterSelection;
+    public GameObject PreviousCanvasMenuSelection;
+    public AudioSource PreviousCanvasAudio;
+
     private void Awake()
     {
         instance = this;
