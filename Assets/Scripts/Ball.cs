@@ -181,4 +181,13 @@ public class Ball : MonoBehaviour
                 AttachToPlayer(player);
         }
     }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        Player player = collision.gameObject.GetComponent<Player>();
+        if (player != null && this.player == player)
+        {
+            player = null;
+        }
+    }
 }
