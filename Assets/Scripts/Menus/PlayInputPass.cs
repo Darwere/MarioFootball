@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayInputPass : MonoBehaviour
 {
-    PlayerInputManager PInputManager;
-    List<PlayerInput> menuPInput = new List<PlayerInput>();
+    public PlayerInputManager PInputManager;
+    public List<PlayerInput> menuPInput = new List<PlayerInput>();
     bool onMenu = true;
 
     GameObject Team1 = null;

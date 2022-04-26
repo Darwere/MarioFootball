@@ -129,7 +129,7 @@ public class PlayerSelectionWithIA : MonoBehaviour
         int randomCharacter = UnityEngine.Random.Range(0, 3);
         while (randomCharacter == counterCharacter)
         {
-            int randomrCharacter = UnityEngine.Random.Range(0, 3);
+            randomCharacter = UnityEngine.Random.Range(0, 3);
 
         }
         counterCharacter = randomCharacter;
