@@ -130,8 +130,8 @@ public class Ball : MonoBehaviour
             }
         }
 
-        Vector3 vecInterpolation = new Vector3((posCage.position.x), posCage.position.y + 4f, randomBezier);
-        Move(2, transform.position, posCage.position, vecInterpolation);
+        Vector3 vecInterpolation = new Vector3((posCage.position.x+transform.parent.position.x)/2, posCage.position.y + 4f, randomBezier);
+        Move(duration, transform.position, posCage.position, vecInterpolation);
 
         DetachFromParent();
 

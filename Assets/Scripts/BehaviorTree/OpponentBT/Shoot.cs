@@ -9,7 +9,7 @@ namespace OpponentTreeSpace
         {
             Vector3 shootDirection = (Vector3)GetData("shootDirection");
             float shootForce = 2f;
-            float duration = 2f;
+            float duration = 1f;
 
             PlayerAction action = PlayerAction.Shoot(shootForce, shootDirection, Field.Ball.transform.position, duration);
             Node root = GetRootNode();
