@@ -51,12 +51,12 @@ public class OpponentTree : MyTree
                 new GotBall(),
                 new Selector(new List<Node>
                 {
-                ShootBranch(),
-                new Selector(new List<Node>
-                {
-                    PassBranch()
-                }),
-                new MoveToGoal(Enemies)
+                    ShootBranch(),
+                    new Selector(new List<Node>
+                    {
+                        PassBranch()
+                    }),
+                    new MoveToGoal(Enemies)
                 })
             });
     }
