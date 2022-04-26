@@ -10,6 +10,8 @@ public class ChoiceGameMode : MonoBehaviour
         if (ModeIA)
         {
             Field.Team2.SetIABrain();
+            ModeIA = false;
+
         }
     }
 
