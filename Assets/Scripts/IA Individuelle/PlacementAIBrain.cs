@@ -639,18 +639,6 @@ public class PlacementAIBrain : PlayerBrain
 
     #region Movement Control Functions
 
-    private void EnableControl()
-    {
-        if (!Data.isAI)
-        {
-            GetComponent<PlayerManager>().enabled = true;
-        }
-        else
-        {
-            GetComponent<PlayerManager>().enabled = false;
-        }
-    }
-
     private void AvoidOtherPlayers()
     {
         if (Data.isAI)
