@@ -83,18 +83,23 @@ public class PlayInputPass : MonoBehaviour
             {
                 InputUser p1 = T1PInput.user;
                 p1.UnpairDevices();
-                foreach (InputDevice device in menuPInput[0].devices)
+                foreach (InputDevice device in menuPInput[0].user.pairedDevices)
                 {
                     InputUser.PerformPairingWithDevice(device, p1);
                 }
 
                 InputUser p2 = T2PInput.user;
                 p2.UnpairDevices();
-                foreach (InputDevice device in menuPInput[1].devices)
+                foreach (InputDevice device in menuPInput[1].user.pairedDevices)
                 {
                     InputUser.PerformPairingWithDevice(device, p2);
                 }
 
+                
+                foreach (PlayerInput pI in menuPInput)
+                {
+                    Destroy(pI.gameObject);
+                }
                 Destroy(this.gameObject);
 
             }
