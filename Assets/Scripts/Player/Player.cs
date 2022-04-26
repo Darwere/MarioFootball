@@ -421,14 +421,10 @@ public class Player : MonoBehaviour
             {
                 if (State == PlayerState.Tackling)
                 {
-                    player.GetTackled();
-                    if (player.HasBall)
-                        Field.Ball.DetachFromParent();
-                    else
-                    {
+                    if (!player.HasBall)
                         player.Team.GainItem();
-                        //Debug.Log("Gain Item");
-                    }
+
+                    player.GetTackled();
                 }
             }
         }
