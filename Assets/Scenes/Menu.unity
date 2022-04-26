@@ -3314,7 +3314,7 @@ MonoBehaviour:
     PlayerSpecs: {fileID: 11400000, guid: 752fedc63527819409272ca41cde2c43, type: 2}
     PrefabVisualization: {fileID: 8594721569831557992, guid: c757ab87c16f1e440ad3d34f82b4127f, type: 3}
   - Name: PEACH
-    Picture: {fileID: 21300000, guid: e56f9862d992bb54e9db7a4eb24c01f6, type: 3}
+    Picture: {fileID: 21300000, guid: 2e7f0cb23e2fd2f4e8c968e3c61d889e, type: 3}
     Offset: {x: 0, y: 0}
     Size: {x: 0, y: 0}
     PlayerSpecs: {fileID: 11400000, guid: 8c178461d5f30d644a3f6fb96c9bc576, type: 2}
@@ -5131,7 +5131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1032065938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5426,7 +5426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1047300744
 Transform:
   m_ObjectHideFlags: 0
