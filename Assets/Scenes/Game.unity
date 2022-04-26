@@ -15723,7 +15723,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Replay
+  m_text: Back To Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -27760,8 +27760,8 @@ MonoBehaviour:
   - {fileID: 1100309091}
   - {fileID: 1727947431}
   ActualCanvas: {fileID: 1435591149}
-  SelectionAudio: {fileID: 0}
-  ValidateAudio: {fileID: 0}
+  SelectionAudio: {fileID: 1540360177}
+  ValidateAudio: {fileID: 959763329}
 --- !u!1 &1169764835
 GameObject:
   m_ObjectHideFlags: 0

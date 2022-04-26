@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
 
     private void backToGame(InputAction.CallbackContext context)
     {
+        Field.UnPause();
         UIManager.BackToGame();
     }
 

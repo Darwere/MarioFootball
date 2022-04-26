@@ -127,6 +127,8 @@ public class InputBrain : PlayerBrain
         if (!input.performed)
             return;
 
+        Time.timeScale = 0;
+        Field.SetPause();
         UIManager.ActiveMenuPause();
     }
 }

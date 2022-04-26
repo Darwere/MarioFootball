@@ -222,6 +222,10 @@ public class Team : MonoBehaviour
     public void SetIABrain()
     {
         aPilotedBrainType = "OpponentTree";
+        Destroy(GetComponent<PlayerBrain>());
+        gameObject.AddComponent(PilotedBrainType);
+        Brain = GetComponent<BehaviorTree.MyTree>();
+        Brain.Init();
     }
 
     private void OnCollisionEnter(Collision collision)

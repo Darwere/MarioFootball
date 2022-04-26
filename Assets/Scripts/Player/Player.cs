@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
         Falling,
         Shocked,
         KickOff,
-        Waiting
+        Waiting,
+        InPause
     }
 
     [SerializeField] private PlayerSpecs specs;
@@ -46,6 +47,8 @@ public class Player : MonoBehaviour
     private Dictionary<PlayerAction.ActionType, Action> actionMethods = new Dictionary<PlayerAction.ActionType, Action>();
     private PlayerAction lastAction = new PlayerAction();
     private PlayerAction savedAction = new PlayerAction(); //for action that trigger with delay
+
+    private PlayerState bufferState = new PlayerState();
 
     public static Player CreatePlayer(GameObject prefab, Team team, bool isGoalKeeper = false)
     {
@@ -206,8 +209,6 @@ public class Player : MonoBehaviour
             item = itemSpawn.GetComponent<Item>();
             item.Init(this);
         }
-
-        //Debug.Log("SendObject");
     }
 
     private void Dive()
@@ -254,7 +255,6 @@ public class Player : MonoBehaviour
 
         while(timer < gettingUpAnimation.length)
         {
-            Debug.Log("gettingUpAnimation");
             timer += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
@@ -263,31 +263,48 @@ public class Player : MonoBehaviour
 
         yield return null;
     }
+
     public void Wait()
     {
-        State = PlayerState.Waiting;
+        if (State == PlayerState.InPause)
+            bufferState = PlayerState.Moving;
+        else
+            State = PlayerState.Waiting;
         StartCoroutine(PassInMovement());
     }
 
     public void KickOff()
     {
-        State = PlayerState.KickOff;
+        if (State == PlayerState.InPause)
+            bufferState = PlayerState.KickOff;
+        else
+            State = PlayerState.KickOff;
     }
 
     public void StartPlaying()
     {
-        State = PlayerState.Moving;
+        if (State == PlayerState.InPause)
+            bufferState = PlayerState.Moving;
+        else
+            State = PlayerState.Moving;
     }
 
     IEnumerator PassInMovement()
     {
         yield return new WaitUntil(() => Field.Ball.transform.parent != null);
-        State = PlayerState.Moving;
+
+        if (State == PlayerState.InPause)
+            bufferState = PlayerState.Moving;
+        else
+            State = PlayerState.Moving;
     }
 
     public void GetTackled()
     {
-        State = PlayerState.Falling;
+        if (State == PlayerState.InPause)
+            bufferState = PlayerState.Falling;
+        else
+            State = PlayerState.Falling;
         animator.SetBool("Moving", false);
         animator.SetTrigger("TackleFall");
         animator.SetBool("Moving", false);
@@ -308,7 +325,11 @@ public class Player : MonoBehaviour
 
     public void GetHeadbutted(Vector3 direction)
     {
-        State = PlayerState.Falling;
+        if (State == PlayerState.InPause)
+            bufferState = PlayerState.Falling;
+        else
+            State = PlayerState.Falling;
+
         animator.SetTrigger("Knocked");
         animator.SetBool("Moving", false);
 
@@ -320,6 +341,37 @@ public class Player : MonoBehaviour
         transform.LookAt(direction);
         StartCoroutine(GotHit(direction));
 
+    }
+
+    public void StartMoving()
+    {
+        if (State != PlayerState.KickOff)
+        {
+            if (State == PlayerState.InPause)
+                bufferState = PlayerState.Moving;
+            else
+                State = PlayerState.Moving;
+        }
+    }
+
+    public void StartWaiting()
+    {
+        if (State == PlayerState.InPause)
+            bufferState = PlayerState.Waiting;
+        else
+            State = PlayerState.Waiting;
+        animator.SetBool("Moving", false);
+    }
+
+    public void Pause()
+    {
+        bufferState = State;
+        State = PlayerState.InPause;
+    }
+
+    public void UnPause()
+    {
+        State = bufferState;
     }
 
     #endregion
@@ -335,18 +387,6 @@ public class Player : MonoBehaviour
             SwitchPlayer();
             savedAction.target.Wait();
         }
-    }
-
-    public void StartMoving()
-    {
-        if(State != PlayerState.KickOff)
-            State = PlayerState.Moving;
-    }
-
-    public void StartWaiting()
-    {
-        State = PlayerState.Waiting;
-        animator.SetBool("Moving", false);
     }
 
     public void CheckPlayerHit()

@@ -70,7 +70,7 @@ public class Field : MonoBehaviour
         heightFiveSixths = topLeftCorner.x + height * 5f / 6f;
         attackTeam = Team1;
         defTeam = Team2;
-        GameManager.BreedMePlease(team1, team2);
+        GameManager.Init(team1, team2);
 
 
     }
@@ -142,6 +142,28 @@ public class Field : MonoBehaviour
     public Vector3 XAxisSymmetry(Vector3 initial)
     {
         return new Vector3(-initial.x, initial.y, initial.z);
+    }
+
+    public static void SetPause()
+    {
+        for(int i =0; i < instance.team1.Players.Length; i++)
+        {
+            instance.team1.Players[i].Pause();
+            instance.team2.Players[i].Pause();
+        }
+        instance.team1.Goal.Pause();
+        instance.team2.Goal.Pause();
+    }
+
+    public static void UnPause()
+    {
+        for (int i = 0; i < instance.team1.Players.Length; i++)
+        {
+            instance.team1.Players[i].UnPause();
+            instance.team2.Players[i].UnPause();
+        }
+        instance.team1.Goal.UnPause();
+        instance.team2.Goal.UnPause();
     }
 
 }

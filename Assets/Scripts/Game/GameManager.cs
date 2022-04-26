@@ -25,18 +25,10 @@ public class GameManager : MonoBehaviour
         matches.Enqueue(debugMatch);
         characterManager = GameObject.Find("CharacterManager");
         ChangeMatch(characterManager.GetComponent<Match>());
-
-
-    }
-
-    private void Start()
-    {
-
     }
 
     private void Update()
     {
-
         if (isPlayable == true && validTime == true)
         {
             DecreaseTimer();
@@ -51,12 +43,9 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Fournit les co�quipiers � chaque �quipe, les place, et instancie le ballon
+    /// Fournit les coequipiers a chaque equipe, les place, et instancie le ballon
     /// </summary>
-    /// <param name="team1">Spermatozo�de n�1</param>
-    /// <param name="team2">Spermatozo�de n�2</param>
-    /// <returns>RIENG</returns>
-    public static void BreedMePlease(Team team1, Team team2)
+    public static void Init(Team team1, Team team2)
     {
         Match match = instance.matches.Dequeue();
 
