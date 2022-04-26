@@ -24,10 +24,9 @@ public class InputBrain : PlayerBrain
             value = value.normalized;
             direction = new Vector3(value.x, 0, value.y);
             moveDirection = direction;
+            PlayerAction act = PlayerAction.Move(moveDirection);
+            action = act;
         }
-
-        PlayerAction act = PlayerAction.Move(moveDirection);
-        action = act;
     }
 
     public void Pass_SwitchPlayer(InputAction.CallbackContext input)

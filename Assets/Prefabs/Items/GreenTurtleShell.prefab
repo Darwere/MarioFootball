@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: cb059f503a6181949bcb02ab43a180a9, type: 3}
   destructionParticule: {fileID: 9079630220617165527, guid: bf45700274115ee45943c3f571313013, type: 3}
-  speed: 15
+  speed: 25
 --- !u!65 &5623886065827476687
 BoxCollider:
   m_ObjectHideFlags: 0

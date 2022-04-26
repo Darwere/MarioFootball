@@ -37,6 +37,7 @@ public class Banana : Item
             {
                 player = ball.transform.parent.gameObject.GetComponent<Player>();
                 player.GetTackled();
+                Destroy(this.gameObject);
             }
 
         }

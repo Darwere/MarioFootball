@@ -1,4 +1,3 @@
-using UnityEngine;
 using BehaviorTree;
 using GoalTreeSpace;
 using System.Collections.Generic;

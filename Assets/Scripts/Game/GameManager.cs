@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
             UIManager.ActualiseTimer(timer);
             if (timer == 0)
             {
+                Field.SetPause();
                 UIManager.TimeOut();
             }
             validTime = false;
