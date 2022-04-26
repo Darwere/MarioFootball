@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -15,8 +13,6 @@ public class CameraManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
-        //Debug.Log(instance.name);
     }
 
     public static void Init()

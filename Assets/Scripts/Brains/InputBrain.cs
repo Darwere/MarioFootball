@@ -3,9 +3,6 @@ using UnityEngine.InputSystem;
 
 public class InputBrain : PlayerBrain
 {
-
-    private Vector2 movementInput;
-
     private Vector3 direction;
 
     public void Movement(InputAction.CallbackContext input)

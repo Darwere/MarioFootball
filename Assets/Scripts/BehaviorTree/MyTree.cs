@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace BehaviorTree
 {
     public abstract class MyTree : PlayerBrain

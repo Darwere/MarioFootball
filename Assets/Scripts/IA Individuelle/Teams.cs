@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,14 +14,6 @@ public static class Teams
 
     public static List<GameObject> blueTeam = new List<GameObject>();
     public static List<GameObject> redTeam = new List<GameObject>();
-
-
-
-
-
-
-
-
 
     public static List<int[]> redTriZone = new List<int[]>();
     public static List<int[]> blueTriZone = new List<int[]>();

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using BehaviorTree;
 using OpponentTreeSpace;
-using UnityEngine;
 
 public class OpponentTree : MyTree
 {

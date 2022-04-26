@@ -60,7 +60,6 @@ namespace GoalTreeSpace
 
             if (arrestRoll < 1f - arrestPenality)
             {
-                Debug.Log("Distance : " + distance);
                 root.SetData("canSave", true);
                 root.SetData("destination", position);
                 state = NodeState.Succes;
