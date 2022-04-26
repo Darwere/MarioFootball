@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -161,6 +162,7 @@ public class Ball : MonoBehaviour
         player.Team.ChangePilotedPlayer(player);
 
         rbBall.isKinematic = true;
+        StopAllCoroutines();
         //isFree = false;
     }
 
@@ -169,7 +171,14 @@ public class Ball : MonoBehaviour
         transform.parent = null;
         rbBall.isKinematic = false;
         isFree = true;
+        StartCoroutine(ResetPlayer());
         //isMovable = true;
+    }
+
+    public IEnumerator ResetPlayer()
+    {
+        yield return new WaitForSeconds(0.2f);
+        player = null;
     }
 
     private void OnCollisionEnter(Collision collision)
