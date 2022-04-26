@@ -127,7 +127,7 @@ public class PlayerSelectionWithIA : MonoBehaviour
         Match.instance.goalKeeper1 = Goal1PlayerSpec;
 
         int randomCharacter = UnityEngine.Random.Range(0, 3);
-        if (randomCharacter == counterCharacter)
+        while (randomCharacter == counterCharacter)
         {
             int randomrCharacter = UnityEngine.Random.Range(0, 3);
 
