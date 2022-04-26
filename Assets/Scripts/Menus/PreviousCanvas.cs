@@ -18,13 +18,11 @@ public class PreviousCanvas : MonoBehaviour
 
     public void ChangePreviousCanvas(InputAction.CallbackContext context)
     {
-
         PreviousCanvasObject.SetActive(true);
         ActualCanvas.SetActive(false);
     }
     public void ValidatePlayAudio(InputAction.CallbackContext context)
     {
-
         PreviousCanvasAudio.Play();
     }
 

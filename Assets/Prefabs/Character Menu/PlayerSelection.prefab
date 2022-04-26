@@ -128,7 +128,19 @@ MonoBehaviour:
     m_ActionId: 3e1c46fb-d79d-44ed-9aab-a738dc5a1b07
     m_ActionName: Control Menu/Next Scene Changement[/DualShock4GamepadHID/buttonEast,/DualShock4GamepadHID1/buttonEast,/DualShock4GamepadHID2/buttonEast,/DualShock4GamepadHID3/buttonEast,/DualShock4GamepadHID4/buttonEast]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -1204181922565031881}
+        m_TargetAssemblyTypeName: PlayerSelection, Assembly-CSharp
+        m_MethodName: QuitMenuSelection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 713d6901-5c75-4494-8d4e-edcb74f11409
     m_ActionName: Control Menu/Previous Scene Changement[/DualShock4GamepadHID/buttonWest,/DualShock4GamepadHID1/buttonWest,/DualShock4GamepadHID2/buttonWest,/DualShock4GamepadHID3/buttonWest,/DualShock4GamepadHID4/buttonWest]
   - m_PersistentCalls:

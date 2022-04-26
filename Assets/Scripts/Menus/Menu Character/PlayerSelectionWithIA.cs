@@ -26,6 +26,7 @@ public class PlayerSelectionWithIA : MonoBehaviour
     private GameObject characterSelected;
     private int counterCharacter = 0;
 
+
     private void Awake()
     {
         menuAction = new Menu();
@@ -138,13 +139,19 @@ public class PlayerSelectionWithIA : MonoBehaviour
         Match.instance.captain2 = characterSelected.GetComponent<PlayerSpecChoice>().PlayerSpecs;
         Match.instance.mate2 = Mate2PlayerSpec;
         Match.instance.goalKeeper2 = Goal2PlayerSpec;
-        Field.Team2.SetIABrain();
-        SceneManager.LoadScene("Prototyping");
+        ChoiceGameMode.ModeIA = true;
+        //Field.Team2.SetIABrain();
+        SceneManager.LoadScene("Game");
     }
 
     public void PlayAudio(AudioSource audio)
     {
         audio.Play();
+    }
+
+    public void QuitSelectionMenu(InputAction.CallbackContext context)
+    {
+        DeselectionCharacterUI(CharacterGrid.instance.listCharacters[counterCharacter]);
     }
 
     public void OnEnable()
@@ -165,6 +172,9 @@ public class PlayerSelectionWithIA : MonoBehaviour
         menuAction.ControlMenu.Validate.Enable();
         menuAction.ControlMenu.Validate.performed += ValidateChoice;
 
+        menuAction.ControlMenu.PreviousSceneChangement.Enable();
+        menuAction.ControlMenu.PreviousSceneChangement.performed += QuitSelectionMenu;
+
     }
     private void OnDisable()
     {
@@ -172,5 +182,6 @@ public class PlayerSelectionWithIA : MonoBehaviour
         menuAction.ControlMenu.SelectionItemLeft.Disable();
         menuAction.ControlMenu.SelectionItem.Disable();
         menuAction.ControlMenu.Validate.Disable();
+        menuAction.ControlMenu.PreviousSceneChangement.Disable();
     }
 }
