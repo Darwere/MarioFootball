@@ -46,7 +46,7 @@ public class GreenTurtleShell : Item
             //Rajouter particules eclatement
             direction = Vector3.zero;
             GameObject particule = Instantiate(destructionParticule, transform.position, Quaternion.identity);
-            Destroy(particule, 0.3f);
+            //Destroy(particule, 0.3f);
             Destroy(this.gameObject,0.1f);
         }
         else if(ball!=null)

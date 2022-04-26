@@ -22,7 +22,7 @@ public class BlueTurtleShell : Item
         {
             direction = Vector3.zero;
             GameObject particule = Instantiate(destructionParticule, transform.position, Quaternion.identity);
-            Destroy(particule, 0.3f);
+            //Destroy(particule, 0.3f);
             Destroy(this.gameObject, 0.1f);
         }
     }
@@ -45,6 +45,7 @@ public class BlueTurtleShell : Item
             player.GetFreeze();
             direction = Vector3.zero;
             GameObject ice = Instantiate(iceBlock, player.transform.position, Quaternion.identity);
+            GameObject particule = Instantiate(destructionParticule, transform.position, Quaternion.identity);
             ice.GetComponent<IceBlock>().Init(player);
             Destroy(this.gameObject, 0.1f);
         }

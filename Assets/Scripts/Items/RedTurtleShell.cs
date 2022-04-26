@@ -78,7 +78,7 @@ public class RedTurtleShell : Item
         {
             player.GetTackled();
             GameObject particule = Instantiate(destructionParticule, transform.position, Quaternion.identity);
-            Destroy(particule, 0.3f);
+            //Destroy(particule, 0.3f);
             Destroy(this.gameObject);
         }
     }

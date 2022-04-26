@@ -42,7 +42,7 @@ public class BobBomb : Item
         }
 
         GameObject particule = Instantiate(explosionParticule, transform.position, Quaternion.identity);
-        Destroy(particule, 1.5f);
+        //Destroy(particule, 1.5f);
         Destroy(this.gameObject);
     }
 
